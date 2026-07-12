@@ -7,7 +7,7 @@ export const Gallery = () => {
   const { t } = useLanguage();
   const [selectedImg, setSelectedImg] = useState<string | null>(null);
   const ref = useRef<HTMLDivElement>(null);
-  const isInView = useInView(ref, { once: true, margin: "-10%" });
+  const isInView = useInView(ref, { once: true });
 
   const images = [
     { src: '/images/gallery-1.jpg', alt: 'Lounge' },
@@ -21,8 +21,8 @@ export const Gallery = () => {
       <div className="container mx-auto px-4 md:px-12">
 
         <motion.h2
-          initial={{ opacity: 0, y: 20 }}
-          animate={isInView ? { opacity: 1, y: 0 } : { opacity: 0, y: 20 }}
+          initial={{ y: 20 }}
+          animate={isInView ? { y: 0 } : { y: 20 }}
           transition={{ duration: 0.8 }}
           className="text-xs tracking-[0.3em] text-muted-foreground uppercase mb-10"
         >
@@ -33,8 +33,8 @@ export const Gallery = () => {
           {images.map((img, i) => (
             <motion.div
               key={i}
-              initial={{ opacity: 0, y: 30 }}
-              animate={isInView ? { opacity: 1, y: 0 } : { opacity: 0, y: 30 }}
+              initial={{ y: 30 }}
+              animate={isInView ? { y: 0 } : { y: 30 }}
               transition={{ duration: 0.8, delay: i * 0.1 }}
               className={`relative overflow-hidden cursor-pointer group ${
                 i === 0 || i === 3 ? 'aspect-[4/3]' : 'aspect-square md:aspect-[3/4]'

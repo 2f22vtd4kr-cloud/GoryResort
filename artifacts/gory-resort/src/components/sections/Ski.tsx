@@ -6,7 +6,7 @@ import { AiAddition } from '../AiAddition';
 export const Ski = () => {
   const { t } = useLanguage();
   const ref = useRef<HTMLDivElement>(null);
-  const isInView = useInView(ref, { once: true, margin: "-20%" });
+  const isInView = useInView(ref, { once: true });
   
   const { scrollYProgress } = useScroll({
     target: ref,
@@ -37,8 +37,8 @@ export const Ski = () => {
           
           <motion.div 
             className="order-2 lg:order-1 relative aspect-[3/4] lg:aspect-square overflow-hidden rounded-sm"
-            initial={{ opacity: 0, x: -50 }}
-            animate={isInView ? { opacity: 1, x: 0 } : { opacity: 0, x: -50 }}
+            initial={{ x: -50 }}
+            animate={isInView ? { x: 0 } : { x: -50 }}
             transition={{ duration: 1, ease: "easeOut" }}
           >
             <motion.img 
@@ -52,8 +52,8 @@ export const Ski = () => {
 
           <div className="order-1 lg:order-2 flex flex-col justify-center">
             <motion.h2 
-              initial={{ opacity: 0, y: 20 }}
-              animate={isInView ? { opacity: 1, y: 0 } : { opacity: 0, y: 20 }}
+              initial={{ y: 20 }}
+              animate={isInView ? { y: 0 } : { y: 20 }}
               transition={{ duration: 0.8 }}
               className="text-xs tracking-[0.3em] text-muted-foreground uppercase mb-12"
             >
@@ -65,8 +65,8 @@ export const Ski = () => {
               {categories.map((cat, i) => (
                 <motion.div 
                   key={i}
-                  initial={{ opacity: 0, y: 20 }}
-                  animate={isInView ? { opacity: 1, y: 0 } : { opacity: 0, y: 20 }}
+                  initial={{ y: 20 }}
+                  animate={isInView ? { y: 0 } : { y: 20 }}
                   transition={{ duration: 0.6, delay: 0.2 + (i * 0.1) }}
                   className="group border border-white/10 md:border-none md:border-b md:border-white/10 p-6 md:p-0 md:pb-6 flex flex-col md:flex-row md:items-end justify-between hover:border-white/40 md:hover:border-white/40 transition-colors min-w-[280px] md:min-w-0 snap-center bg-black/20 md:bg-transparent"
                 >
@@ -82,8 +82,8 @@ export const Ski = () => {
 
             {/* Mountain specs */}
             <motion.div
-              initial={{ opacity: 0, y: 20 }}
-              animate={isInView ? { opacity: 1, y: 0 } : { opacity: 0, y: 20 }}
+              initial={{ y: 20 }}
+              animate={isInView ? { y: 0 } : { y: 20 }}
               transition={{ duration: 0.8, delay: 0.6 }}
               className="mt-10 pt-8 border-t border-white/8 grid grid-cols-2 md:grid-cols-3 gap-6"
             >

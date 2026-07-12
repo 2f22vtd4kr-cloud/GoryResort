@@ -6,7 +6,7 @@ import { AiAddition } from '../AiAddition';
 export const Experiences = () => {
   const { t } = useLanguage();
   const ref = useRef<HTMLDivElement>(null);
-  const isInView = useInView(ref, { once: true, margin: "-20%" });
+  const isInView = useInView(ref, { once: true });
 
   const experiences = [
     { key: 'exp_1', descKey: 'exp_desc_1' },
@@ -23,8 +23,8 @@ export const Experiences = () => {
           
           <div className="w-full md:w-1/3 flex flex-col justify-center">
             <motion.h2 
-              initial={{ opacity: 0, y: 20 }}
-              animate={isInView ? { opacity: 1, y: 0 } : { opacity: 0, y: 20 }}
+              initial={{ y: 20 }}
+              animate={isInView ? { y: 0 } : { y: 20 }}
               transition={{ duration: 0.8 }}
               className="text-xs tracking-[0.3em] text-muted-foreground uppercase mb-12"
             >
@@ -35,8 +35,8 @@ export const Experiences = () => {
               {experiences.map((exp, i) => (
                 <motion.div
                   key={i}
-                  initial={{ opacity: 0, x: -20 }}
-                  animate={isInView ? { opacity: 1, x: 0 } : { opacity: 0, x: -20 }}
+                  initial={{ x: -20 }}
+                  animate={isInView ? { x: 0 } : { x: -20 }}
                   transition={{ duration: 0.6, delay: 0.2 + (i * 0.1) }}
                   className="py-5 border-b border-white/5 last:border-b-0 hover:pl-2 transition-all duration-300 cursor-default"
                 >
@@ -53,8 +53,8 @@ export const Experiences = () => {
 
           <motion.div 
             className="w-full md:w-2/3 relative aspect-square md:aspect-[4/3] overflow-hidden rounded-sm"
-            initial={{ opacity: 0, scale: 0.95 }}
-            animate={isInView ? { opacity: 1, scale: 1 } : { opacity: 0, scale: 0.95 }}
+            initial={{ scale: 0.95 }}
+            animate={isInView ? { scale: 1 } : { scale: 0.95 }}
             transition={{ duration: 1, delay: 0.4 }}
           >
             <img 

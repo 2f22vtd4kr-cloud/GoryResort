@@ -6,7 +6,7 @@ import { AiAddition } from '../AiAddition';
 export const Stay = () => {
   const { t } = useLanguage();
   const ref = useRef<HTMLDivElement>(null);
-  const isInView = useInView(ref, { once: true, margin: "-20%" });
+  const isInView = useInView(ref, { once: true });
   
   const { scrollYProgress } = useScroll({
     target: ref,
@@ -27,8 +27,8 @@ export const Stay = () => {
         
         <motion.div 
           className="relative w-full aspect-[16/9] md:aspect-[21/9] overflow-hidden mb-24 rounded-sm"
-          initial={{ opacity: 0, scale: 0.95 }}
-          animate={isInView ? { opacity: 1, scale: 1 } : { opacity: 0, scale: 0.95 }}
+          initial={{ scale: 0.95 }}
+          animate={isInView ? { scale: 1 } : { scale: 0.95 }}
           transition={{ duration: 1.2, ease: "easeOut" }}
         >
           <motion.img 
@@ -44,8 +44,8 @@ export const Stay = () => {
         <div className="grid grid-cols-1 md:grid-cols-4 gap-12">
           <motion.div 
             className="md:col-span-1"
-            initial={{ opacity: 0, y: 20 }}
-            animate={isInView ? { opacity: 1, y: 0 } : { opacity: 0, y: 20 }}
+            initial={{ y: 20 }}
+            animate={isInView ? { y: 0 } : { y: 20 }}
             transition={{ duration: 0.8, delay: 0.2 }}
           >
             <h2 className="text-xs tracking-[0.3em] text-muted-foreground uppercase sticky top-32">
@@ -57,8 +57,8 @@ export const Stay = () => {
             {accommodations.map((acc, i) => (
               <motion.div 
                 key={i}
-                initial={{ opacity: 0, y: 30 }}
-                animate={isInView ? { opacity: 1, y: 0 } : { opacity: 0, y: 30 }}
+                initial={{ y: 30 }}
+                animate={isInView ? { y: 0 } : { y: 30 }}
                 transition={{ duration: 0.8, delay: 0.4 + (i * 0.1) }}
                 className="flex flex-col space-y-4 border-t border-white/10 pt-6"
               >

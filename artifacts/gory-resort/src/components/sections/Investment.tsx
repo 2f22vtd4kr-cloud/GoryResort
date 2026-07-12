@@ -6,7 +6,7 @@ import { AiAddition } from '../AiAddition';
 export const Investment = () => {
   const { t } = useLanguage();
   const ref = useRef<HTMLDivElement>(null);
-  const isInView = useInView(ref, { once: true, margin: "-20%" });
+  const isInView = useInView(ref, { once: true });
   
   const { scrollYProgress } = useScroll({
     target: ref,
@@ -48,16 +48,16 @@ export const Investment = () => {
       <div className="relative z-10 container mx-auto px-4 md:px-12">
         <div className="max-w-3xl mb-24">
           <motion.h2 
-            initial={{ opacity: 0, y: 20 }}
-            animate={isInView ? { opacity: 1, y: 0 } : { opacity: 0, y: 20 }}
+            initial={{ y: 20 }}
+            animate={isInView ? { y: 0 } : { y: 20 }}
             transition={{ duration: 0.8 }}
             className="font-serif text-5xl md:text-7xl text-white mb-8"
           >
             {t('inv_title')}
           </motion.h2>
           <motion.p 
-            initial={{ opacity: 0, y: 20 }}
-            animate={isInView ? { opacity: 1, y: 0 } : { opacity: 0, y: 20 }}
+            initial={{ y: 20 }}
+            animate={isInView ? { y: 0 } : { y: 20 }}
             transition={{ duration: 0.8, delay: 0.2 }}
             className="text-xl text-white/70 leading-relaxed font-serif"
           >
@@ -70,8 +70,8 @@ export const Investment = () => {
           {tiers.map((tier, i) => (
             <motion.div
               key={i}
-              initial={{ opacity: 0, y: 30 }}
-              animate={isInView ? { opacity: 1, y: 0 } : { opacity: 0, y: 30 }}
+              initial={{ y: 30 }}
+              animate={isInView ? { y: 0 } : { y: 30 }}
               transition={{ duration: 0.6, delay: 0.4 + (i * 0.1) }}
               className="bg-black/40 border border-white/10 p-8 md:p-12 backdrop-blur-md flex flex-col justify-between hover:bg-black/60 hover:border-white/30 transition-all group"
             >
@@ -92,8 +92,8 @@ export const Investment = () => {
 
         {/* Investment structure strip */}
         <motion.div
-          initial={{ opacity: 0, y: 20 }}
-          animate={isInView ? { opacity: 1, y: 0 } : { opacity: 0, y: 20 }}
+          initial={{ y: 20 }}
+          animate={isInView ? { y: 0 } : { y: 20 }}
           transition={{ duration: 0.8, delay: 0.7 }}
           className="mb-12 border border-white/8 bg-black/30 backdrop-blur-sm p-6 md:p-8 grid grid-cols-1 md:grid-cols-3 gap-6 md:gap-8"
         >
@@ -110,8 +110,8 @@ export const Investment = () => {
 
         {/* Management team + IRR basis strip */}
         <motion.div
-          initial={{ opacity: 0, y: 20 }}
-          animate={isInView ? { opacity: 1, y: 0 } : { opacity: 0, y: 20 }}
+          initial={{ y: 20 }}
+          animate={isInView ? { y: 0 } : { y: 20 }}
           transition={{ duration: 0.8, delay: 0.8 }}
           className="mb-12 border border-white/8 bg-black/30 backdrop-blur-sm p-6 md:p-8 grid grid-cols-1 md:grid-cols-2 gap-6 md:gap-12"
         >
@@ -128,8 +128,8 @@ export const Investment = () => {
 
         {/* CTA */}
         <motion.div
-          initial={{ opacity: 0, y: 20 }}
-          animate={isInView ? { opacity: 1, y: 0 } : { opacity: 0, y: 20 }}
+          initial={{ y: 20 }}
+          animate={isInView ? { y: 0 } : { y: 20 }}
           transition={{ duration: 0.8, delay: 1.0 }}
           className="text-center"
         >

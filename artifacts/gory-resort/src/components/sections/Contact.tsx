@@ -7,7 +7,7 @@ export const Contact = () => {
   const { t } = useLanguage();
   const [status, setStatus] = useState<'idle' | 'submitting' | 'success'>('idle');
   const ref = useRef<HTMLDivElement>(null);
-  const isInView = useInView(ref, { once: true, margin: "-20%" });
+  const isInView = useInView(ref, { once: true });
 
   const handleSubmit = (e: React.FormEvent) => {
     e.preventDefault();
@@ -27,8 +27,8 @@ export const Contact = () => {
           
           {/* Info Column */}
           <motion.div
-            initial={{ opacity: 0, x: -30 }}
-            animate={isInView ? { opacity: 1, x: 0 } : { opacity: 0, x: -30 }}
+            initial={{ x: -30 }}
+            animate={isInView ? { x: 0 } : { x: -30 }}
             transition={{ duration: 0.8 }}
             className="flex flex-col justify-between"
           >
@@ -56,8 +56,8 @@ export const Contact = () => {
 
           {/* Form Column */}
           <motion.div
-            initial={{ opacity: 0, y: 30 }}
-            animate={isInView ? { opacity: 1, y: 0 } : { opacity: 0, y: 30 }}
+            initial={{ y: 30 }}
+            animate={isInView ? { y: 0 } : { y: 30 }}
             transition={{ duration: 0.8, delay: 0.2 }}
           >
             {status === 'success' ? (

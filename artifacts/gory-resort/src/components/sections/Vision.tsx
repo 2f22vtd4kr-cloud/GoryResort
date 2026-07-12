@@ -24,7 +24,7 @@ const AnimatedNumber = ({ value }: { value: string }) => {
 export const Vision = () => {
   const { t } = useLanguage();
   const ref = useRef<HTMLDivElement>(null);
-  const isInView = useInView(ref, { once: true, margin: "-20%" });
+  const isInView = useInView(ref, { once: true });
 
   const stats = [
     { val: 'vision_stat_1_val', lbl: 'vision_stat_1_lbl' },
@@ -37,8 +37,8 @@ export const Vision = () => {
     <section id="vision" className="py-32 md:py-48 bg-background relative" ref={ref}>
       <div className="container mx-auto px-6 md:px-12">
         <motion.h2 
-          initial={{ opacity: 0, y: 20 }}
-          animate={isInView ? { opacity: 1, y: 0 } : { opacity: 0, y: 20 }}
+          initial={{ y: 20 }}
+          animate={isInView ? { y: 0 } : { y: 20 }}
           transition={{ duration: 0.8 }}
           className="text-xs tracking-[0.3em] text-muted-foreground uppercase mb-16 md:mb-24"
         >
@@ -51,8 +51,8 @@ export const Vision = () => {
             {stats.map((stat, index) => (
               <motion.div
                 key={index}
-                initial={{ opacity: 0, y: 30 }}
-                animate={isInView ? { opacity: 1, y: 0 } : { opacity: 0, y: 30 }}
+                initial={{ y: 30 }}
+                animate={isInView ? { y: 0 } : { y: 30 }}
                 transition={{ duration: 0.8, delay: index * 0.1 }}
                 className="flex flex-col"
               >
@@ -69,24 +69,24 @@ export const Vision = () => {
           {/* Narrative Column */}
           <div className="lg:col-span-6 lg:col-start-7 flex flex-col justify-center space-y-10">
             <motion.p
-              initial={{ opacity: 0, y: 30 }}
-              animate={isInView ? { opacity: 1, y: 0 } : { opacity: 0, y: 30 }}
+              initial={{ y: 30 }}
+              animate={isInView ? { y: 0 } : { y: 30 }}
               transition={{ duration: 0.8, delay: 0.3 }}
               className="text-xl md:text-3xl font-serif text-white/90 leading-relaxed text-balance"
             >
               {t('vision_desc_1')}
             </motion.p>
             <motion.p
-              initial={{ opacity: 0, y: 30 }}
-              animate={isInView ? { opacity: 1, y: 0 } : { opacity: 0, y: 30 }}
+              initial={{ y: 30 }}
+              animate={isInView ? { y: 0 } : { y: 30 }}
               transition={{ duration: 0.8, delay: 0.5 }}
               className="text-xl md:text-3xl font-serif text-white/60 leading-relaxed text-balance"
             >
               {t('vision_desc_2')}
             </motion.p>
             <motion.div
-              initial={{ opacity: 0, y: 20 }}
-              animate={isInView ? { opacity: 1, y: 0 } : { opacity: 0, y: 20 }}
+              initial={{ y: 20 }}
+              animate={isInView ? { y: 0 } : { y: 20 }}
               transition={{ duration: 0.8, delay: 0.7 }}
               className="border-t border-white/10 pt-8"
             >
