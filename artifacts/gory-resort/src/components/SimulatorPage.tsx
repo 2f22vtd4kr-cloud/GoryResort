@@ -255,6 +255,7 @@ export function SimulatorPage() {
   const [improvState, setImprovState] = useState<ImprovState>('idle');
   const [improvements, setImprovements] = useState<ImprovementResult | null>(null);
   const [improvError, setImprovError] = useState('');
+  const [applyState, setApplyState] = useState<'idle' | 'loading' | 'done' | 'error'>('idle');
 
   // Previous run — captured on "Run Again" for score comparison
   const [prevPersonaStates, setPrevPersonaStates] = useState<Record<PersonaKey, PersonaRunState> | null>(null);
@@ -365,8 +366,32 @@ export function SimulatorPage() {
       });
       const data = await res.json();
       if (!res.ok) throw new Error(data.error || `HTTP ${res.status}`);
-      setImprovements(data as ImprovementResult);
+      const improv = data as ImprovementResult;
+      setImprovements(improv);
       setImprovState('done');
+
+      // Auto-apply: ask Gemini to write AI patches into ai-content.ts
+      // so AiAddition components on the main site pick them up via HMR
+      setApplyState('loading');
+      try {
+        const scores: Record<string, Array<{ id: string; score: number }>> = {};
+        for (const r of doneResults) {
+          scores[r.persona] = r.sections.map(s => ({ id: s.id, score: s.score }));
+        }
+        const applyRes = await fetch(`${apiBase}/api/apply`, {
+          method: 'POST',
+          headers: { 'Content-Type': 'application/json' },
+          body: JSON.stringify({ improvements: improv, scores }),
+        });
+        if (!applyRes.ok) {
+          const errData = await applyRes.json().catch(() => ({})) as { error?: string };
+          throw new Error(errData.error || `HTTP ${applyRes.status}`);
+        }
+        setApplyState('done');
+      } catch (applyErr) {
+        console.error('[apply] failed:', applyErr);
+        setApplyState('error');
+      }
     } catch (err) {
       const msg = err instanceof Error ? err.message : 'Failed to generate improvements';
       setImprovError(msg);
@@ -385,6 +410,7 @@ export function SimulatorPage() {
     setAllHasRun(false);
     setImprovements(null);
     setImprovState('idle');
+    setApplyState('idle');
     setActiveTab('investor');
   };
 
@@ -697,13 +723,19 @@ export function SimulatorPage() {
                           {improvState === 'loading' && (
                             <div className="flex items-center gap-2 text-[11px] text-[#4A9FBF]/60 uppercase tracking-widest">
                               <Loader2 size={11} className="animate-spin" />
-                              Applying…
+                              Analysing…
                             </div>
                           )}
-                          {improvState === 'done' && (
+                          {improvState === 'done' && applyState === 'loading' && (
+                            <div className="flex items-center gap-2 text-[11px] text-[#4A9FBF]/60 uppercase tracking-widest">
+                              <Loader2 size={11} className="animate-spin" />
+                              Applying to site…
+                            </div>
+                          )}
+                          {applyState === 'done' && (
                             <div className="flex items-center gap-2 text-[11px] text-green-400/60 uppercase tracking-widest">
                               <Check size={11} />
-                              Applied
+                              Applied to site
                             </div>
                           )}
                         </div>

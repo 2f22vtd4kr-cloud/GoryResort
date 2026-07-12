@@ -7,7 +7,7 @@ import { dirname, join } from "path";
 const __filename = fileURLToPath(import.meta.url);
 const __dir = dirname(__filename);
 // dist/ → ../../gory-resort/src/ai-content.ts
-const AI_CONTENT_FILE = join(__dir, "../../gory-resort/src/ai-content.ts");
+const AI_CONTENT_FILE = join(__dir, "../../gory-resort/src/contexts/ai-content.ts");
 
 const applyRouter = Router();
 

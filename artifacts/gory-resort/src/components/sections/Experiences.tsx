@@ -65,6 +65,7 @@ export const Experiences = () => {
           </motion.div>
 
         </div>
+        <AiAddition sectionKey="experiences_ai" />
       </div>
     </section>
   );

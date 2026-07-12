@@ -95,6 +95,7 @@ export const Vision = () => {
             </motion.div>
           </div>
         </div>
+        <AiAddition sectionKey="vision_ai" />
       </div>
     </section>
   );

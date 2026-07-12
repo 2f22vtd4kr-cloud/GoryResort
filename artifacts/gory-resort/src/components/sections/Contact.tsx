@@ -120,6 +120,7 @@ export const Contact = () => {
           </motion.div>
 
         </div>
+        <AiAddition sectionKey="contact_ai" />
       </div>
     </section>
   );

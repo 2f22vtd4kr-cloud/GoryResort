@@ -101,6 +101,7 @@ export const Ski = () => {
           </div>
 
         </div>
+        <AiAddition sectionKey="ski_ai" />
       </div>
     </section>
   );

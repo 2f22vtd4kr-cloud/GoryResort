@@ -85,6 +85,7 @@ export const Stay = () => {
           </div>
         </div>
 
+        <AiAddition sectionKey="stay_ai" />
       </div>
     </section>
   );

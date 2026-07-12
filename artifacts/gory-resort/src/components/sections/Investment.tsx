@@ -140,6 +140,7 @@ export const Investment = () => {
             {t('inv_cta')}
           </button>
         </motion.div>
+        <AiAddition sectionKey="investment_ai" />
       </div>
     </section>
   );
