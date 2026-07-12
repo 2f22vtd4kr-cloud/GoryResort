@@ -2,8 +2,9 @@ import React, { useState } from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
 import {
   ArrowLeft, Play, TrendingUp, Mountain, Compass, AlertTriangle,
-  CheckCircle2, XCircle, RefreshCw, Zap, Loader2, Check, Lightbulb,
+  CheckCircle2, XCircle, RefreshCw, Zap, Loader2, Check, Lightbulb, Plus,
 } from 'lucide-react';
+import { useAppliedImprovements, type ImprovementItem } from '@/contexts/AppliedImprovementsContext';
 
 type PersonaKey = 'investor' | 'skier' | 'tourist';
 type Mode = 'single' | 'all';
@@ -45,15 +46,7 @@ interface PersonaRunState {
   error?: string;
 }
 
-interface ImprovementItem {
-  sectionId: string;
-  sectionTitle: string;
-  priority: 1 | 2 | 3;
-  concern: string;
-  personas: string[];
-  field: string;
-  improvement: string;
-}
+// ImprovementItem is imported from AppliedImprovementsContext
 
 interface ImprovementResult {
   summary: string;
@@ -118,13 +111,23 @@ function ScoreBadge({ score }: { score: number }) {
   return <span className="text-[10px] px-2 py-0.5 bg-red-500/10 text-red-400 uppercase tracking-wider">WEAK</span>;
 }
 
-function ScoreCell({ score }: { score: number | null }) {
+function ScoreCell({ score, prevScore }: { score: number | null; prevScore?: number | null }) {
   if (score === null) {
     return <td className="py-3 px-3 text-white/15 text-center text-xs">—</td>;
   }
   const color = score >= 7 ? 'text-green-400' : score >= 5 ? 'text-yellow-400' : 'text-red-400';
   const bg = score >= 7 ? 'bg-green-500/8' : score >= 5 ? 'bg-yellow-500/5' : 'bg-red-500/8';
-  return <td className={`py-3 px-3 text-center text-sm font-bold ${color} ${bg}`}>{score}</td>;
+  const delta = prevScore != null ? score - prevScore : null;
+  return (
+    <td className={`py-3 px-3 text-center ${bg}`}>
+      <span className={`text-sm font-bold ${color}`}>{score}</span>
+      {delta !== null && delta !== 0 && (
+        <span className={`block text-[9px] leading-none mt-0.5 ${delta > 0 ? 'text-green-400/70' : 'text-red-400/70'}`}>
+          {delta > 0 ? `▲${delta}` : `▼${Math.abs(delta)}`}
+        </span>
+      )}
+    </td>
+  );
 }
 
 function PersonaResultPanel({ result }: { result: SimulateResult }) {
@@ -224,6 +227,7 @@ function PersonaResultPanel({ result }: { result: SimulateResult }) {
 // ── Main Component ───────────────────────────────────────────────────────────
 
 export function SimulatorPage() {
+  const { apply, isApplied } = useAppliedImprovements();
   const [mode, setMode] = useState<Mode>('all');
 
   // Single mode
@@ -246,6 +250,9 @@ export function SimulatorPage() {
   const [improvements, setImprovements] = useState<ImprovementResult | null>(null);
   const [improvError, setImprovError] = useState('');
 
+  // Previous run — captured on "Run Again" for score comparison
+  const [prevPersonaStates, setPrevPersonaStates] = useState<Record<PersonaKey, PersonaRunState> | null>(null);
+
   const apiBase = '';
   const siteBase = import.meta.env.BASE_URL;
 
@@ -265,6 +272,19 @@ export function SimulatorPage() {
     if (!scores.length) return null;
     return Math.round(scores.reduce((a, b) => a + b, 0) / scores.length * 10) / 10;
   };
+  const getPrevSectionScore = (key: PersonaKey, sectionId: string): number | null => {
+    if (!prevPersonaStates) return null;
+    const r = prevPersonaStates[key].result;
+    if (!r) return null;
+    return r.sections.find(s => s.id === sectionId)?.score ?? null;
+  };
+  const getPrevAvgScore = (sectionId: string): number | null => {
+    if (!prevPersonaStates) return null;
+    const scores = PERSONAS.map(p => getPrevSectionScore(p.id, sectionId)).filter((s): s is number => s !== null);
+    if (!scores.length) return null;
+    return Math.round(scores.reduce((a, b) => a + b, 0) / scores.length * 10) / 10;
+  };
+  const hasPrevRun = prevPersonaStates !== null && PERSONAS.some(p => prevPersonaStates[p.id].result !== null);
 
   // ── Actions ──────────────────────────────────────────────────────────────
 
@@ -341,6 +361,8 @@ export function SimulatorPage() {
   };
 
   const resetAll = () => {
+    // Snapshot current results before clearing so the next run can show deltas
+    if (doneCount > 0) setPrevPersonaStates(personaStates);
     setPersonaStates({
       investor: { loadState: 'idle', result: null },
       skier:    { loadState: 'idle', result: null },
@@ -593,7 +615,10 @@ export function SimulatorPage() {
 
                       {/* Score heatmap */}
                       <div className="mb-12">
-                        <p className="text-xs tracking-[0.3em] text-white/30 uppercase mb-6">Section Scores — All Personas</p>
+                        <div className="flex items-center gap-4 mb-6">
+                          <p className="text-xs tracking-[0.3em] text-white/30 uppercase">Section Scores — All Personas</p>
+                          {hasPrevRun && <span className="text-[10px] text-[#4A9FBF]/60 uppercase tracking-wider">▲▼ vs previous run</span>}
+                        </div>
                         <div className="overflow-x-auto">
                           <table className="w-full border-collapse">
                             <thead>
@@ -609,8 +634,17 @@ export function SimulatorPage() {
                               {SECTION_ORDER.map(sid => (
                                 <tr key={sid} className="border-b border-white/5 hover:bg-white/[0.01]">
                                   <td className="py-3 px-3 text-xs text-white/50">{SECTION_LABELS[sid]}</td>
-                                  {PERSONAS.map(p => <ScoreCell key={p.id} score={getSectionScore(p.id, sid)} />)}
-                                  <ScoreCell score={getAvgScore(sid)} />
+                                  {PERSONAS.map(p => (
+                                    <ScoreCell
+                                      key={p.id}
+                                      score={getSectionScore(p.id, sid)}
+                                      prevScore={hasPrevRun ? getPrevSectionScore(p.id, sid) : null}
+                                    />
+                                  ))}
+                                  <ScoreCell
+                                    score={getAvgScore(sid)}
+                                    prevScore={hasPrevRun ? getPrevAvgScore(sid) : null}
+                                  />
                                 </tr>
                               ))}
                             </tbody>
@@ -682,7 +716,7 @@ export function SimulatorPage() {
                                 const pl = imp.priority === 1 ? 'CRITICAL' : imp.priority === 2 ? 'IMPORTANT' : 'ENHANCE';
                                 return (
                                   <motion.div key={i} initial={{ opacity: 0, y: 8 }} animate={{ opacity: 1, y: 0 }} transition={{ delay: i * 0.05 }}
-                                    className="border border-white/8 p-5 md:p-6 hover:border-white/15 transition-colors">
+                                    className={`border p-5 md:p-6 transition-colors ${isApplied(imp.sectionId, imp.field) ? 'border-[#2A5F6F]/40 bg-[#2A5F6F]/5' : 'border-white/8 hover:border-white/15'}`}>
                                     <div className="flex flex-wrap items-center gap-3 mb-3">
                                       <span className={`text-[10px] px-2 py-0.5 border ${pc} uppercase tracking-widest`}>{pl}</span>
                                       <span className="text-xs text-white/50 font-display tracking-wider">{imp.sectionTitle.toUpperCase()}</span>
@@ -693,10 +727,28 @@ export function SimulatorPage() {
                                       <p className="text-[10px] text-[#4A9FBF]/60 uppercase tracking-widest mb-2">Suggested Improvement</p>
                                       <p className="text-sm text-white/65 leading-relaxed">{imp.improvement}</p>
                                     </div>
-                                    <div className="flex flex-wrap gap-1.5">
-                                      {imp.personas.map(persona => (
-                                        <span key={persona} className="text-[10px] text-white/20 border border-white/8 px-2 py-0.5">{persona}</span>
-                                      ))}
+                                    <div className="flex items-center justify-between flex-wrap gap-3">
+                                      <div className="flex flex-wrap gap-1.5">
+                                        {imp.personas.map(persona => (
+                                          <span key={persona} className="text-[10px] text-white/20 border border-white/8 px-2 py-0.5">{persona}</span>
+                                        ))}
+                                      </div>
+                                      <motion.button
+                                        onClick={() => apply(imp)}
+                                        disabled={isApplied(imp.sectionId, imp.field)}
+                                        whileHover={{ scale: isApplied(imp.sectionId, imp.field) ? 1 : 1.03 }}
+                                        whileTap={{ scale: 0.96 }}
+                                        className={`flex items-center gap-2 px-4 py-2 text-[10px] uppercase tracking-wider font-bold transition-all flex-shrink-0 ${
+                                          isApplied(imp.sectionId, imp.field)
+                                            ? 'bg-[#2A5F6F]/20 text-[#4A9FBF] cursor-default'
+                                            : 'border border-white/10 bg-white/5 text-white/50 hover:bg-[#2A5F6F] hover:text-white hover:border-[#2A5F6F] cursor-pointer'
+                                        }`}
+                                      >
+                                        {isApplied(imp.sectionId, imp.field)
+                                          ? <><Check size={11} /> Applied to site</>
+                                          : <><Plus size={11} /> Apply to site</>
+                                        }
+                                      </motion.button>
                                     </div>
                                   </motion.div>
                                 );
