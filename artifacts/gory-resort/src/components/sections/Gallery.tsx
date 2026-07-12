@@ -13,7 +13,7 @@ export const Gallery = () => {
   const images = [
     { src: '/images/gallery-1.jpg', alt: 'Lounge',       caption: 'gallery_cap_1' },
     { src: '/images/gallery-2.jpg', alt: 'Gondola',      caption: 'gallery_cap_2' },
-    { src: '/images/gallery-3.jpg', alt: 'Valley Aerial',caption: 'gallery_cap_3' },
+    { src: '/images/gallery-5.jpg', alt: 'Powder Skiing', caption: 'gallery_cap_5' },
     { src: '/images/gallery-4.jpg', alt: 'Feast',        caption: 'gallery_cap_4' },
   ];
 
@@ -37,7 +37,7 @@ export const Gallery = () => {
             a CSS-grid row height (which used to leave dead space under the
             shorter frame in each row). */}
         <div className="grid grid-cols-1 md:grid-cols-2 gap-4 md:gap-6">
-          {[[images[0], images[2]], [images[1], images[3]]].map((column, colIndex) => (
+          {[[images[1], images[2]], [images[0], images[3]]].map((column, colIndex) => (
             <div key={colIndex} className="flex flex-col gap-4 md:gap-6">
               {column.map((img, i) => {
                 const globalIndex = colIndex === 0 ? i * 2 : i * 2 + 1;
@@ -48,7 +48,7 @@ export const Gallery = () => {
                     animate={isInView ? { y: 0 } : { y: 30 }}
                     transition={{ duration: 0.8, delay: globalIndex * 0.1 }}
                     className={`relative overflow-hidden cursor-pointer group ${
-                      globalIndex === 0 || globalIndex === 3 ? 'aspect-[4/3]' : 'aspect-square md:aspect-[3/4]'
+                      globalIndex === 1 || globalIndex === 2 ? 'aspect-[4/3]' : 'aspect-square md:aspect-[3/4]'
                     }`}
                     onClick={() => setSelectedImg(img.src)}
                   >

@@ -107,11 +107,11 @@ export const Contact = () => {
                           className={`flex flex-col items-center justify-center gap-2 py-4 px-2 border transition-all duration-200 ${
                             isSelected
                               ? 'border-white/50 bg-white/8 text-white'
-                              : 'border-white/12 bg-transparent text-white/40 hover:border-white/28 hover:text-white/65'
+                              : 'border-white/12 bg-transparent text-white/55 hover:border-white/28 hover:text-white/75'
                           }`}
                         >
-                          <span className="text-lg leading-none">{opt.icon}</span>
-                          <span className="text-[9px] tracking-[0.2em] uppercase font-medium">
+                          <span className="text-xl leading-none">{opt.icon}</span>
+                          <span className="text-[10px] tracking-[0.2em] uppercase font-medium">
                             {t(opt.labelKey)}
                           </span>
                         </button>

@@ -23,8 +23,8 @@ export const translations: Translations = {
   hero_tagline: { en: 'WHERE THE CAUCASUS MEETS THE FUTURE', ru: 'ГДЕ КАВКАЗ ВСТРЕЧАЕТ БУДУЩЕЕ' },
   hero_opening: { en: 'OPENING 2027', ru: 'ОТКРЫТИЕ В 2027 ГОДУ' },
   hero_sub: {
-    en: 'Ultra-luxury alpine resort · Kazbegi, Greater Caucasus · Opening Q4 2027',
-    ru: 'Ультра-люкс горный курорт · Казбеги, Большой Кавказ · Открытие Q4 2027',
+    en: 'Kazbegi, Greater Caucasus · Opening Q4 2027',
+    ru: 'Казбеги, Большой Кавказ · Открытие Q4 2027',
   },
   hero_cta_discover: { en: 'DISCOVER THE MOUNTAIN', ru: 'ОТКРЫТЬ ГОРУ' },
   hero_cta_invest: { en: 'INVEST NOW', ru: 'ИНВЕСТИРОВАТЬ' },
@@ -215,6 +215,7 @@ export const translations: Translations = {
   gallery_cap_1: { en: 'The Lounge — Peaks Collection, dusk service', ru: 'Лаунж-зона — The Peaks Collection, вечернее обслуживание' },
   gallery_cap_2: { en: 'Summit Gondola — 12-lift network, base to 3,120m', ru: 'Гондола на вершину — сеть из 12 подъёмников, от базы до 3120 м' },
   gallery_cap_3: { en: 'Truso Valley, looking north toward the Georgian Military Road', ru: 'Ущелье Трусо, вид на север к Военно-Грузинской дороге' },
+  gallery_cap_5: { en: 'Expert terrain — off-piste descent from 3,120m, Greater Caucasus', ru: 'Трасса для профессионалов — внетрассовый спуск с 3120 м, Большой Кавказ' },
   gallery_cap_4: { en: 'Georgian feast — one of three dining venues on site', ru: 'Грузинское застолье — одно из трёх заведений на территории курорта' },
   gallery_progress_label: { en: 'BEHIND THE BUILD', ru: 'ЗА КУЛИСАМИ СТРОИТЕЛЬСТВА' },
   gallery_milestone_1: {

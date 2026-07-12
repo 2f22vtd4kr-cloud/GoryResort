@@ -31,18 +31,18 @@ export const PressStrip = () => {
   const isInView = useInView(ref, { once: true, margin: '-10%' });
 
   return (
-    <section id="press" ref={ref} className="py-14 border-y border-white/5 bg-black/30">
+    <section id="press" ref={ref} className="py-12 border-y border-white/5 bg-black/30">
       <div className="container mx-auto px-6 md:px-12">
         <motion.p
           initial={{ opacity: 0 }}
           animate={isInView ? { opacity: 1 } : { opacity: 0 }}
           transition={{ duration: 0.8 }}
-          className="text-[9px] tracking-[0.4em] text-white/18 uppercase mb-10 text-center"
+          className="text-[9px] tracking-[0.45em] text-white/25 uppercase mb-10 text-center"
         >
           {t('press_label')}
         </motion.p>
 
-        <div className="grid grid-cols-2 md:grid-cols-5 gap-6 md:gap-4">
+        <div className="grid grid-cols-2 md:grid-cols-5 gap-6 md:gap-8">
           {pressItems.map((item, i) => (
             <motion.div
               key={i}
@@ -51,10 +51,10 @@ export const PressStrip = () => {
               transition={{ duration: 0.5, delay: i * 0.07 }}
               className="flex flex-col items-center text-center gap-2 group px-2"
             >
-              <span className="text-[11px] font-medium tracking-wider text-white/38 group-hover:text-white/65 transition-colors duration-300">
+              <span className="text-[13px] font-medium tracking-wider text-white/65 group-hover:text-white/85 transition-colors duration-300">
                 {item.name}
               </span>
-              <span className="text-[9px] text-white/18 leading-relaxed font-serif italic">
+              <span className="text-[10px] text-white/30 leading-snug font-serif italic">
                 {item.detail}
               </span>
             </motion.div>

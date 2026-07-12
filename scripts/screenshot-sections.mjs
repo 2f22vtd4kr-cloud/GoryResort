@@ -3,7 +3,7 @@ import path from 'path';
 import { mkdirSync } from 'fs';
 
 const CHROMIUM = '/nix/store/0n9rl5l9syy808xi9bk4f6dhnfrvhkww-playwright-browsers-chromium/chromium-1080/chrome-linux/chrome';
-const BASE = 'http://127.0.0.1:19679';
+const BASE = 'http://127.0.0.1:5000';
 const OUT = 'screenshots';
 
 mkdirSync(OUT, { recursive: true });
