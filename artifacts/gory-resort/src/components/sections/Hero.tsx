@@ -1,22 +1,26 @@
 import React, { useRef } from 'react';
 import { useLanguage } from '@/contexts/LanguageContext';
-import { motion, useScroll, useTransform } from 'framer-motion';
+import { motion, useScroll, useTransform, useReducedMotion } from 'framer-motion';
 import { ChevronDown } from 'lucide-react';
 
 export const Hero = () => {
   const { t } = useLanguage();
   const ref = useRef<HTMLDivElement>(null);
+  const prefersReducedMotion = useReducedMotion();
   
   const { scrollYProgress } = useScroll({
     target: ref,
     offset: ["start start", "end start"]
   });
 
-  const y = useTransform(scrollYProgress, [0, 1], ["0%", "50%"]);
-  const opacity = useTransform(scrollYProgress, [0, 0.8], [1, 0]);
+  // Parallax only — no opacity transform on the background image.
+  // Scroll-based opacity can read non-zero on mobile viewport init,
+  // making the photo invisible and the hero look like a stuck loader.
+  const y = useTransform(scrollYProgress, [0, 1], ["0%", "30%"]);
 
+  // Skip entrance animation for reduced-motion users; shorter duration on all devices.
   const letterVariants = {
-    hidden: { opacity: 0, y: 50 },
+    hidden: prefersReducedMotion ? { opacity: 1, y: 0 } : { opacity: 0, y: 30 },
     visible: { opacity: 1, y: 0 }
   };
 
@@ -26,7 +30,7 @@ export const Hero = () => {
     <div ref={ref} className="relative h-[100dvh] w-full overflow-hidden bg-black">
       <motion.div 
         className="absolute inset-0 z-0"
-        style={{ y, opacity }}
+        style={{ y }}
       >
         <div className="absolute inset-0 bg-black/40 z-10" />
         <div className="absolute inset-0 bg-gradient-to-t from-background via-transparent to-transparent z-10" />
