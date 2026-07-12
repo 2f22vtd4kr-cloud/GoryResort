@@ -5,6 +5,37 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1" />
     <title>GORY | Mountain Resort</title>
     <meta name="description" content="GORY Mountain Resort — Where the Caucasus meets the future. Opening 2027." />
+    <!-- Inline critical styles so the page is never a white/blank flash before JS loads -->
+    <style>
+      *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+      html, body {
+        background: #0B0D0F;
+        min-height: 100vh;
+        color: #F5F2E8;
+      }
+      /* Loading wordmark shown while React mounts */
+      #root:empty {
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        min-height: 100vh;
+        background: #0B0D0F;
+      }
+      #root:empty::after {
+        content: 'GORY';
+        font-size: 3.5rem;
+        letter-spacing: 0.35em;
+        color: rgba(255, 255, 255, 0.15);
+        font-family: 'Impact', 'Arial Narrow', sans-serif;
+        animation: pulse 1.8s ease-in-out infinite;
+      }
+      @keyframes pulse {
+        0%, 100% { opacity: 0.15; }
+        50% { opacity: 0.35; }
+      }
+    </style>
+    <!-- Preload hero image so it's ready when React renders -->
+    <link rel="preload" href="/images/hero.jpg" as="image" />
   </head>
   <body>
     <div id="root"></div>
