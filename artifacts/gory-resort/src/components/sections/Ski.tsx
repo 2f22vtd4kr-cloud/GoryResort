@@ -25,6 +25,8 @@ export const Ski = () => {
     { val: 'ski_spec_2_val', lbl: 'ski_spec_2_lbl' },
     { val: 'ski_spec_3_val', lbl: 'ski_spec_3_lbl' },
     { val: 'ski_spec_4_val', lbl: 'ski_spec_4_lbl' },
+    { val: 'ski_spec_5_val', lbl: 'ski_spec_5_lbl' },
+    { val: 'ski_spec_6_val', lbl: 'ski_spec_6_lbl' },
   ];
 
   return (
@@ -82,7 +84,7 @@ export const Ski = () => {
               initial={{ opacity: 0, y: 20 }}
               animate={isInView ? { opacity: 1, y: 0 } : { opacity: 0, y: 20 }}
               transition={{ duration: 0.8, delay: 0.6 }}
-              className="mt-10 pt-8 border-t border-white/8 grid grid-cols-2 md:grid-cols-4 gap-6"
+              className="mt-10 pt-8 border-t border-white/8 grid grid-cols-2 md:grid-cols-3 gap-6"
             >
               {specs.map((spec, i) => (
                 <div key={i} className="flex flex-col">

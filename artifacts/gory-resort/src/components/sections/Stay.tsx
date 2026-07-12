@@ -15,9 +15,9 @@ export const Stay = () => {
   const imageY = useTransform(scrollYProgress, [0, 1], ["-10%", "10%"]);
 
   const accommodations = [
-    { title: 'stay_type_1', desc: 'stay_desc_1', feat: 'stay_feat_1' },
-    { title: 'stay_type_2', desc: 'stay_desc_2', feat: 'stay_feat_2' },
-    { title: 'stay_type_3', desc: 'stay_desc_3', feat: 'stay_feat_3' },
+    { title: 'stay_type_1', desc: 'stay_desc_1', feat: 'stay_feat_1', price: 'stay_price_1' },
+    { title: 'stay_type_2', desc: 'stay_desc_2', feat: 'stay_feat_2', price: 'stay_price_2' },
+    { title: 'stay_type_3', desc: 'stay_desc_3', feat: 'stay_feat_3', price: 'stay_price_3' },
   ];
 
   return (
@@ -74,6 +74,10 @@ export const Stay = () => {
                       {feat}
                     </span>
                   ))}
+                </div>
+                {/* Pricing */}
+                <div className="pt-3 border-t border-white/8 mt-auto">
+                  <span className="text-xs text-primary/80 tracking-widest">{t(acc.price)}</span>
                 </div>
               </motion.div>
             ))}

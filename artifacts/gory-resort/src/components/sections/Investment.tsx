@@ -107,11 +107,29 @@ export const Investment = () => {
           ))}
         </motion.div>
 
+        {/* Management team + IRR basis strip */}
+        <motion.div
+          initial={{ opacity: 0, y: 20 }}
+          animate={isInView ? { opacity: 1, y: 0 } : { opacity: 0, y: 20 }}
+          transition={{ duration: 0.8, delay: 0.8 }}
+          className="mb-12 border border-white/8 bg-black/30 backdrop-blur-sm p-6 md:p-8 grid grid-cols-1 md:grid-cols-2 gap-6 md:gap-12"
+        >
+          <div>
+            <p className="text-[10px] text-white/25 uppercase tracking-[0.3em] mb-4">{t('inv_team_label')}</p>
+            <p className="text-sm text-white/70 font-semibold mb-2">{t('inv_developer_name')}</p>
+            <p className="text-xs text-white/45 leading-relaxed">{t('inv_developer_desc')}</p>
+          </div>
+          <div className="md:border-l md:border-white/8 md:pl-12">
+            <p className="text-[10px] text-white/25 uppercase tracking-[0.3em] mb-4">{t('inv_irr_label')}</p>
+            <p className="text-xs text-white/45 leading-relaxed">{t('inv_irr_desc')}</p>
+          </div>
+        </motion.div>
+
         {/* CTA */}
         <motion.div
           initial={{ opacity: 0, y: 20 }}
           animate={isInView ? { opacity: 1, y: 0 } : { opacity: 0, y: 20 }}
-          transition={{ duration: 0.8, delay: 0.9 }}
+          transition={{ duration: 0.8, delay: 1.0 }}
           className="text-center"
         >
           <button 

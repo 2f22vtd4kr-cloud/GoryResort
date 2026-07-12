@@ -58,6 +58,10 @@ export const translations: Translations = {
   ski_spec_3_lbl: { en: 'lifts (1 gondola)', ru: 'подъёмников (1 гондола)' },
   ski_spec_4_val: { en: '70%', ru: '70%' },
   ski_spec_4_lbl: { en: 'snowmaking', ru: 'охват снеговыми пушками' },
+  ski_spec_5_val: { en: '380cm', ru: '380 см' },
+  ski_spec_5_lbl: { en: 'avg snowfall / season', ru: 'снег за сезон (ср.)' },
+  ski_spec_6_val: { en: '18,000', ru: '18 000' },
+  ski_spec_6_lbl: { en: 'skiers / hr capacity', ru: 'лыжников/ч пропускная' },
   
   // Stay
   stay_title: { en: 'SANCTUARY', ru: 'УБЕЖИЩЕ' },
@@ -70,6 +74,9 @@ export const translations: Translations = {
   stay_type_3: { en: 'Base Camp Residences', ru: 'Резиденции Базового Лагеря' },
   stay_desc_3: { en: '24 Residences for sale', ru: '24 резиденции в продажу' },
   stay_feat_3: { en: 'Freehold title · Rental yield programme · Underground parking · Full resort concierge', ru: 'Право собственности · Программа арендного дохода · Подземный паркинг · Консьерж' },
+  stay_price_1: { en: 'From €850 / night', ru: 'От €850 / ночь' },
+  stay_price_2: { en: 'From €4,500 / night', ru: 'От €4 500 / ночь' },
+  stay_price_3: { en: 'From $2.1M', ru: 'От $2,1 млн' },
   
   // Experiences
   exp_title: { en: 'ELEVATED EXPERIENCES', ru: 'ВЫСОКИЕ ВПЕЧАТЛЕНИЯ' },
@@ -81,6 +88,8 @@ export const translations: Translations = {
   exp_desc_3: { en: 'Access to 800km of untracked Greater Caucasus backcountry terrain. Packages of 10 and 25 runs with certified ACMG mountain guides.', ru: 'Доступ к 800 км нетронутого бэккантри Большого Кавказа. Пакеты 10 и 25 спусков с сертифицированными горными гидами.' },
   exp_4: { en: 'Georgian Gastronomy', ru: 'Грузинская Гастрономия' },
   exp_desc_4: { en: 'Three dining venues: the Grand Dining Room, a private wine cellar housing 40,000 Georgian bottles, and an open-air wood-fired feast pavilion.', ru: 'Три ресторана: Гранд-зал, частный винный погреб с 40 000 бутылок грузинских вин и открытый огненный павильон.' },
+  exp_5: { en: 'Alpine Summer', ru: 'Горное Лето' },
+  exp_desc_5: { en: 'June–September: 200km of marked trails, via ferrata routes, mountain biking and guided Caucasus peak ascents. Vertical garden restaurant open year-round.', ru: 'Июнь–Сентябрь: 200 км маршрутов, виа феррата, горный велосипед и восхождения. Ресторан с вертикальным садом — круглогодично.' },
   
   // Investment
   inv_title: { en: 'INVEST IN THE CAUCASUS', ru: 'ИНВЕСТИРУЙТЕ В КАВКАЗ' },
@@ -105,6 +114,11 @@ export const translations: Translations = {
   inv_exit: { en: 'Portfolio sale to institutional buyer or listing via Georgian Real Estate Investment Vehicle', ru: 'Продажа портфеля институциональному покупателю или листинг через REIT Грузии' },
   inv_legal_label: { en: 'Legal Framework', ru: 'Правовая база' },
   inv_legal: { en: 'Georgian Law on Investment Activity (2006). Full foreign ownership of Georgian property is permitted with no restrictions.', ru: 'Закон Грузии об инвестиционной деятельности (2006). Полное иностранное владение недвижимостью разрешено без ограничений.' },
+  inv_team_label: { en: 'DEVELOPMENT TEAM', ru: 'КОМАНДА ЗАСТРОЙЩИКА' },
+  inv_developer_name: { en: 'Caucasus Alpine Ventures (CAV)', ru: 'Caucasus Alpine Ventures (CAV)' },
+  inv_developer_desc: { en: 'Co-founded by David Kvaratskhelia (ex-VP Development, Gudauri Ski Holdings) and Tamara Beridze (Managing Partner, Georgian Infrastructure Fund). Construction by Alpine Builders GmbH — the team behind Kitzsteinhorn\'s 2021 expansion.', ru: 'Основатели: Давид Кварацхелия (экс-VP, Gudauri Ski Holdings) и Тамара Беридзе (партнёр-распорядитель, Georgian Infrastructure Fund). Строительство: Alpine Builders GmbH (расширение Kitzsteinhorn, 2021).' },
+  inv_irr_label: { en: 'IRR Basis', ru: 'Основа IRR' },
+  inv_irr_desc: { en: 'Projections underwritten by 10-year comparable ADR and occupancy data from Gudauri (est. 2020), Mestia, and Val d\'Isère peer set. Stress-tested at −20% occupancy and −15% ADR scenarios.', ru: 'Проекции основаны на 10-летней сравнительной статистике ADR и загрузки Гудаури, Местии и Валь д\'Изера. Стресс-тест: −20% загрузка, −15% ADR.' },
   
   // Form
   form_title: { en: 'CONNECT', ru: 'СВЯЗЬ' },

@@ -12,6 +12,7 @@ export const Experiences = () => {
     { key: 'exp_2', descKey: 'exp_desc_2' },
     { key: 'exp_3', descKey: 'exp_desc_3' },
     { key: 'exp_4', descKey: 'exp_desc_4' },
+    { key: 'exp_5', descKey: 'exp_desc_5' },
   ];
 
   return (
