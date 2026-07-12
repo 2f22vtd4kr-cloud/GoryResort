@@ -265,8 +265,12 @@ Respond ONLY with valid JSON — no markdown, no code fences — in this exact f
         return await fn();
       } catch (err: unknown) {
         const msg = err instanceof Error ? err.message : String(err);
-        const isQuota = msg.includes("429") || msg.toLowerCase().includes("rate limit");
-        if (isQuota && attempt < 3) {
+        const code = (err as { code?: string } | null)?.code;
+        // insufficient_quota means no billing/credits on the account — this is
+        // permanent, not transient, so retrying just wastes ~100s per call.
+        if (code === "insufficient_quota") throw err;
+        const isRateLimit = msg.includes("429") || msg.toLowerCase().includes("rate limit");
+        if (isRateLimit && attempt < 3) {
           const delaySec = 15 * (attempt + 1);
           console.warn(`[simulate] 429 on attempt ${attempt + 1}, waiting ${delaySec}s…`);
           await new Promise((r) => setTimeout(r, delaySec * 1000));
@@ -275,6 +279,7 @@ Respond ONLY with valid JSON — no markdown, no code fences — in this exact f
         throw err;
       }
     }
+    throw new Error("openaiWithRetry: exhausted retries without returning or throwing");
   }
 
   try {
@@ -313,6 +318,12 @@ Respond ONLY with valid JSON — no markdown, no code fences — in this exact f
   } catch (err: unknown) {
     const message = err instanceof Error ? err.message : "Unknown error";
     console.error("OpenAI API error:", message);
+    if ((err as { code?: string } | null)?.code === "insufficient_quota") {
+      return res.status(503).json({
+        error:
+          "The AI simulator is offline: this OpenAI account has no billing set up, so it has no API quota. A manual persona review has already been applied to the site content — see the AI-Enhanced notes throughout the page.",
+      });
+    }
     return res.status(500).json({ error: message });
   }
 });

@@ -1,17 +1,18 @@
 # GORY Mountain Resort
 
-A resort landing page and AI-powered visitor simulator for GORY Mountain Resort (Caucasus, opening 2027). The simulator uses Gemini to model realistic visitor personas and their feedback across resort sections.
+A resort landing page and AI-powered visitor simulator for GORY Mountain Resort (Caucasus, opening 2027). The simulator models realistic visitor personas (Investor / Skier / Traveller) and their feedback across resort sections, then patches weak sections with supplementary AI-Enhanced copy.
 
 ## Run & Operate
 
-- Workflows are configured in Replit: **GORY Mountain Resort** (frontend, Vite) and **API Server** (Express 5, port 8080)
+- Workflows are configured in Replit: **artifacts/gory-resort: web** (frontend, Vite, port 19679) and **artifacts/api-server: API Server** (Express 5, port 8080)
 - `pnpm --filter @workspace/api-server run dev` — run the API server manually
 - `pnpm run typecheck` — full typecheck across all packages
 - `pnpm run build` — typecheck + build all packages
 - `pnpm --filter @workspace/api-spec run codegen` — regenerate API hooks and Zod schemas from the OpenAPI spec
 - `pnpm --filter @workspace/db run push` — push DB schema changes (dev only)
 - Required env: `DATABASE_URL` — Postgres connection string (not yet provisioned)
-- Required secret: `GEMINI_API_KEY` — Google AI Studio key (set via Replit Secrets)
+- Required secret: `OPENAI_API_KEY` — the simulator was migrated from Gemini to OpenAI (`gpt-4o-mini`). The connected account currently has **no billing/quota**, so `/api/simulate`, `/api/improve`, `/api/apply` return a clean "simulator offline" message (503) instead of retrying — see `artifacts/api-server/src/routes/{simulate,improve,apply}.ts`.
+- Until billing is added, persona critiques are done manually (by the agent, reasoning as each persona) and applied directly to `artifacts/gory-resort/src/contexts/ai-content.ts` / the section components — see the "runCount": 2 entry in that file for the latest manual pass.
 
 ## Stack
 

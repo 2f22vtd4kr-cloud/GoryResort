@@ -135,6 +135,10 @@ export const translations: Translations = {
   
   // Gallery
   gallery_title: { en: 'GALLERY', ru: 'ГАЛЕРЕЯ' },
+  gallery_cap_1: { en: 'The Lounge — Peaks Collection, dusk service', ru: 'Лаунж-зона — The Peaks Collection, вечернее обслуживание' },
+  gallery_cap_2: { en: 'Summit Gondola — 12-lift network, base to 3,120m', ru: 'Гондола на вершину — сеть из 12 подъёмников, от базы до 3120 м' },
+  gallery_cap_3: { en: 'Truso Valley, looking north toward the Georgian Military Road', ru: 'Ущелье Трусо, вид на север к Военно-Грузинской дороге' },
+  gallery_cap_4: { en: 'Georgian feast — one of three dining venues on site', ru: 'Грузинское застолье — одно из трёх заведений на территории курорта' },
   
   // Footer
   footer_address: { en: 'Kazbegi Municipality, Mtskheta-Mtianeti, Georgia', ru: 'Муниципалитет Казбеги, Мцхета-Мтианети, Грузия' },

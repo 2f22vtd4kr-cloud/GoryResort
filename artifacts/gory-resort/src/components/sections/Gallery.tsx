@@ -2,6 +2,7 @@ import React, { useState, useRef } from 'react';
 import { motion, AnimatePresence, useInView } from 'framer-motion';
 import { X } from 'lucide-react';
 import { useLanguage } from '@/contexts/LanguageContext';
+import { AiAddition } from '../AiAddition';
 
 export const Gallery = () => {
   const { t } = useLanguage();
@@ -10,10 +11,10 @@ export const Gallery = () => {
   const isInView = useInView(ref, { once: true });
 
   const images = [
-    { src: '/images/gallery-1.jpg', alt: 'Lounge' },
-    { src: '/images/gallery-2.jpg', alt: 'Gondola' },
-    { src: '/images/gallery-3.jpg', alt: 'Valley Aerial' },
-    { src: '/images/gallery-4.jpg', alt: 'Feast' },
+    { src: '/images/gallery-1.jpg', alt: 'Lounge', caption: 'gallery_cap_1' },
+    { src: '/images/gallery-2.jpg', alt: 'Gondola', caption: 'gallery_cap_2' },
+    { src: '/images/gallery-3.jpg', alt: 'Valley Aerial', caption: 'gallery_cap_3' },
+    { src: '/images/gallery-4.jpg', alt: 'Feast', caption: 'gallery_cap_4' },
   ];
 
   return (
@@ -47,9 +48,14 @@ export const Gallery = () => {
                 className="w-full h-full object-cover transition-transform duration-700 group-hover:scale-105"
               />
               <div className="absolute inset-0 bg-black/20 opacity-0 group-hover:opacity-100 transition-opacity duration-500" />
+              <div className="absolute inset-x-0 bottom-0 p-4 bg-gradient-to-t from-black/70 to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-500">
+                <p className="text-[11px] text-white/80 tracking-wide leading-snug">{t(img.caption)}</p>
+              </div>
             </motion.div>
           ))}
         </div>
+
+        <AiAddition sectionKey="gallery_ai" />
       </div>
 
       <AnimatePresence>
