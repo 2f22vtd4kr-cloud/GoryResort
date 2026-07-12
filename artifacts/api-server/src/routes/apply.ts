@@ -1,5 +1,5 @@
 import { Router } from "express";
-import { GoogleGenAI } from "@google/genai";
+import OpenAI from "openai";
 import { writeFile } from "fs/promises";
 import { fileURLToPath } from "url";
 import { dirname, join } from "path";
@@ -35,9 +35,9 @@ applyRouter.post("/apply", async (req, res) => {
     return res.status(400).json({ error: "'improvements' is required" });
   }
 
-  const apiKey = process.env["GEMINI_API_KEY"];
+  const apiKey = process.env["OPENAI_API_KEY"];
   if (!apiKey) {
-    return res.status(500).json({ error: "GEMINI_API_KEY is not configured" });
+    return res.status(500).json({ error: "OPENAI_API_KEY is not configured" });
   }
 
   // Compute average section scores across all personas
@@ -103,16 +103,15 @@ Return ONLY valid JSON, no markdown fences:
 }
 Use "" for any section where there is genuinely nothing to add.`;
 
-  async function geminiWithRetry(fn: () => Promise<string | null | undefined>): Promise<string | null | undefined> {
+  async function openaiWithRetry(fn: () => Promise<string | null | undefined>): Promise<string | null | undefined> {
     for (let attempt = 0; attempt < 4; attempt++) {
       try {
         return await fn();
       } catch (err: unknown) {
         const msg = err instanceof Error ? err.message : String(err);
-        const delayMatch = msg.match(/"retryDelay"\s*:\s*"([\d.]+)s"/);
-        const isQuota = msg.includes("429") || msg.includes("RESOURCE_EXHAUSTED");
+        const isQuota = msg.includes("429") || msg.toLowerCase().includes("rate limit");
         if (isQuota && attempt < 3) {
-          const delaySec = delayMatch ? Math.ceil(parseFloat(delayMatch[1])) : 30 * (attempt + 1);
+          const delaySec = 15 * (attempt + 1);
           console.warn(`[apply] 429 on attempt ${attempt + 1}, waiting ${delaySec}s…`);
           await new Promise((r) => setTimeout(r, delaySec * 1000));
           continue;
@@ -123,21 +122,19 @@ Use "" for any section where there is genuinely nothing to add.`;
   }
 
   try {
-    const ai = new GoogleGenAI({ apiKey });
+    const openai = new OpenAI({ apiKey });
 
-    const text = await geminiWithRetry(async () => {
-      const response = await ai.models.generateContent({
-        model: "gemini-2.0-flash",
-        contents: [{ role: "user", parts: [{ text: prompt }] }],
-        config: {
-          maxOutputTokens: 4096,
-          responseMimeType: "application/json",
-        },
+    const text = await openaiWithRetry(async () => {
+      const response = await openai.chat.completions.create({
+        model: "gpt-4o-mini",
+        messages: [{ role: "user", content: prompt }],
+        max_tokens: 4096,
+        response_format: { type: "json_object" },
       });
-      return response.text;
+      return response.choices[0]?.message?.content;
     });
     if (!text) {
-      return res.status(500).json({ error: "Empty response from Gemini" });
+      return res.status(500).json({ error: "Empty response from OpenAI" });
     }
 
     let patches: Record<string, { en: string; ru: string }>;
@@ -149,7 +146,7 @@ Use "" for any section where there is genuinely nothing to add.`;
         try { patches = JSON.parse(match[0]); }
         catch { return res.status(500).json({ error: "Failed to parse patches JSON" }); }
       } else {
-        return res.status(500).json({ error: "No JSON in Gemini response" });
+        return res.status(500).json({ error: "No JSON in OpenAI response" });
       }
     }
 
@@ -186,7 +183,7 @@ export const aiRunMeta = {
     return res.json({ patchedSections, patchCount: patchedSections.length, timestamp, patches: filtered });
   } catch (err: unknown) {
     const message = err instanceof Error ? err.message : "Unknown error";
-    console.error("Gemini apply error:", message);
+    console.error("OpenAI apply error:", message);
     return res.status(500).json({ error: message });
   }
 });

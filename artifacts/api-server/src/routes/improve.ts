@@ -1,5 +1,5 @@
 import { Router } from "express";
-import { GoogleGenAI } from "@google/genai";
+import OpenAI from "openai";
 import { writeFile, mkdir } from "fs/promises";
 import { fileURLToPath } from "url";
 import { dirname, join } from "path";
@@ -18,9 +18,9 @@ improveRouter.post("/improve", async (req, res) => {
     return res.status(400).json({ error: "'results' must be a non-empty array of simulation results" });
   }
 
-  const apiKey = process.env["GEMINI_API_KEY"];
+  const apiKey = process.env["OPENAI_API_KEY"];
   if (!apiKey) {
-    return res.status(500).json({ error: "GEMINI_API_KEY is not configured on the server" });
+    return res.status(500).json({ error: "OPENAI_API_KEY is not configured on the server" });
   }
 
   const prompt = `You are an expert luxury resort website consultant. Three distinct user personas have just reviewed the GORY Mountain Resort website (a pre-opening luxury mountain resort in Georgia/Caucasus, opening 2027) and provided detailed section-by-section analysis. Based on their combined feedback, generate specific, implementable content improvements for the website.
@@ -67,16 +67,15 @@ Respond ONLY with valid JSON (no markdown, no code fences):
 
 Priority: 1 = critical (deal-breaker for 2+ personas), 2 = important, 3 = nice-to-have. Order by priority descending.`;
 
-  async function geminiWithRetry(fn: () => Promise<string | null | undefined>): Promise<string | null | undefined> {
+  async function openaiWithRetry(fn: () => Promise<string | null | undefined>): Promise<string | null | undefined> {
     for (let attempt = 0; attempt < 4; attempt++) {
       try {
         return await fn();
       } catch (err: unknown) {
         const msg = err instanceof Error ? err.message : String(err);
-        const delayMatch = msg.match(/"retryDelay"\s*:\s*"([\d.]+)s"/);
-        const isQuota = msg.includes("429") || msg.includes("RESOURCE_EXHAUSTED");
+        const isQuota = msg.includes("429") || msg.toLowerCase().includes("rate limit");
         if (isQuota && attempt < 3) {
-          const delaySec = delayMatch ? Math.ceil(parseFloat(delayMatch[1])) : 30 * (attempt + 1);
+          const delaySec = 15 * (attempt + 1);
           console.warn(`[improve] 429 on attempt ${attempt + 1}, waiting ${delaySec}s…`);
           await new Promise((r) => setTimeout(r, delaySec * 1000));
           continue;
@@ -87,21 +86,19 @@ Priority: 1 = critical (deal-breaker for 2+ personas), 2 = important, 3 = nice-t
   }
 
   try {
-    const ai = new GoogleGenAI({ apiKey });
+    const openai = new OpenAI({ apiKey });
 
-    const text = await geminiWithRetry(async () => {
-      const response = await ai.models.generateContent({
-        model: "gemini-2.0-flash",
-        contents: [{ role: "user", parts: [{ text: prompt }] }],
-        config: {
-          maxOutputTokens: 8192,
-          responseMimeType: "application/json",
-        },
+    const text = await openaiWithRetry(async () => {
+      const response = await openai.chat.completions.create({
+        model: "gpt-4o-mini",
+        messages: [{ role: "user", content: prompt }],
+        max_tokens: 8192,
+        response_format: { type: "json_object" },
       });
-      return response.text;
+      return response.choices[0]?.message?.content;
     });
     if (!text) {
-      return res.status(500).json({ error: "Empty response from Gemini" });
+      return res.status(500).json({ error: "Empty response from OpenAI" });
     }
 
     let parsed: unknown;
@@ -113,10 +110,10 @@ Priority: 1 = critical (deal-breaker for 2+ personas), 2 = important, 3 = nice-t
         try {
           parsed = JSON.parse(match[0]);
         } catch {
-          return res.status(500).json({ error: "Failed to parse Gemini JSON response" });
+          return res.status(500).json({ error: "Failed to parse OpenAI JSON response" });
         }
       } else {
-        return res.status(500).json({ error: "No JSON found in Gemini response" });
+        return res.status(500).json({ error: "No JSON found in OpenAI response" });
       }
     }
 
@@ -131,7 +128,7 @@ Priority: 1 = critical (deal-breaker for 2+ personas), 2 = important, 3 = nice-t
     return res.json(parsed);
   } catch (err: unknown) {
     const message = err instanceof Error ? err.message : "Unknown error";
-    console.error("Gemini improve error:", message);
+    console.error("OpenAI improve error:", message);
     return res.status(500).json({ error: message });
   }
 });

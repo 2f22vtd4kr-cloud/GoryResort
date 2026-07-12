@@ -1,5 +1,5 @@
 import { Router } from "express";
-import { GoogleGenAI } from "@google/genai";
+import OpenAI from "openai";
 
 const simulateRouter = Router();
 
@@ -133,9 +133,9 @@ simulateRouter.post("/simulate", async (req, res) => {
     return res.status(400).json({ error: "Invalid persona. Use: investor, skier, or tourist" });
   }
 
-  const apiKey = process.env["GEMINI_API_KEY"];
+  const apiKey = process.env["OPENAI_API_KEY"];
   if (!apiKey) {
-    return res.status(500).json({ error: "GEMINI_API_KEY is not configured" });
+    return res.status(500).json({ error: "OPENAI_API_KEY is not configured" });
   }
 
   const persona = PERSONAS[personaKey as keyof typeof PERSONAS];
@@ -258,17 +258,16 @@ Respond ONLY with valid JSON — no markdown, no code fences — in this exact f
   ]
 }`;
 
-  // Retry wrapper: honour Gemini's retryDelay on 429, up to 4 attempts
-  async function geminiWithRetry(fn: () => Promise<string | null | undefined>): Promise<string | null | undefined> {
+  // Retry wrapper: honour OpenAI's rate-limit backoff on 429, up to 4 attempts
+  async function openaiWithRetry(fn: () => Promise<string | null | undefined>): Promise<string | null | undefined> {
     for (let attempt = 0; attempt < 4; attempt++) {
       try {
         return await fn();
       } catch (err: unknown) {
         const msg = err instanceof Error ? err.message : String(err);
-        const delayMatch = msg.match(/"retryDelay"\s*:\s*"([\d.]+)s"/);
-        const isQuota = msg.includes("429") || msg.includes("RESOURCE_EXHAUSTED");
+        const isQuota = msg.includes("429") || msg.toLowerCase().includes("rate limit");
         if (isQuota && attempt < 3) {
-          const delaySec = delayMatch ? Math.ceil(parseFloat(delayMatch[1])) : 30 * (attempt + 1);
+          const delaySec = 15 * (attempt + 1);
           console.warn(`[simulate] 429 on attempt ${attempt + 1}, waiting ${delaySec}s…`);
           await new Promise((r) => setTimeout(r, delaySec * 1000));
           continue;
@@ -279,21 +278,19 @@ Respond ONLY with valid JSON — no markdown, no code fences — in this exact f
   }
 
   try {
-    const ai = new GoogleGenAI({ apiKey });
+    const openai = new OpenAI({ apiKey });
 
-    const text = await geminiWithRetry(async () => {
-      const response = await ai.models.generateContent({
-        model: "gemini-2.0-flash",
-        contents: [{ role: "user", parts: [{ text: prompt }] }],
-        config: {
-          maxOutputTokens: 16384,
-          responseMimeType: "application/json",
-        },
+    const text = await openaiWithRetry(async () => {
+      const response = await openai.chat.completions.create({
+        model: "gpt-4o-mini",
+        messages: [{ role: "user", content: prompt }],
+        max_tokens: 16384,
+        response_format: { type: "json_object" },
       });
-      return response.text;
+      return response.choices[0]?.message?.content;
     });
     if (!text) {
-      return res.status(500).json({ error: "Empty response from Gemini" });
+      return res.status(500).json({ error: "Empty response from OpenAI" });
     }
 
     let parsed: unknown;
@@ -305,17 +302,17 @@ Respond ONLY with valid JSON — no markdown, no code fences — in this exact f
         try {
           parsed = JSON.parse(match[0]);
         } catch {
-          return res.status(500).json({ error: "Failed to parse Gemini JSON response", preview: text.slice(0, 300) });
+          return res.status(500).json({ error: "Failed to parse OpenAI JSON response", preview: text.slice(0, 300) });
         }
       } else {
-        return res.status(500).json({ error: "No JSON found in Gemini response", preview: text.slice(0, 300) });
+        return res.status(500).json({ error: "No JSON found in OpenAI response", preview: text.slice(0, 300) });
       }
     }
 
     return res.json(parsed);
   } catch (err: unknown) {
     const message = err instanceof Error ? err.message : "Unknown error";
-    console.error("Gemini API error:", message);
+    console.error("OpenAI API error:", message);
     return res.status(500).json({ error: message });
   }
 });
