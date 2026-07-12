@@ -4,7 +4,7 @@ A resort landing page and AI-powered visitor simulator for GORY Mountain Resort 
 
 ## Run & Operate
 
-- Workflows are configured in Replit: **artifacts/gory-resort: web** (frontend, Vite, port 19679) and **artifacts/api-server: API Server** (Express 5, port 8080)
+- Workflows are configured in Replit: **artifacts/gory-resort: web** (frontend, Vite, port 5000) and **artifacts/api-server: API Server** (Express 5, port 8080)
 - `pnpm --filter @workspace/api-server run dev` — run the API server manually
 - `pnpm run typecheck` — full typecheck across all packages
 - `pnpm run build` — typecheck + build all packages
@@ -41,7 +41,9 @@ _Populate as you build — explicit user instructions worth remembering across s
 
 ## Gotchas
 
-_Populate as you build — sharp edges, "always run X before Y" rules._
+- **React 19 + `flushSync`**: `flushSync(() => { createRoot.render() })` silently fails to commit in React 19 — `#root` stays empty, all sections invisible. Use plain `root.render(<App />)` (already fixed in `main.tsx`). Never re-introduce `flushSync` for the initial render.
+- **Screenshot tool**: Always captures before React's async render commits (React 19 uses macrotask scheduling). Screenshots show only the `#root:empty` CSS loading state (mountain hero). To screenshot below-fold sections, a server-side rendering or puppeteer approach with explicit wait is needed.
+- **`#root:empty` CSS**: `index.html` has a CSS loading state (`background-image: url('/images/hero.jpg')`, `min-height: 100dvh`) that mimics the Hero while React hydrates. This is intentional — do not remove it.
 
 ## Pointers
 
