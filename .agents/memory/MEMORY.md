@@ -1,0 +1,2 @@
+- [Gemini + Simulator setup](gemini-simulator.md) — user provided own GEMINI_API_KEY; simulator backend at /api/simulate; frontend at /simulator route
+- [Translation fixes applied](translation-fixes.md) — 6 Russian translation issues patched in LanguageContext.tsx

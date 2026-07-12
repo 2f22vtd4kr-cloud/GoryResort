@@ -16,6 +16,7 @@ export const translations: Translations = {
   nav_stay: { en: 'Stay', ru: 'Проживание' },
   nav_experiences: { en: 'Experiences', ru: 'Впечатления' },
   nav_invest: { en: 'Invest', ru: 'Инвестиции' },
+  nav_gallery: { en: 'Gallery', ru: 'Галерея' },
   
   // Hero
   hero_tagline: { en: 'WHERE THE CAUCASUS MEETS THE FUTURE', ru: 'ГДЕ КАВКАЗ ВСТРЕЧАЕТ БУДУЩЕЕ' },
@@ -24,11 +25,11 @@ export const translations: Translations = {
   // Vision
   vision_title: { en: 'THE VISION', ru: 'ВИДЕНИЕ' },
   vision_stat_1_val: { en: '2,400', ru: '2,400' },
-  vision_stat_1_lbl: { en: 'm altitude', ru: 'м высота' },
+  vision_stat_1_lbl: { en: 'm altitude', ru: 'м над уровнем моря' },
   vision_stat_2_val: { en: '42', ru: '42' },
-  vision_stat_2_lbl: { en: 'km ski slopes', ru: 'км горнолыжных трасс' },
+  vision_stat_2_lbl: { en: 'km of ski runs', ru: 'км горнолыжных трасс' },
   vision_stat_3_val: { en: '12', ru: '12' },
-  vision_stat_3_lbl: { en: 'lifts planned', ru: 'запланированных подъёмников' },
+  vision_stat_3_lbl: { en: 'lifts planned', ru: 'подъёмников в проекте' },
   vision_stat_4_val: { en: '2027', ru: '2027' },
   vision_stat_4_lbl: { en: 'grand opening', ru: 'торжественное открытие' },
   vision_desc_1: { 
@@ -42,8 +43,8 @@ export const translations: Translations = {
 
   // Ski
   ski_title: { en: 'THE MOUNTAIN', ru: 'ГОРА' },
-  ski_cat_1: { en: 'BEGINNER', ru: 'НАЧИНАЮЩИЙ' },
-  ski_cat_2: { en: 'INTERMEDIATE', ru: 'СРЕДНИЙ' },
+  ski_cat_1: { en: 'BEGINNER', ru: 'НОВИЧОК' },
+  ski_cat_2: { en: 'INTERMEDIATE', ru: 'ЛЮБИТЕЛЬ' },
   ski_cat_3: { en: 'EXPERT', ru: 'ЭКСПЕРТ' },
   
   // Stay
@@ -53,11 +54,11 @@ export const translations: Translations = {
   stay_type_2: { en: 'Glacier Chalets', ru: 'Ледниковые Шале' },
   stay_desc_2: { en: '12 Private Chalets', ru: '12 Частных Шале' },
   stay_type_3: { en: 'Base Camp Residences', ru: 'Резиденции Базового Лагеря' },
-  stay_desc_3: { en: '24 Residences for sale', ru: '24 Резиденции' },
+  stay_desc_3: { en: '24 Residences for sale', ru: '24 резиденции в продажу' },
   
   // Experiences
   exp_title: { en: 'ELEVATED EXPERIENCES', ru: 'ВЫСОКИЕ ВПЕЧАТЛЕНИЯ' },
-  exp_1: { en: 'Skiing & Snowboarding', ru: 'Катание на лыжах' },
+  exp_1: { en: 'Skiing & Snowboarding', ru: 'Горные лыжи и сноуборд' },
   exp_2: { en: 'Wellness & Spa', ru: 'Велнес и Спа' },
   exp_3: { en: 'Heliskiing', ru: 'Хели-ски' },
   exp_4: { en: 'Georgian Gastronomy', ru: 'Грузинская Гастрономия' },
@@ -68,7 +69,7 @@ export const translations: Translations = {
     en: 'Limited early-stage investment positions available. Join the founding partners shaping the future of mountain luxury in Georgia.', 
     ru: 'Ограниченное число позиций для инвесторов ранней стадии. Присоединяйтесь к партнерам-основателям, формирующим будущее горной роскоши в Грузии.' 
   },
-  inv_tier_1_title: { en: 'FOUNDATION PARTNER', ru: 'ФУНДАМЕНТАЛЬНЫЙ ПАРТНЕР' },
+  inv_tier_1_title: { en: 'FOUNDATION PARTNER', ru: 'ПАРТНЁР-ОСНОВАТЕЛЬ' },
   inv_tier_1_desc: { en: 'from $500,000', ru: 'от $500,000' },
   inv_tier_1_ret: { en: '15% projected IRR', ru: '15% ожидаемая доходность (IRR)' },
   inv_tier_2_title: { en: 'SLOPE PARTNER', ru: 'ПАРТНЕР СКЛОНОВ' },
@@ -90,6 +91,9 @@ export const translations: Translations = {
   form_message: { en: 'Message', ru: 'Сообщение' },
   form_submit: { en: 'SUBMIT INQUIRY', ru: 'ОТПРАВИТЬ ЗАПРОС' },
   form_success: { en: 'Message received. We will contact you shortly.', ru: 'Сообщение получено. Мы свяжемся с вами в ближайшее время.' },
+  
+  // Gallery
+  gallery_title: { en: 'GALLERY', ru: 'ГАЛЕРЕЯ' },
   
   // Footer
   footer_address: { en: 'Kazbegi Municipality, Mtskheta-Mtianeti, Georgia', ru: 'Муниципалитет Казбеги, Мцхета-Мтианети, Грузия' },

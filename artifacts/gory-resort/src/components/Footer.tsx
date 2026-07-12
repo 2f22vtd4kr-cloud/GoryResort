@@ -9,7 +9,7 @@ export const Footer = () => {
       <div className="container mx-auto px-4 md:px-12 flex flex-col md:flex-row items-center justify-between space-y-6 md:space-y-0">
         
         <div className="text-xs text-white/40 uppercase tracking-widest">
-          © 2024 GORY RESORT. ALL RIGHTS RESERVED.
+          © 2027 GORY RESORT. ALL RIGHTS RESERVED.
         </div>
 
         <div className="flex items-center space-x-8 text-xs uppercase tracking-widest text-white/60">

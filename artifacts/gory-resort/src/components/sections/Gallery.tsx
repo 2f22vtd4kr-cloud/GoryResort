@@ -1,8 +1,10 @@
 import React, { useState, useRef } from 'react';
 import { motion, AnimatePresence, useInView } from 'framer-motion';
 import { X } from 'lucide-react';
+import { useLanguage } from '@/contexts/LanguageContext';
 
 export const Gallery = () => {
+  const { t } = useLanguage();
   const [selectedImg, setSelectedImg] = useState<string | null>(null);
   const ref = useRef<HTMLDivElement>(null);
   const isInView = useInView(ref, { once: true, margin: "-10%" });
@@ -15,8 +17,18 @@ export const Gallery = () => {
   ];
 
   return (
-    <section className="py-24 bg-background" ref={ref}>
+    <section id="gallery" className="py-24 bg-background" ref={ref}>
       <div className="container mx-auto px-4 md:px-12">
+
+        <motion.h2
+          initial={{ opacity: 0, y: 20 }}
+          animate={isInView ? { opacity: 1, y: 0 } : { opacity: 0, y: 20 }}
+          transition={{ duration: 0.8 }}
+          className="text-xs tracking-[0.3em] text-muted-foreground uppercase mb-10"
+        >
+          {t('gallery_title')}
+        </motion.h2>
+
         <div className="grid grid-cols-1 md:grid-cols-2 gap-4 md:gap-6">
           {images.map((img, i) => (
             <motion.div
