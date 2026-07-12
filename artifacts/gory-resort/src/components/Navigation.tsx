@@ -75,7 +75,7 @@ export const Navigation = () => {
           </div>
 
           {/* Desktop Nav */}
-          <nav className="hidden md:flex items-center space-x-10">
+          <nav className="hidden md:flex items-center gap-10">
             {navItems.map((item) => {
               const isActive = activeSection === item.id;
               return (
@@ -98,7 +98,7 @@ export const Navigation = () => {
               );
             })}
 
-            <div className="flex items-center space-x-3 text-xs font-medium border-l border-white/20 pl-6">
+            <div className="flex items-center gap-3 text-xs font-medium border-l border-white/20 pl-6">
               <button
                 onClick={() => setLanguage('en')}
                 className={`transition-colors ${language === 'en' ? 'text-white' : 'text-white/40 hover:text-white/80'}`}
@@ -138,7 +138,7 @@ export const Navigation = () => {
               <X size={32} />
             </button>
 
-            <div className="flex-1 flex flex-col items-center justify-center space-y-8">
+            <div className="flex-1 flex flex-col items-center justify-center gap-8">
               {navItems.map((item) => (
                 <button
                   key={item.id}
@@ -152,7 +152,7 @@ export const Navigation = () => {
               ))}
             </div>
 
-            <div className="flex justify-center space-x-6 mt-auto">
+            <div className="flex justify-center gap-6 mt-auto">
               <button
                 onClick={() => { setLanguage('en'); setMobileMenuOpen(false); }}
                 className={`text-xl ${language === 'en' ? 'text-white font-bold' : 'text-white/40'}`}

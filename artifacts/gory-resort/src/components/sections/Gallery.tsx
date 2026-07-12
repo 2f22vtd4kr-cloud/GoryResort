@@ -32,29 +32,39 @@ export const Gallery = () => {
           {t('gallery_title')}
         </motion.h2>
 
-        {/* Photo grid */}
+        {/* Photo grid — two independent columns so alternating landscape/portrait
+            frames interlock like a proper masonry layout instead of both sharing
+            a CSS-grid row height (which used to leave dead space under the
+            shorter frame in each row). */}
         <div className="grid grid-cols-1 md:grid-cols-2 gap-4 md:gap-6">
-          {images.map((img, i) => (
-            <motion.div
-              key={i}
-              initial={{ y: 30 }}
-              animate={isInView ? { y: 0 } : { y: 30 }}
-              transition={{ duration: 0.8, delay: i * 0.1 }}
-              className={`relative overflow-hidden cursor-pointer group ${
-                i === 0 || i === 3 ? 'aspect-[4/3]' : 'aspect-square md:aspect-[3/4]'
-              }`}
-              onClick={() => setSelectedImg(img.src)}
-            >
-              <img
-                src={img.src}
-                alt={img.alt}
-                className="w-full h-full object-cover transition-transform duration-700 group-hover:scale-105"
-              />
-              <div className="absolute inset-0 bg-black/20 opacity-0 group-hover:opacity-100 transition-opacity duration-500" />
-              <div className="absolute inset-x-0 bottom-0 p-4 bg-gradient-to-t from-black/70 to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-500">
-                <p className="text-[11px] text-white/80 tracking-wide leading-snug">{t(img.caption)}</p>
-              </div>
-            </motion.div>
+          {[[images[0], images[2]], [images[1], images[3]]].map((column, colIndex) => (
+            <div key={colIndex} className="flex flex-col gap-4 md:gap-6">
+              {column.map((img, i) => {
+                const globalIndex = colIndex === 0 ? i * 2 : i * 2 + 1;
+                return (
+                  <motion.div
+                    key={globalIndex}
+                    initial={{ y: 30 }}
+                    animate={isInView ? { y: 0 } : { y: 30 }}
+                    transition={{ duration: 0.8, delay: globalIndex * 0.1 }}
+                    className={`relative overflow-hidden cursor-pointer group ${
+                      globalIndex === 0 || globalIndex === 3 ? 'aspect-[4/3]' : 'aspect-square md:aspect-[3/4]'
+                    }`}
+                    onClick={() => setSelectedImg(img.src)}
+                  >
+                    <img
+                      src={img.src}
+                      alt={img.alt}
+                      className="w-full h-full object-cover transition-transform duration-700 group-hover:scale-105"
+                    />
+                    <div className="absolute inset-0 bg-black/20 opacity-0 group-hover:opacity-100 transition-opacity duration-500" />
+                    <div className="absolute inset-x-0 bottom-0 p-4 bg-gradient-to-t from-black/70 to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-500">
+                      <p className="text-[11px] text-white/80 tracking-wide leading-snug">{t(img.caption)}</p>
+                    </div>
+                  </motion.div>
+                );
+              })}
+            </div>
           ))}
         </div>
 

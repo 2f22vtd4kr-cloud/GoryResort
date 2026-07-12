@@ -15,8 +15,10 @@ const sections = [
   { name: '04-stay',        id: 'stay' },
   { name: '05-experiences', id: 'experiences' },
   { name: '06-investment',  id: 'invest' },
-  { name: '07-gallery',     id: 'gallery' },
-  { name: '08-contact',     id: 'contact' },
+  { name: '07-press',       id: 'press' },
+  { name: '08-gallery',     id: 'gallery' },
+  { name: '09-contact',     id: 'contact' },
+  { name: '10-footer',      id: null, scrollToBottom: true },
 ];
 
 const sleep = (ms) => new Promise((r) => setTimeout(r, ms));
@@ -37,17 +39,23 @@ await page.goto(BASE, { waitUntil: 'networkidle0', timeout: 30000 });
 await sleep(1500);
 
 for (const section of sections) {
-  if (section.id) {
+  if (section.scrollToBottom) {
+    await page.evaluate(() => window.scrollTo({ top: document.body.scrollHeight, behavior: 'instant' }));
+  } else if (section.id) {
     await page.evaluate((id) => {
       const el = document.getElementById(id);
       if (el) el.scrollIntoView({ behavior: 'instant', block: 'start' });
     }, section.id);
+    if (section.scrollExtra) {
+      await page.evaluate((extra) => window.scrollBy(0, extra), section.scrollExtra);
+    }
   } else {
     await page.evaluate(() => window.scrollTo({ top: 0, behavior: 'instant' }));
   }
 
-  // Let IntersectionObserver fire + framer-motion render
-  await sleep(800);
+  // Let IntersectionObserver fire + framer-motion render.
+  // Vision's stat counters are spring-animated and need longer to settle.
+  await sleep(section.id === 'vision' ? 2500 : 800);
 
   const file = path.join(OUT, `${section.name}.jpg`);
   await page.screenshot({ path: file, type: 'jpeg', quality: 90, fullPage: false });

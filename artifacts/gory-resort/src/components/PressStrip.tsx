@@ -31,7 +31,7 @@ export const PressStrip = () => {
   const isInView = useInView(ref, { once: true, margin: '-10%' });
 
   return (
-    <section ref={ref} className="py-14 border-y border-white/5 bg-black/30">
+    <section id="press" ref={ref} className="py-14 border-y border-white/5 bg-black/30">
       <div className="container mx-auto px-6 md:px-12">
         <motion.p
           initial={{ opacity: 0 }}
@@ -49,7 +49,7 @@ export const PressStrip = () => {
               initial={{ opacity: 0, y: 8 }}
               animate={isInView ? { opacity: 1, y: 0 } : { opacity: 0, y: 8 }}
               transition={{ duration: 0.5, delay: i * 0.07 }}
-              className="flex flex-col items-center text-center space-y-2 group px-2"
+              className="flex flex-col items-center text-center gap-2 group px-2"
             >
               <span className="text-[11px] font-medium tracking-wider text-white/38 group-hover:text-white/65 transition-colors duration-300">
                 {item.name}

@@ -8,7 +8,7 @@ const AnimatedNumber = ({ value }: { value: string }) => {
   const isNumber = !isNaN(numValue);
 
   // Hooks must be called unconditionally — before any early return
-  const spring = useSpring(0, { mass: 50, stiffness: 100, damping: 30 });
+  const spring = useSpring(0, { mass: 1, stiffness: 90, damping: 20 });
   const display = useTransform(spring, (current) =>
     Math.round(current).toLocaleString('en-US'),
   );
