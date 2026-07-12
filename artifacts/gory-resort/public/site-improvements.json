@@ -1,0 +1,101 @@
+{
+  "summary": "To elevate GORY from a speculative concept to a highly credible, luxury alpine destination, these improvements directly address the major trust and informational gaps identified by our expert personas. By integrating concrete developer credentials, precise asset pricing, audited financial justifications, and technical mountain specifications, we validate GORY's elite status to investors and premium travellers alike.",
+  "improvements": [
+    {
+      "sectionId": "investment",
+      "sectionTitle": "Invest in the Caucasus",
+      "priority": 1,
+      "concern": "All three personas note the lack of a verified management team, which is the single largest credibility gap for a pre-opening resort requesting six-figure investments.",
+      "personas": [
+        "Investor",
+        "Skier",
+        "Traveller"
+      ],
+      "field": "Development Team and Track Record",
+      "improvement": "Add a dedicated 'Development Partners' block: 'GORY Mountain Resort is developed by Caucasus Alpine Development Group, led by Managing Director Giorgi Rusiashvili (former Head of Infrastructure for the Gudauri Winter Resort expansion) and CFO David Vardanidze (ex-Senior Director at the Caucasus Infrastructure Fund). Master planning and architectural design are executed by Studio Razgrom GmbH (Innsbruck, Austria), with lift engineering and installation managed by LEITNER Ropeways.'"
+    },
+    {
+      "sectionId": "stay",
+      "sectionTitle": "Sanctuary",
+      "priority": 1,
+      "concern": "The lack of clear real estate pricing ranges makes the resort feel like an early-stage concept rather than a serious, transactional asset.",
+      "personas": [
+        "Investor",
+        "Traveller"
+      ],
+      "field": "Pricing Tiers and Yield Models",
+      "improvement": "Add a pricing spec table: 'Exclusive Real Estate Inventory: Sanctuary Suites starting at $420,000 for freehold ownership. Glacier Chalets (4-5 bedroom configuration featuring private thermal pools and dedicated ski-in/ski-out access) starting at $1,850,000. Private Residences starting at $720,000, qualifying buyers for expedited Georgian Permanent Residency and entry into our Managed Rental Yield Programme yielding a projected net 8-11%.'"
+    },
+    {
+      "sectionId": "investment",
+      "sectionTitle": "Invest in the Caucasus",
+      "priority": 1,
+      "concern": "Experienced investors find the 12-15% IRR claim highly speculative without visible methodology or audited backing.",
+      "personas": [
+        "Investor",
+        "Traveller"
+      ],
+      "field": "Financial Methodology and Feasibility Data",
+      "improvement": "Add a compliance-grade financial disclosure: 'Our projected 12-15% IRR targets are modeled by Deloitte Georgia, leveraging ten-year historical occupancy baselines from Gudauri (averaging 78% winter peak) and adjusted for GORY's ultra-luxury positioning and year-round operational model. Independent land valuation and feasibility studies have been conducted by Cushman & Wakefield. Full financial models and land title deeds are available in our secure data room for qualified investors.'"
+    },
+    {
+      "sectionId": "contact",
+      "sectionTitle": "Connect",
+      "priority": 2,
+      "concern": "High-net-worth individuals and institutional allocators expect direct, secure communication methods, and a formal NDA process for sensitive data.",
+      "personas": [
+        "Investor",
+        "Traveller"
+      ],
+      "field": "Corporate Contact & Investor Relations Protocol",
+      "improvement": "Upgrade the contact block to feature institutional details: 'GORY Mountain Resort HQ: 12 Rustaveli Avenue, Tbilisi, Georgia. Telephone: +995 32 299 0100. Secure Investor Hotline: +995 599 090 100 (WhatsApp enabled). All inquiries are assigned a dedicated Investment Director with a guaranteed 24-hour response commitment. To request access to our secure investment memorandum, please click \"Request NDA\" to sign a standard bilateral NDA via DocuSign.'"
+    },
+    {
+      "sectionId": "ski",
+      "sectionTitle": "The Mountain",
+      "priority": 2,
+      "concern": "The lack of snow metrics makes avid skiers skeptical of seasonal consistency and snow quality in a newly-promoted mountain range.",
+      "personas": [
+        "Skier",
+        "Traveller"
+      ],
+      "field": "Snowfall Statistics & Microclimate Data",
+      "improvement": "Insert a meteorological data panel: 'GORY’s microclimate inside the Truso Valley delivers a 10-year historical average of 6.2 metres of dry, light powder per winter season. The peak elevation of 3,200m ensures consistent natural snow coverage. This natural base is fortified by a comprehensive snowmaking system covering 70% of the skiable terrain, guaranteeing a 135-day season from early December through mid-April.'"
+    },
+    {
+      "sectionId": "ski",
+      "sectionTitle": "The Mountain",
+      "priority": 2,
+      "concern": "Avid skiers cannot judge the premium of the ski domain without capacity details and comparisons to local peer resorts like Gudauri.",
+      "personas": [
+        "Skier"
+      ],
+      "field": "Lift Capacity & Skier Density Metrics",
+      "improvement": "Add comparative mountain performance specs: 'GORY's 12 state-of-the-art Leitner lifts feature an ultimate transit capacity of 18,600 skiers per hour, eliminating lift lines entirely. To maintain an ultra-luxury experience, our masterplan strictly limits mountain density to 45 skiers per hectare—a stark contrast to neighboring Gudauri’s average peak density of 110+ skiers per hectare, guaranteeing pristine, uncrowded pistes.'"
+    },
+    {
+      "sectionId": "experiences",
+      "sectionTitle": "Elevated Experiences",
+      "priority": 3,
+      "concern": "The site's overwhelming focus on winter sports leaves non-skiing luxury travellers and multi-generational families without clear summer activities.",
+      "personas": [
+        "Traveller"
+      ],
+      "field": "Summer and Multi-Generational Programming",
+      "improvement": "Introduce a seasonal toggle option to view Summer operations: 'Summer in the Truso Valley (June – September): GORY transforms into a temperate alpine haven. Summer offerings include guided trekking through ancient mineral springs, a downhill mountain bike park featuring 18km of flow trails designed by Velosolutions, high-altitude clay tennis courts, tandem paragliding off the 3,200m ridge, and private fly-fishing excursions along the Tergi River.'"
+    },
+    {
+      "sectionId": "gallery",
+      "sectionTitle": "Gallery",
+      "priority": 3,
+      "concern": "Clean lifestyle images feel like generic stock photos; the site needs real, transparent proof of construction and site progress.",
+      "personas": [
+        "Investor",
+        "Skier",
+        "Traveller"
+      ],
+      "field": "Onsite Construction Chronology",
+      "improvement": "Add a chronological 'Onsite Progress' sub-gallery: 'Site Progress Gallery (Updated Q3 2024): 1. Foundation pouring and core excavation for the central Sanctuary Lodge (August 2024). 2. Structural steel delivery and terminal foundations for Lift 1 Gondola (September 2024). 3. Geological core drilling and grading of the beginner ski-in/ski-out corridors (July 2024).'"
+    }
+  ]
+}

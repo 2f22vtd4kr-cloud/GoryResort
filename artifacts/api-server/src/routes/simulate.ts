@@ -265,7 +265,7 @@ Respond ONLY with valid JSON — no markdown, no code fences — in this exact f
       model: "gemini-flash-latest",
       contents: [{ role: "user", parts: [{ text: prompt }] }],
       config: {
-        maxOutputTokens: 8192,
+        maxOutputTokens: 16384,
         responseMimeType: "application/json",
       },
     });
