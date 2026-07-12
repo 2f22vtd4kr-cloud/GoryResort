@@ -262,7 +262,7 @@ Respond ONLY with valid JSON — no markdown, no code fences — in this exact f
     const ai = new GoogleGenAI({ apiKey });
 
     const response = await ai.models.generateContent({
-      model: "gemini-2.5-flash",
+      model: "gemini-3.5-flash",
       contents: [{ role: "user", parts: [{ text: prompt }] }],
       config: {
         maxOutputTokens: 8192,
