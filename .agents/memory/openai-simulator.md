@@ -13,7 +13,9 @@ OpenAI's SDK returns HTTP 429 for both transient rate-limiting and permanent quo
 
 ## Fallback when no paid LLM billing is available
 
-If the user won't add billing to unblock an automated LLM pipeline, the fallback is the agent itself manually reasoning through the same task the LLM would have done (e.g. persona critique), then applying the result directly to the affected content/config files — bypassing the API for that round. Leave the automated pipeline code in place (dormant) rather than removing it, in case billing is added later.
+If the user won't add billing to unblock an automated LLM pipeline, the fallback is the agent itself manually reasoning through the same task the LLM would have done (e.g. persona critique), then applying the result directly to the affected content/config files — bypassing the API for that round.
+
+**Update:** for the GORY resort project specifically, the user later confirmed this manual-agent approach as the permanent architecture (not a temporary fallback) and had the automated OpenAI-based pipeline (simulate/improve/apply routes, the `/simulator` UI page, the `openai` dependency) deleted entirely. Don't assume "leave dormant code in place" is always the right call — ask/check if the project has since standardized on the manual approach before recommending restoring an API-based pipeline.
 
 ## Orphaned background processes
 

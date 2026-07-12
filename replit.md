@@ -1,6 +1,6 @@
 # GORY Mountain Resort
 
-A resort landing page and AI-powered visitor simulator for GORY Mountain Resort (Caucasus, opening 2027). The simulator models realistic visitor personas (Investor / Skier / Traveller) and their feedback across resort sections, then patches weak sections with supplementary AI-Enhanced copy.
+A resort landing page for GORY Mountain Resort (Caucasus, opening 2027). Visitor-persona review (Investor / Skier / Traveller / Dev-Designer-Owner) is done by the agent directly — reasoning through each persona and writing content patches straight into the codebase. There is no automated LLM API pipeline for this; it was removed as dead weight.
 
 ## Run & Operate
 
@@ -11,8 +11,7 @@ A resort landing page and AI-powered visitor simulator for GORY Mountain Resort 
 - `pnpm --filter @workspace/api-spec run codegen` — regenerate API hooks and Zod schemas from the OpenAPI spec
 - `pnpm --filter @workspace/db run push` — push DB schema changes (dev only)
 - `DATABASE_URL` — Postgres connection string (runtime-managed by Replit, available automatically)
-- Required secret: `OPENAI_API_KEY` — the simulator was migrated from Gemini to OpenAI (`gpt-4o-mini`). The connected account currently has **no billing/quota**, so `/api/simulate`, `/api/improve`, `/api/apply` return a clean "simulator offline" message (503) instead of retrying — see `artifacts/api-server/src/routes/{simulate,improve,apply}.ts`.
-- Until billing is added, persona critiques are done manually (by the agent, reasoning as each persona) and applied directly to `artifacts/gory-resort/src/contexts/ai-content.ts` / the section components — see the "runCount": 2 entry in that file for the latest manual pass.
+- Persona review process: the agent reads the live site, reasons through each persona's critique, and writes the resulting copy patches directly into `artifacts/gory-resort/src/contexts/ai-content.ts` (imported by `LanguageContext.tsx`) — see the `aiRunMeta` entry in that file for the latest pass. No API key or external LLM call is involved.
 
 ## Stack
 

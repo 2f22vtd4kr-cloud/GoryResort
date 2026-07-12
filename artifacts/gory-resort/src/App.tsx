@@ -12,7 +12,6 @@ import { PressStrip } from '@/components/PressStrip';
 import { Gallery } from '@/components/sections/Gallery';
 import { Contact } from '@/components/sections/Contact';
 import { Footer } from '@/components/Footer';
-import { SimulatorPage } from '@/components/SimulatorPage';
 
 function MainSite() {
   useEffect(() => {
@@ -48,9 +47,6 @@ function App() {
     <LanguageProvider>
       <Router base={base}>
         <Switch>
-          <Route path="/simulator">
-            <SimulatorPage />
-          </Route>
           <Route path="/:rest*">
             <MainSite />
           </Route>
