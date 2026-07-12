@@ -1,7 +1,6 @@
 import React, { useEffect } from 'react';
 import { Router, Route, Switch } from 'wouter';
 import { LanguageProvider } from '@/contexts/LanguageContext';
-import { AppliedImprovementsProvider } from '@/contexts/AppliedImprovementsContext';
 import { Navigation } from '@/components/Navigation';
 import { Hero } from '@/components/sections/Hero';
 import { Vision } from '@/components/sections/Vision';
@@ -13,7 +12,6 @@ import { Gallery } from '@/components/sections/Gallery';
 import { Contact } from '@/components/sections/Contact';
 import { Footer } from '@/components/Footer';
 import { SimulatorPage } from '@/components/SimulatorPage';
-import { SectionSuggestions } from '@/components/SectionSuggestions';
 
 function MainSite() {
   useEffect(() => {
@@ -28,21 +26,13 @@ function MainSite() {
       <Navigation />
       <main>
         <Hero />
-        <SectionSuggestions sectionId="hero" />
         <Vision />
-        <SectionSuggestions sectionId="vision" />
         <Ski />
-        <SectionSuggestions sectionId="ski" />
         <Stay />
-        <SectionSuggestions sectionId="stay" />
         <Experiences />
-        <SectionSuggestions sectionId="experiences" />
         <Investment />
-        <SectionSuggestions sectionId="investment" />
         <Gallery />
-        <SectionSuggestions sectionId="gallery" />
         <Contact />
-        <SectionSuggestions sectionId="contact" />
       </main>
       <Footer />
     </div>
@@ -53,20 +43,18 @@ function App() {
   const base = import.meta.env.BASE_URL.replace(/\/$/, '');
 
   return (
-    <AppliedImprovementsProvider>
-      <LanguageProvider>
-        <Router base={base}>
-          <Switch>
-            <Route path="/simulator">
-              <SimulatorPage />
-            </Route>
-            <Route path="/:rest*">
-              <MainSite />
-            </Route>
-          </Switch>
-        </Router>
-      </LanguageProvider>
-    </AppliedImprovementsProvider>
+    <LanguageProvider>
+      <Router base={base}>
+        <Switch>
+          <Route path="/simulator">
+            <SimulatorPage />
+          </Route>
+          <Route path="/:rest*">
+            <MainSite />
+          </Route>
+        </Switch>
+      </Router>
+    </LanguageProvider>
   );
 }
 

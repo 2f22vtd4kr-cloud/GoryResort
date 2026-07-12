@@ -1,5 +1,13 @@
 import { Router } from "express";
 import { GoogleGenAI } from "@google/genai";
+import { writeFile, mkdir } from "fs/promises";
+import { fileURLToPath } from "url";
+import { dirname, join } from "path";
+
+// Resolved at runtime: artifacts/api-server/dist/ → ../../gory-resort/public/
+const __filename = fileURLToPath(import.meta.url);
+const __dir = dirname(__filename);
+const IMPROVEMENTS_FILE = join(__dir, "../../gory-resort/public/site-improvements.json");
 
 const improveRouter = Router();
 
@@ -90,6 +98,14 @@ Priority: 1 = critical (deal-breaker for 2+ personas), 2 = important, 3 = nice-t
       } else {
         return res.status(500).json({ error: "No JSON found in Gemini response" });
       }
+    }
+
+    // Write to site content file (best-effort — never fail the response)
+    try {
+      await mkdir(dirname(IMPROVEMENTS_FILE), { recursive: true });
+      await writeFile(IMPROVEMENTS_FILE, JSON.stringify(parsed, null, 2), "utf-8");
+    } catch (writeErr) {
+      console.error("Failed to write improvements file:", writeErr);
     }
 
     return res.json(parsed);

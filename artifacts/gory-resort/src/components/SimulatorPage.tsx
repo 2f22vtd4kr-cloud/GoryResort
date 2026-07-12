@@ -1,10 +1,9 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
 import {
   ArrowLeft, Play, TrendingUp, Mountain, Compass, AlertTriangle,
-  CheckCircle2, XCircle, RefreshCw, Zap, Loader2, Check, Lightbulb, Plus,
+  CheckCircle2, XCircle, RefreshCw, Zap, Loader2, Check, Lightbulb,
 } from 'lucide-react';
-import { useAppliedImprovements, type ImprovementItem } from '@/contexts/AppliedImprovementsContext';
 
 type PersonaKey = 'investor' | 'skier' | 'tourist';
 type Mode = 'single' | 'all';
@@ -46,7 +45,15 @@ interface PersonaRunState {
   error?: string;
 }
 
-// ImprovementItem is imported from AppliedImprovementsContext
+interface ImprovementItem {
+  sectionId: string;
+  sectionTitle: string;
+  priority: 1 | 2 | 3;
+  concern: string;
+  personas: string[];
+  field: string;
+  improvement: string;
+}
 
 interface ImprovementResult {
   summary: string;
@@ -227,7 +234,6 @@ function PersonaResultPanel({ result }: { result: SimulateResult }) {
 // ── Main Component ───────────────────────────────────────────────────────────
 
 export function SimulatorPage() {
-  const { apply, isApplied } = useAppliedImprovements();
   const [mode, setMode] = useState<Mode>('all');
 
   // Single mode
@@ -285,6 +291,14 @@ export function SimulatorPage() {
     return Math.round(scores.reduce((a, b) => a + b, 0) / scores.length * 10) / 10;
   };
   const hasPrevRun = prevPersonaStates !== null && PERSONAS.some(p => prevPersonaStates[p.id].result !== null);
+
+  // Auto-generate improvements when all personas finish — no manual step needed
+  useEffect(() => {
+    if (allHasRun && allFinished && doneCount > 0 && improvState === 'idle') {
+      generateImprovements();
+    }
+  // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [allHasRun, allFinished, doneCount]);
 
   // ── Actions ──────────────────────────────────────────────────────────────
 
@@ -680,13 +694,17 @@ export function SimulatorPage() {
                               Gemini synthesises feedback from all three personas and generates specific, implementable content improvements — exact copy and data to add to each site section.
                             </p>
                           </div>
-                          {improvState !== 'done' && (
-                            <motion.button onClick={generateImprovements} disabled={improvState === 'loading'}
-                              whileHover={{ scale: improvState === 'loading' ? 1 : 1.02 }} whileTap={{ scale: 0.97 }}
-                              className={`flex items-center gap-3 px-8 py-4 text-sm uppercase tracking-[0.2em] font-bold transition-all flex-shrink-0 ${improvState === 'loading' ? 'bg-white/8 text-white/25 cursor-not-allowed' : 'bg-[#2A5F6F] text-white hover:bg-[#4A9FBF] cursor-pointer'}`}>
-                              {improvState === 'loading' ? <Loader2 size={14} className="animate-spin" /> : <Zap size={14} />}
-                              {improvState === 'loading' ? 'Generating…' : 'Generate Improvements'}
-                            </motion.button>
+                          {improvState === 'loading' && (
+                            <div className="flex items-center gap-2 text-[11px] text-[#4A9FBF]/60 uppercase tracking-widest">
+                              <Loader2 size={11} className="animate-spin" />
+                              Applying…
+                            </div>
+                          )}
+                          {improvState === 'done' && (
+                            <div className="flex items-center gap-2 text-[11px] text-green-400/60 uppercase tracking-widest">
+                              <Check size={11} />
+                              Applied
+                            </div>
                           )}
                         </div>
 
@@ -716,7 +734,7 @@ export function SimulatorPage() {
                                 const pl = imp.priority === 1 ? 'CRITICAL' : imp.priority === 2 ? 'IMPORTANT' : 'ENHANCE';
                                 return (
                                   <motion.div key={i} initial={{ opacity: 0, y: 8 }} animate={{ opacity: 1, y: 0 }} transition={{ delay: i * 0.05 }}
-                                    className={`border p-5 md:p-6 transition-colors ${isApplied(imp.sectionId, imp.field) ? 'border-[#2A5F6F]/40 bg-[#2A5F6F]/5' : 'border-white/8 hover:border-white/15'}`}>
+                                    className="border border-white/8 p-5 md:p-6 hover:border-white/15 transition-colors">
                                     <div className="flex flex-wrap items-center gap-3 mb-3">
                                       <span className={`text-[10px] px-2 py-0.5 border ${pc} uppercase tracking-widest`}>{pl}</span>
                                       <span className="text-xs text-white/50 font-display tracking-wider">{imp.sectionTitle.toUpperCase()}</span>
@@ -727,28 +745,10 @@ export function SimulatorPage() {
                                       <p className="text-[10px] text-[#4A9FBF]/60 uppercase tracking-widest mb-2">Suggested Improvement</p>
                                       <p className="text-sm text-white/65 leading-relaxed">{imp.improvement}</p>
                                     </div>
-                                    <div className="flex items-center justify-between flex-wrap gap-3">
-                                      <div className="flex flex-wrap gap-1.5">
-                                        {imp.personas.map(persona => (
-                                          <span key={persona} className="text-[10px] text-white/20 border border-white/8 px-2 py-0.5">{persona}</span>
-                                        ))}
-                                      </div>
-                                      <motion.button
-                                        onClick={() => apply(imp)}
-                                        disabled={isApplied(imp.sectionId, imp.field)}
-                                        whileHover={{ scale: isApplied(imp.sectionId, imp.field) ? 1 : 1.03 }}
-                                        whileTap={{ scale: 0.96 }}
-                                        className={`flex items-center gap-2 px-4 py-2 text-[10px] uppercase tracking-wider font-bold transition-all flex-shrink-0 ${
-                                          isApplied(imp.sectionId, imp.field)
-                                            ? 'bg-[#2A5F6F]/20 text-[#4A9FBF] cursor-default'
-                                            : 'border border-white/10 bg-white/5 text-white/50 hover:bg-[#2A5F6F] hover:text-white hover:border-[#2A5F6F] cursor-pointer'
-                                        }`}
-                                      >
-                                        {isApplied(imp.sectionId, imp.field)
-                                          ? <><Check size={11} /> Applied to site</>
-                                          : <><Plus size={11} /> Apply to site</>
-                                        }
-                                      </motion.button>
+                                    <div className="flex flex-wrap gap-1.5">
+                                      {imp.personas.map(persona => (
+                                        <span key={persona} className="text-[10px] text-white/20 border border-white/8 px-2 py-0.5">{persona}</span>
+                                      ))}
                                     </div>
                                   </motion.div>
                                 );
