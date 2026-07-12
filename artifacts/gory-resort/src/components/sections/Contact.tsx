@@ -3,28 +3,35 @@ import { useLanguage } from '@/contexts/LanguageContext';
 import { motion, useInView } from 'framer-motion';
 import { AiAddition } from '../AiAddition';
 
+type InterestType = 'investor' | 'guest' | 'media' | '';
+
 export const Contact = () => {
   const { t } = useLanguage();
   const [status, setStatus] = useState<'idle' | 'submitting' | 'success'>('idle');
+  const [selectedInterest, setSelectedInterest] = useState<InterestType>('');
   const ref = useRef<HTMLDivElement>(null);
   const isInView = useInView(ref, { once: true });
 
   const handleSubmit = (e: React.FormEvent) => {
     e.preventDefault();
     setStatus('submitting');
-    // Simulate network request
     setTimeout(() => {
       setStatus('success');
-      // Reset after 3 seconds
-      setTimeout(() => setStatus('idle'), 3000);
+      setTimeout(() => setStatus('idle'), 4000);
     }, 1000);
   };
+
+  const interestOptions: { value: InterestType; labelKey: string; icon: string }[] = [
+    { value: 'investor', labelKey: 'form_interest_inv', icon: '◈' },
+    { value: 'guest',    labelKey: 'form_interest_guest', icon: '◇' },
+    { value: 'media',    labelKey: 'form_interest_media', icon: '◉' },
+  ];
 
   return (
     <section id="contact" className="py-32 bg-card border-t border-white/5" ref={ref}>
       <div className="container mx-auto px-4 md:px-12">
         <div className="grid grid-cols-1 lg:grid-cols-2 gap-20">
-          
+
           {/* Info Column */}
           <motion.div
             initial={{ x: -30 }}
@@ -41,14 +48,33 @@ export const Contact = () => {
                   {t('footer_address')}
                 </p>
                 <p>
-                  <a href="mailto:invest@gory.ge" className="hover:text-white transition-colors link-underline">invest@gory.ge</a>
+                  <a href="mailto:invest@gory.ge" className="hover:text-white transition-colors link-underline">
+                    invest@gory.ge
+                  </a>
                 </p>
                 <p>
-                  <a href="tel:+995322000000" className="hover:text-white transition-colors link-underline">+995 322 000 000</a>
+                  <a href="tel:+995322000000" className="hover:text-white transition-colors link-underline">
+                    +995 322 000 000
+                  </a>
                 </p>
               </div>
+
+              {/* Schedule CTA */}
+              <motion.div
+                initial={{ opacity: 0, y: 10 }}
+                animate={isInView ? { opacity: 1, y: 0 } : { opacity: 0, y: 10 }}
+                transition={{ duration: 0.6, delay: 0.5 }}
+                className="mt-10"
+              >
+                <a
+                  href="mailto:invest@gory.ge?subject=Private%20Presentation%20Request"
+                  className="inline-block text-xs tracking-[0.2em] uppercase text-white/40 hover:text-white/80 transition-colors border-b border-white/15 hover:border-white/40 pb-1"
+                >
+                  {t('contact_schedule_cta')}
+                </a>
+              </motion.div>
             </div>
-            
+
             <div className="mt-20 lg:mt-0">
               <span className="font-display text-4xl tracking-[0.2em] text-white/20">GORY</span>
             </div>
@@ -66,52 +92,79 @@ export const Contact = () => {
               </div>
             ) : (
               <form onSubmit={handleSubmit} className="space-y-8">
-                <div className="grid grid-cols-1 md:grid-cols-2 gap-8">
-                  <div className="space-y-2 relative group">
-                    <label className="text-xs uppercase tracking-widest text-white/50">{t('form_name')}</label>
-                    <input 
-                      required 
-                      type="text" 
-                      className="w-full bg-transparent border-b border-white/20 py-3 text-white placeholder-white/20 focus:outline-none focus:border-white transition-colors"
-                    />
+
+                {/* Visual interest card selector */}
+                <div className="space-y-3">
+                  <label className="text-xs uppercase tracking-widest text-white/50">{t('form_interest')}</label>
+                  <div className="grid grid-cols-3 gap-3">
+                    {interestOptions.map((opt) => {
+                      const isSelected = selectedInterest === opt.value;
+                      return (
+                        <button
+                          key={opt.value}
+                          type="button"
+                          onClick={() => setSelectedInterest(opt.value)}
+                          className={`flex flex-col items-center justify-center gap-2 py-4 px-2 border transition-all duration-200 ${
+                            isSelected
+                              ? 'border-white/50 bg-white/8 text-white'
+                              : 'border-white/12 bg-transparent text-white/40 hover:border-white/28 hover:text-white/65'
+                          }`}
+                        >
+                          <span className="text-lg leading-none">{opt.icon}</span>
+                          <span className="text-[9px] tracking-[0.2em] uppercase font-medium">
+                            {t(opt.labelKey)}
+                          </span>
+                        </button>
+                      );
+                    })}
                   </div>
-                  <div className="space-y-2 relative">
-                    <label className="text-xs uppercase tracking-widest text-white/50">{t('form_email')}</label>
-                    <input 
-                      required 
-                      type="email" 
-                      className="w-full bg-transparent border-b border-white/20 py-3 text-white placeholder-white/20 focus:outline-none focus:border-white transition-colors"
-                    />
-                  </div>
+                  {/* Hidden input to carry value */}
+                  <input type="hidden" name="interest" value={selectedInterest} required />
                 </div>
 
-                <div className="space-y-2">
-                  <label className="text-xs uppercase tracking-widest text-white/50">{t('form_interest')}</label>
-                  <select 
-                    required
-                    defaultValue=""
-                    className="w-full bg-transparent border-b border-white/20 py-3 text-white focus:outline-none focus:border-white transition-colors appearance-none cursor-pointer"
-                  >
-                    <option value="" disabled className="text-black">Select an option</option>
-                    <option value="investor" className="text-black">{t('form_interest_inv')}</option>
-                    <option value="guest" className="text-black">{t('form_interest_guest')}</option>
-                    <option value="media" className="text-black">{t('form_interest_media')}</option>
-                  </select>
+                <div className="grid grid-cols-1 md:grid-cols-2 gap-8">
+                  <div className="space-y-2">
+                    <label className="text-xs uppercase tracking-widest text-white/50">{t('form_name')}</label>
+                    <input
+                      required
+                      type="text"
+                      className="w-full bg-transparent border-b border-white/20 py-3 text-white placeholder-white/20 focus:outline-none focus:border-white transition-colors"
+                    />
+                  </div>
+                  <div className="space-y-2">
+                    <label className="text-xs uppercase tracking-widest text-white/50">{t('form_email')}</label>
+                    <input
+                      required
+                      type="email"
+                      className="w-full bg-transparent border-b border-white/20 py-3 text-white placeholder-white/20 focus:outline-none focus:border-white transition-colors"
+                    />
+                  </div>
                 </div>
 
                 <div className="space-y-2">
                   <label className="text-xs uppercase tracking-widest text-white/50">{t('form_message')}</label>
-                  <textarea 
-                    required 
+                  <textarea
+                    required
                     rows={4}
                     className="w-full bg-transparent border-b border-white/20 py-3 text-white resize-none focus:outline-none focus:border-white transition-colors"
                   ></textarea>
                 </div>
 
-                <button 
-                  type="submit" 
-                  disabled={status === 'submitting'}
-                  className="w-full bg-white text-black py-4 text-xs uppercase tracking-[0.2em] font-bold hover:bg-white/90 transition-colors disabled:opacity-50"
+                {/* Response time commitment — visible before submission */}
+                {selectedInterest === 'investor' && (
+                  <motion.p
+                    initial={{ opacity: 0, y: 4 }}
+                    animate={{ opacity: 1, y: 0 }}
+                    className="text-[9px] tracking-[0.2em] uppercase text-white/25"
+                  >
+                    {t('contact_response_time')}
+                  </motion.p>
+                )}
+
+                <button
+                  type="submit"
+                  disabled={status === 'submitting' || !selectedInterest}
+                  className="w-full bg-white text-black py-4 text-xs uppercase tracking-[0.2em] font-bold hover:bg-white/90 transition-colors disabled:opacity-40 disabled:cursor-not-allowed"
                 >
                   {status === 'submitting' ? '...' : t('form_submit')}
                 </button>

@@ -8,6 +8,7 @@ import { Ski } from '@/components/sections/Ski';
 import { Stay } from '@/components/sections/Stay';
 import { Experiences } from '@/components/sections/Experiences';
 import { Investment } from '@/components/sections/Investment';
+import { PressStrip } from '@/components/PressStrip';
 import { Gallery } from '@/components/sections/Gallery';
 import { Contact } from '@/components/sections/Contact';
 import { Footer } from '@/components/Footer';
@@ -31,6 +32,7 @@ function MainSite() {
         <Stay />
         <Experiences />
         <Investment />
+        <PressStrip />
         <Gallery />
         <Contact />
       </main>

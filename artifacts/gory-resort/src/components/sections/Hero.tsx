@@ -10,28 +10,24 @@ export const Hero = () => {
 
   const { scrollYProgress } = useScroll({
     target: ref,
-    offset: ["start start", "end start"]
+    offset: ['start start', 'end start'],
   });
 
-  const y = useTransform(scrollYProgress, [0, 1], ["0%", "30%"]);
+  const y = useTransform(scrollYProgress, [0, 1], ['0%', '30%']);
 
-  // Letters are ALWAYS opacity:1 — only the y-position animates.
-  // This ensures text is visible even before JS hydrates or on
-  // reduced-motion devices. The slide-up is purely decorative.
   const letterVariants = prefersReducedMotion
     ? undefined
-    : {
-        hidden: { y: 40 },
-        visible: { y: 0 },
-      };
+    : { hidden: { y: 40 }, visible: { y: 0 } };
 
-  const wordmark = "GORY".split("");
+  const wordmark = 'GORY'.split('');
+
+  const scrollToSection = (id: string) =>
+    document.getElementById(id)?.scrollIntoView({ behavior: 'smooth' });
 
   return (
     <div
       ref={ref}
       className="relative h-[100dvh] w-full overflow-hidden"
-      // Dark gradient placeholder visible immediately while the JPEG loads
       style={{ background: 'linear-gradient(160deg, #0d1117 0%, #1a2332 50%, #0d1117 100%)' }}
     >
       {/* Background photo — parallax + overlays */}
@@ -49,7 +45,7 @@ export const Hero = () => {
 
       {/* Content */}
       <div className="relative z-20 h-full flex flex-col items-center justify-center px-4">
-        {/* GORY wordmark — always white, only Y animates */}
+        {/* GORY wordmark */}
         {prefersReducedMotion || !letterVariants ? (
           <div className="flex font-display text-[15vw] leading-none tracking-[0.1em] text-white drop-shadow-2xl select-none">
             {wordmark.map((letter, i) => (
@@ -76,35 +72,61 @@ export const Hero = () => {
           </motion.div>
         )}
 
-        {/* Tagline + badge */}
+        {/* Tagline + badge + sub-line + CTAs */}
         <motion.div
           initial={prefersReducedMotion ? false : { opacity: 0, y: 12 }}
           animate={{ opacity: 1, y: 0 }}
           transition={{ duration: 0.5, delay: 0.5 }}
-          className="mt-8 flex flex-col items-center space-y-6 text-center"
+          className="mt-8 flex flex-col items-center space-y-5 text-center"
         >
           <p className="text-sm md:text-base tracking-[0.3em] font-medium uppercase text-white/90">
             {t('hero_tagline')}
           </p>
+
           <div className="border border-white/20 px-6 py-2 rounded-full backdrop-blur-sm bg-white/5">
             <span className="text-xs tracking-widest text-white/80">{t('hero_opening')}</span>
           </div>
+
+          <p className="text-[11px] md:text-xs tracking-[0.18em] text-white/45 max-w-xs md:max-w-md leading-relaxed">
+            {t('hero_sub')}
+          </p>
+
+          {/* Dual CTAs */}
+          <motion.div
+            initial={prefersReducedMotion ? false : { opacity: 0, y: 8 }}
+            animate={{ opacity: 1, y: 0 }}
+            transition={{ duration: 0.5, delay: 0.9 }}
+            className="flex flex-col sm:flex-row items-center gap-3 pt-2"
+          >
+            <button
+              onClick={() => scrollToSection('vision')}
+              className="px-7 py-2.5 border border-white/25 text-[10px] tracking-[0.22em] uppercase text-white/70 hover:text-white hover:border-white/60 transition-all duration-300 backdrop-blur-sm"
+            >
+              {t('hero_cta_discover')}
+            </button>
+            <button
+              onClick={() => scrollToSection('invest')}
+              className="px-7 py-2.5 bg-white/10 border border-white/20 text-[10px] tracking-[0.22em] uppercase text-white hover:bg-white hover:text-black transition-all duration-300 backdrop-blur-sm"
+            >
+              {t('hero_cta_invest')}
+            </button>
+          </motion.div>
         </motion.div>
       </div>
 
-      {/* Scroll chevron */}
+      {/* Scroll indicator */}
       <motion.div
         className="absolute bottom-10 left-1/2 -translate-x-1/2 z-20 flex flex-col items-center"
         initial={prefersReducedMotion ? false : { opacity: 0 }}
         animate={{ opacity: 1 }}
-        transition={{ delay: 0.8, duration: 0.5 }}
+        transition={{ delay: 1.1, duration: 0.5 }}
       >
-        <span className="text-[10px] uppercase tracking-widest text-white/50 mb-2">Scroll</span>
+        <span className="text-[9px] uppercase tracking-widest text-white/35 mb-2">Scroll</span>
         <motion.div
           animate={{ y: [0, 8, 0] }}
-          transition={{ duration: 2, repeat: Infinity, ease: "easeInOut" }}
+          transition={{ duration: 2, repeat: Infinity, ease: 'easeInOut' }}
         >
-          <ChevronDown className="text-white/50" size={16} />
+          <ChevronDown className="text-white/35" size={14} />
         </motion.div>
       </motion.div>
     </div>

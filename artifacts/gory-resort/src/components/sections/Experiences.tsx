@@ -8,21 +8,22 @@ export const Experiences = () => {
   const ref = useRef<HTMLDivElement>(null);
   const isInView = useInView(ref, { once: true });
 
+  // Heliskiing elevated to first — the headline differentiator (sim consensus)
   const experiences = [
-    { key: 'exp_1', descKey: 'exp_desc_1' },
-    { key: 'exp_2', descKey: 'exp_desc_2' },
-    { key: 'exp_3', descKey: 'exp_desc_3' },
-    { key: 'exp_4', descKey: 'exp_desc_4' },
-    { key: 'exp_5', descKey: 'exp_desc_5' },
+    { key: 'exp_3', descKey: 'exp_desc_3' }, // Heliskiing — lead differentiator
+    { key: 'exp_1', descKey: 'exp_desc_1' }, // Skiing & Snowboarding
+    { key: 'exp_2', descKey: 'exp_desc_2' }, // Wellness & Spa
+    { key: 'exp_4', descKey: 'exp_desc_4' }, // Georgian Gastronomy
+    { key: 'exp_5', descKey: 'exp_desc_5' }, // Alpine Summer
   ];
 
   return (
     <section id="experiences" className="py-24 bg-card" ref={ref}>
       <div className="container mx-auto px-4 md:px-12">
         <div className="flex flex-col md:flex-row gap-16 md:gap-24">
-          
+
           <div className="w-full md:w-1/3 flex flex-col justify-center">
-            <motion.h2 
+            <motion.h2
               initial={{ y: 20 }}
               animate={isInView ? { y: 0 } : { y: 20 }}
               transition={{ duration: 0.8 }}
@@ -34,10 +35,10 @@ export const Experiences = () => {
             <div className="flex flex-col space-y-1 border-l border-white/10 pl-6">
               {experiences.map((exp, i) => (
                 <motion.div
-                  key={i}
+                  key={exp.key}
                   initial={{ x: -20 }}
                   animate={isInView ? { x: 0 } : { x: -20 }}
-                  transition={{ duration: 0.6, delay: 0.2 + (i * 0.1) }}
+                  transition={{ duration: 0.6, delay: 0.2 + i * 0.1 }}
                   className="py-5 border-b border-white/5 last:border-b-0 hover:pl-2 transition-all duration-300 cursor-default"
                 >
                   <h3 className="font-serif text-2xl md:text-3xl text-white/80 hover:text-white transition-colors mb-2">
@@ -51,15 +52,15 @@ export const Experiences = () => {
             </div>
           </div>
 
-          <motion.div 
+          <motion.div
             className="w-full md:w-2/3 relative aspect-square md:aspect-[4/3] overflow-hidden rounded-sm"
             initial={{ scale: 0.95 }}
             animate={isInView ? { scale: 1 } : { scale: 0.95 }}
             transition={{ duration: 1, delay: 0.4 }}
           >
-            <img 
-              src="/images/experiences.jpg" 
-              alt="Luxury Spa" 
+            <img
+              src="/images/experiences.jpg"
+              alt="Luxury Spa"
               className="w-full h-full object-cover transition-transform duration-[20s] hover:scale-110"
             />
           </motion.div>

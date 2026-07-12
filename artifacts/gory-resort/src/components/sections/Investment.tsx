@@ -7,24 +7,24 @@ export const Investment = () => {
   const { t } = useLanguage();
   const ref = useRef<HTMLDivElement>(null);
   const isInView = useInView(ref, { once: true });
-  
+
   const { scrollYProgress } = useScroll({
     target: ref,
-    offset: ["start end", "end start"]
+    offset: ['start end', 'end start'],
   });
 
-  const y = useTransform(scrollYProgress, [0, 1], ["0%", "30%"]);
+  const y = useTransform(scrollYProgress, [0, 1], ['0%', '30%']);
 
   const tiers = [
-    { title: 'inv_tier_1_title', desc: 'inv_tier_1_desc', ret: 'inv_tier_1_ret' },
-    { title: 'inv_tier_2_title', desc: 'inv_tier_2_desc', ret: 'inv_tier_2_ret' },
-    { title: 'inv_tier_3_title', desc: 'inv_tier_3_desc', ret: 'inv_tier_3_ret' },
+    { title: 'inv_tier_1_title', desc: 'inv_tier_1_desc', ret: 'inv_tier_1_ret', index: 0 },
+    { title: 'inv_tier_2_title', desc: 'inv_tier_2_desc', ret: 'inv_tier_2_ret', index: 1 },
+    { title: 'inv_tier_3_title', desc: 'inv_tier_3_desc', ret: 'inv_tier_3_ret', index: 2 },
   ];
 
   const structure = [
     { label: 'inv_timeline_label', value: 'inv_timeline' },
-    { label: 'inv_exit_label',     value: 'inv_exit'     },
-    { label: 'inv_legal_label',    value: 'inv_legal'    },
+    { label: 'inv_exit_label',     value: 'inv_exit' },
+    { label: 'inv_legal_label',    value: 'inv_legal' },
   ];
 
   const scrollToContact = () => {
@@ -33,13 +33,10 @@ export const Investment = () => {
 
   return (
     <section id="invest" className="relative py-32 md:py-48 overflow-hidden" ref={ref}>
-      <motion.div 
-        className="absolute inset-0 z-0"
-        style={{ y }}
-      >
-        <img 
-          src="/images/investment.jpg" 
-          alt="Construction Site" 
+      <motion.div className="absolute inset-0 z-0" style={{ y }}>
+        <img
+          src="/images/investment.jpg"
+          alt="Construction Site"
           className="w-full h-[130%] object-cover object-center grayscale hover:grayscale-0 transition-all duration-[3s]"
         />
         <div className="absolute inset-0 bg-black/80 backdrop-blur-[2px]" />
@@ -47,7 +44,7 @@ export const Investment = () => {
 
       <div className="relative z-10 container mx-auto px-4 md:px-12">
         <div className="max-w-3xl mb-24">
-          <motion.h2 
+          <motion.h2
             initial={{ y: 20 }}
             animate={isInView ? { y: 0 } : { y: 20 }}
             transition={{ duration: 0.8 }}
@@ -55,7 +52,7 @@ export const Investment = () => {
           >
             {t('inv_title')}
           </motion.h2>
-          <motion.p 
+          <motion.p
             initial={{ y: 20 }}
             animate={isInView ? { y: 0 } : { y: 20 }}
             transition={{ duration: 0.8, delay: 0.2 }}
@@ -66,22 +63,30 @@ export const Investment = () => {
         </div>
 
         {/* Investment tiers */}
-        <div className="grid grid-cols-1 md:grid-cols-3 gap-6 mb-10">
-          {tiers.map((tier, i) => (
+        <div className="grid grid-cols-1 md:grid-cols-3 gap-6 mb-6">
+          {tiers.map((tier) => (
             <motion.div
-              key={i}
+              key={tier.index}
               initial={{ y: 30 }}
               animate={isInView ? { y: 0 } : { y: 30 }}
-              transition={{ duration: 0.6, delay: 0.4 + (i * 0.1) }}
-              className="bg-black/40 border border-white/10 p-8 md:p-12 backdrop-blur-md flex flex-col justify-between hover:bg-black/60 hover:border-white/30 transition-all group"
+              transition={{ duration: 0.6, delay: 0.4 + tier.index * 0.1 }}
+              className="bg-black/40 border border-white/10 p-8 md:p-10 backdrop-blur-md flex flex-col justify-between hover:bg-black/60 hover:border-white/30 transition-all group"
             >
               <div>
                 <h3 className="font-display text-2xl md:text-3xl tracking-widest text-white mb-4 group-hover:text-primary transition-colors">
                   {t(tier.title)}
                 </h3>
-                <p className="text-white/60 font-serif italic text-lg mb-8">{t(tier.desc)}</p>
+                <p className="text-white/60 font-serif italic text-lg mb-6">{t(tier.desc)}</p>
+
+                {/* Summit Member benefits — expanded per sim */}
+                {tier.index === 2 && (
+                  <div className="mb-6">
+                    <p className="text-[9px] text-white/25 uppercase tracking-[0.25em] mb-2">Membership includes</p>
+                    <p className="text-[10px] text-white/40 leading-relaxed">{t('inv_tier_3_benefits')}</p>
+                  </div>
+                )}
               </div>
-              <div className="pt-6 border-t border-white/10 mt-auto">
+              <div className="pt-5 border-t border-white/10 mt-auto">
                 <span className="text-xs uppercase tracking-widest text-primary font-medium">
                   {t(tier.ret)}
                 </span>
@@ -90,11 +95,21 @@ export const Investment = () => {
           ))}
         </div>
 
+        {/* Scarcity signal — creates urgency without being aggressive */}
+        <motion.p
+          initial={{ opacity: 0 }}
+          animate={isInView ? { opacity: 1 } : { opacity: 0 }}
+          transition={{ duration: 0.8, delay: 0.75 }}
+          className="text-center text-[10px] text-white/30 tracking-[0.2em] uppercase mb-12"
+        >
+          {t('inv_scarcity')}
+        </motion.p>
+
         {/* Investment structure strip */}
         <motion.div
           initial={{ y: 20 }}
           animate={isInView ? { y: 0 } : { y: 20 }}
-          transition={{ duration: 0.8, delay: 0.7 }}
+          transition={{ duration: 0.8, delay: 0.8 }}
           className="mb-12 border border-white/8 bg-black/30 backdrop-blur-sm p-6 md:p-8 grid grid-cols-1 md:grid-cols-3 gap-6 md:gap-8"
         >
           <div className="md:col-span-3 mb-2">
@@ -112,7 +127,7 @@ export const Investment = () => {
         <motion.div
           initial={{ y: 20 }}
           animate={isInView ? { y: 0 } : { y: 20 }}
-          transition={{ duration: 0.8, delay: 0.8 }}
+          transition={{ duration: 0.8, delay: 0.9 }}
           className="mb-12 border border-white/8 bg-black/30 backdrop-blur-sm p-6 md:p-8 grid grid-cols-1 md:grid-cols-2 gap-6 md:gap-12"
         >
           <div>
@@ -126,14 +141,14 @@ export const Investment = () => {
           </div>
         </motion.div>
 
-        {/* CTA */}
+        {/* CTA — renamed to specific document title */}
         <motion.div
           initial={{ y: 20 }}
           animate={isInView ? { y: 0 } : { y: 20 }}
           transition={{ duration: 0.8, delay: 1.0 }}
           className="text-center"
         >
-          <button 
+          <button
             onClick={scrollToContact}
             className="bg-white text-black px-10 py-5 text-sm uppercase tracking-[0.2em] font-bold hover:bg-primary hover:text-white transition-colors duration-300"
           >
