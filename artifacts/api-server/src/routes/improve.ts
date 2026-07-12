@@ -3,7 +3,7 @@ import { GoogleGenAI } from "@google/genai";
 
 const improveRouter = Router();
 
-improveRouter.post("/api/improve", async (req, res) => {
+improveRouter.post("/improve", async (req, res) => {
   const { results } = req.body as { results: unknown[] };
 
   if (!Array.isArray(results) || results.length === 0) {

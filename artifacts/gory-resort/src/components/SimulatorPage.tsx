@@ -246,7 +246,7 @@ export function SimulatorPage() {
   const [improvements, setImprovements] = useState<ImprovementResult | null>(null);
   const [improvError, setImprovError] = useState('');
 
-  const apiBase = '/api-server';
+  const apiBase = '';
   const siteBase = import.meta.env.BASE_URL;
 
   const isRunning  = Object.values(personaStates).some(p => p.loadState === 'loading');
