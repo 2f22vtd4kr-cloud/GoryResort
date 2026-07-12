@@ -67,19 +67,39 @@ Respond ONLY with valid JSON (no markdown, no code fences):
 
 Priority: 1 = critical (deal-breaker for 2+ personas), 2 = important, 3 = nice-to-have. Order by priority descending.`;
 
+  async function geminiWithRetry(fn: () => Promise<string | null | undefined>): Promise<string | null | undefined> {
+    for (let attempt = 0; attempt < 4; attempt++) {
+      try {
+        return await fn();
+      } catch (err: unknown) {
+        const msg = err instanceof Error ? err.message : String(err);
+        const delayMatch = msg.match(/"retryDelay"\s*:\s*"([\d.]+)s"/);
+        const isQuota = msg.includes("429") || msg.includes("RESOURCE_EXHAUSTED");
+        if (isQuota && attempt < 3) {
+          const delaySec = delayMatch ? Math.ceil(parseFloat(delayMatch[1])) : 30 * (attempt + 1);
+          console.warn(`[improve] 429 on attempt ${attempt + 1}, waiting ${delaySec}s…`);
+          await new Promise((r) => setTimeout(r, delaySec * 1000));
+          continue;
+        }
+        throw err;
+      }
+    }
+  }
+
   try {
     const ai = new GoogleGenAI({ apiKey });
 
-    const response = await ai.models.generateContent({
-      model: "gemini-flash-latest",
-      contents: [{ role: "user", parts: [{ text: prompt }] }],
-      config: {
-        maxOutputTokens: 8192,
-        responseMimeType: "application/json",
-      },
+    const text = await geminiWithRetry(async () => {
+      const response = await ai.models.generateContent({
+        model: "gemini-2.0-flash",
+        contents: [{ role: "user", parts: [{ text: prompt }] }],
+        config: {
+          maxOutputTokens: 8192,
+          responseMimeType: "application/json",
+        },
+      });
+      return response.text;
     });
-
-    const text = response.text;
     if (!text) {
       return res.status(500).json({ error: "Empty response from Gemini" });
     }
