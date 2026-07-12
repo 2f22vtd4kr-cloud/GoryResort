@@ -127,7 +127,7 @@ Use "" for any section where there is genuinely nothing to add.`;
 
     const text = await geminiWithRetry(async () => {
       const response = await ai.models.generateContent({
-        model: "gemini-2.0-flash",
+        model: "gemini-1.5-flash",
         contents: [{ role: "user", parts: [{ text: prompt }] }],
         config: {
           maxOutputTokens: 4096,
