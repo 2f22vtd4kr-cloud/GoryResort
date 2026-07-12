@@ -20,6 +20,21 @@ through a *craft* lens — typography, layout mathematics, motion, interaction
 psychology, and engineering execution — independent of whether the copy itself is
 persuasive. Run Nika's pass in addition to, not instead of, the other four.
 
+## Mandatory research step (all personas)
+
+Before writing up a persona's suggestions or critiques, consult the internet —
+do not rely solely on internal/training knowledge. This project treats sim runs
+as live research passes, not closed-book reasoning:
+
+- **Design (Nika especially):** check current best-in-class references before
+  recommending anything — e.g. Awwwards Site of the Day / Site of the Month —
+  for inspiration and to benchmark against what's actually winning right now,
+  not a remembered idea of "good design."
+- **Currency:** reason from the actual current date, not training-data defaults.
+  Web design and frontend engineering practice moves fast — verify via search
+  before recommending a technique, library, or pattern if there's any chance
+  it's dated. Never propose something outdated as if it were current best practice.
+
 ---
 
 ## Nika — God-Tier Web Designer
