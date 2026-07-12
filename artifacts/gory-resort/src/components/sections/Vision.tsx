@@ -7,17 +7,17 @@ const AnimatedNumber = ({ value }: { value: string }) => {
   const numValue = parseInt(value.replace(/,/g, ''), 10);
   const isNumber = !isNaN(numValue);
 
-  if (!isNumber) return <span>{value}</span>;
-
+  // Hooks must be called unconditionally — before any early return
   const spring = useSpring(0, { mass: 50, stiffness: 100, damping: 30 });
   const display = useTransform(spring, (current) =>
     Math.round(current).toLocaleString('en-US'),
   );
 
   useEffect(() => {
-    spring.set(numValue);
-  }, [spring, numValue]);
+    if (isNumber) spring.set(numValue);
+  }, [spring, numValue, isNumber]);
 
+  if (!isNumber) return <span>{value}</span>;
   return <motion.span>{display}</motion.span>;
 };
 
