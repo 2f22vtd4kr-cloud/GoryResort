@@ -32,8 +32,9 @@ args = "node sim_loop.mjs"
 outputType = "console"
 
 [agent]
-stack = "PNPM_WORKSPACE"
+stack = "BEST_EFFORT_FALLBACK"
 expertMode = true
+integrations = ["javascript_gemini_ai_integrations:2.0.0"]
 
 [postMerge]
 path = "scripts/post-merge.sh"
@@ -41,3 +42,15 @@ timeoutMs = 20000
 
 [nix]
 channel = "stable-25_05"
+
+[userenv]
+
+[userenv.development]
+PORT = "8080"
+BASE_PATH = "/"
+NODE_ENV = "development"
+
+[userenv.production]
+PORT = "8080"
+BASE_PATH = "/"
+NODE_ENV = "production"
