@@ -47,7 +47,7 @@ function App() {
     <LanguageProvider>
       <Router base={base}>
         <Switch>
-          <Route path="/:rest*">
+          <Route path="/*">
             <MainSite />
           </Route>
         </Switch>
