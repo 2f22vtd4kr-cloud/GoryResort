@@ -1,6 +1,6 @@
 # GORY Mountain Resort
 
-A resort landing page for GORY Mountain Resort (Caucasus, opening 2027). Visitor-persona review (Investor / Skier / Traveller / Dev-Designer-Owner) is done by the agent directly — reasoning through each persona and writing content patches straight into the codebase. There is no automated LLM API pipeline for this; it was removed as dead weight.
+A resort landing page for GORY Mountain Resort (Caucasus, opening 2027). Visitor-persona review (Investor / Skier / Traveller / Dev-Designer-Owner / God-Tier Web Designer) is done by the agent directly — reasoning through each persona and writing content/design patches straight into the codebase. There is no automated LLM API pipeline for this; it was removed as dead weight. Full persona roster and the god-tier web-designer's expertise brief live in `artifacts/gory-resort/PERSONAS.md` — read it before running a sim.
 
 ## Run & Operate
 
@@ -75,3 +75,4 @@ _Populate as you build — explicit user instructions worth remembering across s
 ## Pointers
 
 - See the `pnpm-workspace` skill for workspace structure, TypeScript setup, and package details
+- See `artifacts/gory-resort/PERSONAS.md` for the full visitor-persona roster (including the god-tier web-designer persona's expertise brief) used in every sim run
