@@ -1,28 +1,27 @@
 ---
-name: Gemini + User Simulator
-description: Architecture of the AI-powered user simulator for GORY resort site
+name: Gemini + Simulator setup
+description: Model selection, API key config, and simulator route details for the GORY resort AI simulator backend.
 ---
 
-# Gemini + User Simulator
+## Working model
 
-## Setup
-- User provided their own `GEMINI_API_KEY` secret (not Replit AI Integrations — they declined the upgrade)
-- Package: `@google/genai` installed in `artifacts/api-server`
-- Client: `new GoogleGenAI({ apiKey: process.env["GEMINI_API_KEY"] })`
-- Model used: `gemini-2.5-flash` with `responseMimeType: "application/json"`
+`gemini-flash-latest` — the only model that works with this API key.
 
-## API Route
-- `POST /api/simulate` in `artifacts/api-server/src/routes/simulate.ts`
-- Accepts `{ persona: "investor" | "skier" | "tourist" }`
-- Site content is hardcoded in the route (static marketing site, no DB needed)
-- Returns: sections[], overall verdict, translationIssues[]
-- Mounted in `artifacts/api-server/src/routes/index.ts`
+**Why:** `gemini-2.5-flash` is deprecated ("no longer available to new users"). `gemini-2.0-flash`, `gemini-2.0-flash-lite`, `gemini-1.5-flash`, `gemini-2.5-flash-lite` all return 429 with `limit: 0` (free-tier quota exhausted) or 404. `gemini-flash-latest` returns 200.
+
+**How to apply:** Both `artifacts/api-server/src/routes/simulate.ts` and `artifacts/api-server/src/routes/improve.ts` must use `model: "gemini-flash-latest"`. If this model starts failing, test alternatives with the models list endpoint before changing.
+
+## API key
+
+User provides their own `GEMINI_API_KEY` stored as a Replit Secret.
+
+## Simulator endpoints
+
+- `POST /api/simulate` — runs one persona (investor | skier | tourist), returns `SimulateResult` with per-section scores, overall verdict, and Russian translation issues
+- `POST /api/improve` — takes array of SimulateResult objects, returns ranked `ImprovementResult` with exact copy to add to the site
+- `GET /api/healthz` — health check
 
 ## Frontend
-- SimulatorPage at `/simulator` route via Wouter (App.tsx uses `<Router base={import.meta.env.BASE_URL.replace(/\/$/, '')}>`)
-- Floating "◎ Simulator" button on main site links to `/simulator`
-- Direct fetch to `/api-server/api/simulate` — no generated client hook
 
-**Why:** The Replit AI Integration required account upgrade; direct SDK approach with user's key is the fallback per skill instructions.
-
-**How to apply:** If extending AI features on this project, use the same GoogleGenAI pattern. Do NOT call setupReplitAIIntegrations again without checking if user has upgraded.
+- Simulator page at `/simulator` route in `artifacts/gory-resort/src/components/SimulatorPage.tsx`
+- Calls `apiBase + /api/simulate` and `apiBase + /api/improve`; `apiBase = ''` so Vite dev proxy routes `/api → localhost:8080`

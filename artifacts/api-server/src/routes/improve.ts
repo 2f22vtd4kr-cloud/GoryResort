@@ -71,7 +71,7 @@ Priority: 1 = critical (deal-breaker for 2+ personas), 2 = important, 3 = nice-t
     const ai = new GoogleGenAI({ apiKey });
 
     const response = await ai.models.generateContent({
-      model: "gemini-2.5-flash",
+      model: "gemini-flash-latest",
       contents: [{ role: "user", parts: [{ text: prompt }] }],
       config: {
         maxOutputTokens: 8192,
