@@ -24,16 +24,37 @@ persuasive. Run Nika's pass in addition to, not instead of, the other four.
 
 Before writing up a persona's suggestions or critiques, consult the internet —
 do not rely solely on internal/training knowledge. This project treats sim runs
-as live research passes, not closed-book reasoning:
+as live research passes, not closed-book reasoning. None of the sources below are
+an exclusive list — search wherever is useful; these are starting points, not a
+ceiling.
 
-- **Design (Nika especially):** check current best-in-class references before
-  recommending anything — e.g. Awwwards Site of the Day / Site of the Month —
-  for inspiration and to benchmark against what's actually winning right now,
-  not a remembered idea of "good design."
+- **Design / frontend craft (Nika especially):** check current best-in-class
+  references before recommending anything. **Awwwards (Site of the Day / Site of
+  the Month) is the main reference** for benchmarking against what's actually
+  winning right now, not a remembered idea of "good design" — but also pull from
+  other current design showcases, design-team blogs, etc. when relevant.
+- **Backend / systems / architecture (Viktor's investment-infra angle, Alex's
+  technical feasibility angle, or any backend-touching critique):** backend work
+  is about logic, architecture, and performance rather than visual design, so lean
+  on engineering sources rather than design showcases:
+  - *Industry engineering blogs*: ByteByteGo (systems architecture roundups),
+    Netflix TechBlog (distributed systems, streaming infra at scale), Stripe
+    Engineering Blog (API design, payments infra, reliability), Cloudflare Blog
+    (network protocols, server/kernel-level performance).
+  - *Aggregators & communities*: Hacker News (daily backend/architecture/RFC
+    discussion), DEV Community (backend language/cloud/database tutorials and
+    tags), Reddit's technical engineering subs (real-world architecture and
+    scaling critiques).
+  - *Comprehensive references*: roadmap.sh (structured backend learning paths —
+    useful for checking what's considered current baseline knowledge), MDN Web
+    Docs (server-side/HTTP API fundamentals).
+  - *Newsletters*: The Pragmatic Engineer, Node Weekly (or the equivalent for
+    whatever stack is in question).
 - **Currency:** reason from the actual current date, not training-data defaults.
-  Web design and frontend engineering practice moves fast — verify via search
-  before recommending a technique, library, or pattern if there's any chance
-  it's dated. Never propose something outdated as if it were current best practice.
+  Both web design and backend engineering practice move fast — verify via search
+  before recommending a technique, library, framework version, or pattern if
+  there's any chance it's dated. Never propose something outdated as if it were
+  current best practice.
 
 ---
 

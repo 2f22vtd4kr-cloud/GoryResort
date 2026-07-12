@@ -36,8 +36,8 @@ _Describe the high-level user-facing capabilities of this app once they exist._
 
 ## User preferences
 
-- **Sim runs must consult the internet, not just internal reasoning.** When personas propose suggestions or critiques, look things up live (web search) rather than relying solely on training knowledge — especially for design quality. For design specifically, check current best-in-class references (e.g. Awwwards Site of the Day / Site of the Month) for inspiration and benchmarking.
-- **Stay current, not outdated.** Today's date matters for sims — reason and recommend using July 2026-era web design and programming practice, not stale patterns from training data. If unsure whether a technique/library/trend is current, verify via web search before recommending it.
+- **Sim runs must consult the internet, not just internal reasoning.** When personas propose suggestions or critiques, look things up live (web search) rather than relying solely on training knowledge. Sources are never an exclusive list — search wherever is useful. Design work benchmarks primarily against Awwwards (Site of the Day/Month), plus other current design references as needed. Backend/architecture critiques lean on engineering sources instead (e.g. ByteByteGo, Netflix/Stripe/Cloudflare eng blogs, Hacker News, roadmap.sh, The Pragmatic Engineer) — full, non-exclusive list in `artifacts/gory-resort/PERSONAS.md`.
+- **Stay current, not outdated.** Today's date matters for sims — reason and recommend using July 2026-era web design and backend engineering practice, not stale patterns from training data. If unsure whether a technique/library/trend is current, verify via web search before recommending it.
 
 ## Gotchas
 
