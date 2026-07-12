@@ -18,7 +18,7 @@ export const Experiences = () => {
   ];
 
   return (
-    <section id="experiences" className="py-24 bg-card" ref={ref}>
+    <section id="experiences" className="py-20 bg-card scroll-mt-16" ref={ref}>
       <div className="container mx-auto px-4 md:px-12">
         <div className="flex flex-col md:flex-row gap-16 md:gap-24">
 
@@ -36,12 +36,12 @@ export const Experiences = () => {
               {experiences.map((exp, i) => (
                 <motion.div
                   key={exp.key}
-                  initial={{ x: -20 }}
-                  animate={isInView ? { x: 0 } : { x: -20 }}
+                  initial={{ opacity: 0, y: 8 }}
+                  animate={isInView ? { opacity: 1, y: 0 } : { opacity: 0, y: 8 }}
                   transition={{ duration: 0.6, delay: 0.2 + i * 0.1 }}
                   className="py-5 border-b border-white/5 last:border-b-0 hover:pl-2 transition-all duration-300 cursor-default"
                 >
-                  <h3 className="font-serif text-2xl md:text-3xl text-white/80 hover:text-white transition-colors mb-2">
+                  <h3 className="font-serif text-xl md:text-3xl text-white/80 hover:text-white transition-colors mb-2">
                     {t(exp.key)}
                   </h3>
                   <p className="text-xs text-white/35 leading-relaxed max-w-xs">

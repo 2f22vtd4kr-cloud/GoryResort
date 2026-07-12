@@ -22,7 +22,7 @@ export const Stay = () => {
   ];
 
   return (
-    <section id="stay" className="py-32 md:py-48 bg-background relative" ref={ref}>
+    <section id="stay" className="py-20 md:py-48 bg-background relative" ref={ref}>
       <div className="container mx-auto px-4 md:px-12">
         
         <motion.div 

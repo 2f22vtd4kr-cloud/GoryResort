@@ -71,20 +71,20 @@ export const Ski = () => {
               {t('ski_framing')}
             </motion.p>
 
-            {/* Run categories */}
-            <div className="flex overflow-x-auto md:overflow-visible md:flex-col gap-6 md:gap-8 pb-4 md:pb-0 snap-x snap-mandatory hide-scrollbar">
+            {/* Run categories — vertical list on all breakpoints */}
+            <div className="flex flex-col gap-0">
               {categories.map((cat, i) => (
                 <motion.div
                   key={i}
                   initial={{ y: 20 }}
                   animate={isInView ? { y: 0 } : { y: 20 }}
                   transition={{ duration: 0.6, delay: 0.2 + i * 0.1 }}
-                  className="group border border-white/10 md:border-none md:border-b md:border-white/10 p-6 md:p-0 md:pb-6 flex flex-col md:flex-row md:items-end justify-between hover:border-white/40 md:hover:border-white/40 transition-colors min-w-[280px] md:min-w-0 snap-center bg-black/20 md:bg-transparent"
+                  className="group border-b border-white/10 py-5 md:py-6 flex flex-row items-end justify-between hover:border-white/40 transition-colors"
                 >
-                  <h3 className="font-serif text-3xl md:text-5xl text-white group-hover:text-accent transition-colors mb-4 md:mb-0">
+                  <h3 className="font-serif text-2xl md:text-5xl text-white group-hover:text-accent transition-colors">
                     {t(cat.title)}
                   </h3>
-                  <span className="font-display tracking-widest text-xl text-muted-foreground group-hover:text-white transition-colors">
+                  <span className="font-display tracking-widest text-lg md:text-xl text-muted-foreground group-hover:text-white transition-colors">
                     {cat.km}
                   </span>
                 </motion.div>

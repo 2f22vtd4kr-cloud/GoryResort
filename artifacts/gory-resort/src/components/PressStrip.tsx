@@ -49,12 +49,16 @@ export const PressStrip = () => {
               initial={{ opacity: 0, y: 8 }}
               animate={isInView ? { opacity: 1, y: 0 } : { opacity: 0, y: 8 }}
               transition={{ duration: 0.5, delay: i * 0.07 }}
-              className="flex flex-col items-center text-center gap-2 group px-2"
+              className={`flex flex-col items-center text-center gap-2 group px-2 ${
+                i === pressItems.length - 1 && pressItems.length % 2 !== 0
+                  ? 'col-span-2 md:col-span-1'
+                  : ''
+              }`}
             >
               <span className="text-[13px] font-medium tracking-wider text-white/65 group-hover:text-white/85 transition-colors duration-300">
                 {item.name}
               </span>
-              <span className="text-[10px] text-white/30 leading-snug font-serif italic">
+              <span className="text-[10px] text-white/30 leading-snug font-serif italic line-clamp-2 md:line-clamp-none">
                 {item.detail}
               </span>
             </motion.div>

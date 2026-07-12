@@ -28,7 +28,7 @@ export const Contact = () => {
   ];
 
   return (
-    <section id="contact" className="py-32 bg-card border-t border-white/5" ref={ref}>
+    <section id="contact" className="py-20 md:py-32 bg-card border-t border-white/5" ref={ref}>
       <div className="container mx-auto px-4 md:px-12">
         <div className="grid grid-cols-1 lg:grid-cols-2 gap-20">
 

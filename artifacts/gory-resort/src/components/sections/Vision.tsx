@@ -35,7 +35,7 @@ export const Vision = () => {
   ];
 
   return (
-    <section id="vision" className="py-32 md:py-48 bg-background relative" ref={ref}>
+    <section id="vision" className="py-20 md:py-48 bg-background relative" ref={ref}>
       <div className="container mx-auto px-6 md:px-12">
         <motion.h2
           initial={{ y: 20 }}
@@ -57,7 +57,7 @@ export const Vision = () => {
                 transition={{ duration: 0.8, delay: index * 0.1 }}
                 className="flex flex-col"
               >
-                <span className="font-display text-4xl md:text-6xl text-white mb-2 leading-none">
+                <span className="font-display text-3xl md:text-6xl text-white mb-2 leading-none">
                   {t(stat.val).match(/^\d+(,\d+)*$/) ? (
                     <AnimatedNumber value={t(stat.val)} />
                   ) : (
@@ -77,7 +77,7 @@ export const Vision = () => {
               initial={{ y: 30 }}
               animate={isInView ? { y: 0 } : { y: 30 }}
               transition={{ duration: 0.8, delay: 0.3 }}
-              className="text-xl md:text-3xl font-serif text-white/90 leading-relaxed text-balance"
+              className="text-base md:text-3xl font-serif text-white/90 leading-relaxed text-balance"
             >
               {t('vision_desc_1')}
             </motion.p>
@@ -85,7 +85,7 @@ export const Vision = () => {
               initial={{ y: 30 }}
               animate={isInView ? { y: 0 } : { y: 30 }}
               transition={{ duration: 0.8, delay: 0.5 }}
-              className="text-xl md:text-3xl font-serif text-white/60 leading-relaxed text-balance"
+              className="text-base md:text-3xl font-serif text-white/60 leading-relaxed text-balance"
             >
               {t('vision_desc_2')}
             </motion.p>
@@ -99,12 +99,12 @@ export const Vision = () => {
               <p className="text-sm text-white/50 leading-relaxed">{t('vision_access')}</p>
             </motion.div>
 
-            {/* Why Georgia Now */}
+            {/* Why Georgia Now — hidden on mobile, desktop only */}
             <motion.div
               initial={{ y: 20, opacity: 0 }}
               animate={isInView ? { y: 0, opacity: 1 } : { y: 20, opacity: 0 }}
               transition={{ duration: 0.8, delay: 0.9 }}
-              className="border-t border-white/10 pt-8"
+              className="hidden md:block border-t border-white/10 pt-8"
             >
               <p className="text-xs text-white/30 uppercase tracking-widest mb-3">
                 {t('vision_why_georgia_label')}

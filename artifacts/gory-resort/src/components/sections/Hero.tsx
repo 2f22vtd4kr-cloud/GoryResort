@@ -79,7 +79,7 @@ export const Hero = () => {
           transition={{ duration: 0.5, delay: 0.5 }}
           className="mt-8 flex flex-col items-center space-y-5 text-center"
         >
-          <p className="text-sm md:text-base tracking-[0.3em] font-medium uppercase text-white/90">
+          <p className="text-sm md:text-base tracking-[0.15em] md:tracking-[0.3em] font-medium uppercase text-white/90">
             {t('hero_tagline')}
           </p>
 
@@ -87,7 +87,7 @@ export const Hero = () => {
             <span className="text-xs tracking-widest text-white/80">{t('hero_opening')}</span>
           </div>
 
-          <p className="text-[11px] md:text-xs tracking-[0.18em] text-white/45 max-w-xs md:max-w-md leading-relaxed">
+          <p className="text-[11px] md:text-xs tracking-[0.1em] md:tracking-[0.18em] text-white/45 max-w-[340px] md:max-w-md leading-relaxed">
             {t('hero_sub')}
           </p>
 
