@@ -1,2 +1,3 @@
 - [Gemini + Simulator setup](gemini-simulator.md) — user provided own GEMINI_API_KEY; simulator backend at /api/simulate; frontend at /simulator route
 - [Translation fixes applied](translation-fixes.md) — 6 Russian translation issues patched in LanguageContext.tsx
+- [Hero black screen root cause](hero-loading-state.md) — screenshot tool captures #root:empty loading state (before React 19 concurrent render commits); fix is to make the CSS loading state look like the actual hero
