@@ -1,4 +1,5 @@
 import React, { createContext, useContext, useState, ReactNode } from 'react';
+import { aiContent } from './ai-content';
 
 type Language = 'en' | 'ru';
 
@@ -154,11 +155,13 @@ export const LanguageProvider = ({ children }: { children: ReactNode }) => {
   const [language, setLanguage] = useState<Language>('en');
 
   const t = (key: string) => {
-    if (!translations[key]) {
+    // AI-generated patches overlay static translations
+    const entry = aiContent[key] ?? translations[key];
+    if (!entry) {
       console.warn(`Translation key not found: ${key}`);
       return key;
     }
-    return translations[key][language];
+    return entry[language];
   };
 
   return (

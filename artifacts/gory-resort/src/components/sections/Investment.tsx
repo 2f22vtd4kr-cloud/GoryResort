@@ -1,6 +1,7 @@
 import React, { useRef } from 'react';
 import { useLanguage } from '@/contexts/LanguageContext';
 import { motion, useScroll, useTransform, useInView } from 'framer-motion';
+import { AiAddition } from '../AiAddition';
 
 export const Investment = () => {
   const { t } = useLanguage();

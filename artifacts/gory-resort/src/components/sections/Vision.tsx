@@ -1,6 +1,7 @@
 import React, { useRef, useEffect } from 'react';
 import { useLanguage } from '@/contexts/LanguageContext';
 import { motion, useInView, useSpring, useTransform } from 'framer-motion';
+import { AiAddition } from '../AiAddition';
 
 const AnimatedNumber = ({ value }: { value: string }) => {
   const numValue = parseInt(value.replace(/,/g, ''), 10);
