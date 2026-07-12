@@ -283,7 +283,7 @@ Respond ONLY with valid JSON — no markdown, no code fences — in this exact f
 
     const text = await geminiWithRetry(async () => {
       const response = await ai.models.generateContent({
-        model: "gemini-1.5-flash",
+        model: "gemini-2.0-flash",
         contents: [{ role: "user", parts: [{ text: prompt }] }],
         config: {
           maxOutputTokens: 16384,

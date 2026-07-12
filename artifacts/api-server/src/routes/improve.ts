@@ -91,7 +91,7 @@ Priority: 1 = critical (deal-breaker for 2+ personas), 2 = important, 3 = nice-t
 
     const text = await geminiWithRetry(async () => {
       const response = await ai.models.generateContent({
-        model: "gemini-1.5-flash",
+        model: "gemini-2.0-flash",
         contents: [{ role: "user", parts: [{ text: prompt }] }],
         config: {
           maxOutputTokens: 8192,
