@@ -8,10 +8,10 @@ export const Experiences = () => {
   const isInView = useInView(ref, { once: true, margin: "-20%" });
 
   const experiences = [
-    { key: 'exp_1' },
-    { key: 'exp_2' },
-    { key: 'exp_3' },
-    { key: 'exp_4' },
+    { key: 'exp_1', descKey: 'exp_desc_1' },
+    { key: 'exp_2', descKey: 'exp_desc_2' },
+    { key: 'exp_3', descKey: 'exp_desc_3' },
+    { key: 'exp_4', descKey: 'exp_desc_4' },
   ];
 
   return (
@@ -29,18 +29,21 @@ export const Experiences = () => {
               {t('exp_title')}
             </motion.h2>
 
-            <div className="flex flex-col space-y-2 border-l border-white/10 pl-6">
+            <div className="flex flex-col space-y-1 border-l border-white/10 pl-6">
               {experiences.map((exp, i) => (
                 <motion.div
                   key={i}
                   initial={{ opacity: 0, x: -20 }}
                   animate={isInView ? { opacity: 1, x: 0 } : { opacity: 0, x: -20 }}
                   transition={{ duration: 0.6, delay: 0.2 + (i * 0.1) }}
-                  className="py-4 hover:pl-2 transition-all duration-300 cursor-default"
+                  className="py-5 border-b border-white/5 last:border-b-0 hover:pl-2 transition-all duration-300 cursor-default"
                 >
-                  <h3 className="font-serif text-2xl md:text-3xl text-white/80 hover:text-white transition-colors">
+                  <h3 className="font-serif text-2xl md:text-3xl text-white/80 hover:text-white transition-colors mb-2">
                     {t(exp.key)}
                   </h3>
+                  <p className="text-xs text-white/35 leading-relaxed max-w-xs">
+                    {t(exp.descKey)}
+                  </p>
                 </motion.div>
               ))}
             </div>

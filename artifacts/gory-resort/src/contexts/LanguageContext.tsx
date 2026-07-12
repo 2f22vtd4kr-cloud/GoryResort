@@ -40,28 +40,47 @@ export const translations: Translations = {
     en: "Set against the backdrop of the world's most dramatic mountain range, GORY will redefine alpine luxury for the next generation.",
     ru: "На фоне самого драматичного горного массива в мире, ГОРЫ переосмыслят альпийскую роскошь для следующего поколения."
   },
+  vision_access: {
+    en: "Direct mountain access from Tbilisi International Airport — 2.5 hours by road via the Georgian Military Highway, or 35 minutes by helicopter transfer.",
+    ru: "Прямой доступ к горам из тбилисского аэропорта — 2,5 часа по Военно-Грузинской дороге или 35 минут вертолётом."
+  },
 
   // Ski
   ski_title: { en: 'THE MOUNTAIN', ru: 'ГОРА' },
   ski_cat_1: { en: 'BEGINNER', ru: 'НОВИЧОК' },
   ski_cat_2: { en: 'INTERMEDIATE', ru: 'ЛЮБИТЕЛЬ' },
   ski_cat_3: { en: 'EXPERT', ru: 'ЭКСПЕРТ' },
+  ski_spec_1_val: { en: '800m', ru: '800 м' },
+  ski_spec_1_lbl: { en: 'vertical drop', ru: 'перепад высот' },
+  ski_spec_2_val: { en: 'Dec–Apr', ru: 'Дек–Апр' },
+  ski_spec_2_lbl: { en: 'ski season', ru: 'лыжный сезон' },
+  ski_spec_3_val: { en: '12', ru: '12' },
+  ski_spec_3_lbl: { en: 'lifts (1 gondola)', ru: 'подъёмников (1 гондола)' },
+  ski_spec_4_val: { en: '70%', ru: '70%' },
+  ski_spec_4_lbl: { en: 'snowmaking', ru: 'охват снеговыми пушками' },
   
   // Stay
   stay_title: { en: 'SANCTUARY', ru: 'УБЕЖИЩЕ' },
   stay_type_1: { en: 'The Peaks Collection', ru: 'Коллекция «Вершины»' },
   stay_desc_1: { en: '48 Suites', ru: '48 Сьютов' },
+  stay_feat_1: { en: 'Ski-in / Ski-out · Butler service · Mountain-view terrace · 24h in-room dining', ru: 'Ski-in / Ski-out · Дворецкий · Терраса с видом на горы · Roomservice 24 ч' },
   stay_type_2: { en: 'Glacier Chalets', ru: 'Ледниковые Шале' },
   stay_desc_2: { en: '12 Private Chalets', ru: '12 Частных Шале' },
+  stay_feat_2: { en: 'Private heated pool · Dedicated chalet host · Ski room & boot dryers · Guest vehicle service', ru: 'Частный бассейн с подогревом · Хозяйка шале · Лыжная комната · Трансфер' },
   stay_type_3: { en: 'Base Camp Residences', ru: 'Резиденции Базового Лагеря' },
   stay_desc_3: { en: '24 Residences for sale', ru: '24 резиденции в продажу' },
+  stay_feat_3: { en: 'Freehold title · Rental yield programme · Underground parking · Full resort concierge', ru: 'Право собственности · Программа арендного дохода · Подземный паркинг · Консьерж' },
   
   // Experiences
   exp_title: { en: 'ELEVATED EXPERIENCES', ru: 'ВЫСОКИЕ ВПЕЧАТЛЕНИЯ' },
   exp_1: { en: 'Skiing & Snowboarding', ru: 'Горные лыжи и сноуборд' },
+  exp_desc_1: { en: '42km of groomed pistes across three zones, 400+ ha of off-piste terrain with guide access. Ski school and private instruction on-site.', ru: '42 км ухоженных трасс в трёх зонах, 400+ га фрирайда с гидом. Лыжная школа и частные инструкторы.' },
   exp_2: { en: 'Wellness & Spa', ru: 'Велнес и Спа' },
+  exp_desc_2: { en: '2,800m² thermal spa complex with mineral pools, hammam and cryotherapy chambers. 600m² movement studio with resident physiotherapy.', ru: 'Термальный спа площадью 2800 м² с минеральными бассейнами, хаммамом и криотерапией. Студия движения 600 м² с физиотерапевтом.' },
   exp_3: { en: 'Heliskiing', ru: 'Хели-ски' },
+  exp_desc_3: { en: 'Access to 800km of untracked Greater Caucasus backcountry terrain. Packages of 10 and 25 runs with certified ACMG mountain guides.', ru: 'Доступ к 800 км нетронутого бэккантри Большого Кавказа. Пакеты 10 и 25 спусков с сертифицированными горными гидами.' },
   exp_4: { en: 'Georgian Gastronomy', ru: 'Грузинская Гастрономия' },
+  exp_desc_4: { en: 'Three dining venues: the Grand Dining Room, a private wine cellar housing 40,000 Georgian bottles, and an open-air wood-fired feast pavilion.', ru: 'Три ресторана: Гранд-зал, частный винный погреб с 40 000 бутылок грузинских вин и открытый огненный павильон.' },
   
   // Investment
   inv_title: { en: 'INVEST IN THE CAUCASUS', ru: 'ИНВЕСТИРУЙТЕ В КАВКАЗ' },
@@ -79,6 +98,13 @@ export const translations: Translations = {
   inv_tier_3_desc: { en: 'from $50,000', ru: 'от $50,000' },
   inv_tier_3_ret: { en: 'Resort membership + returns', ru: 'Членство в курорте + доход' },
   inv_cta: { en: 'REQUEST INVESTOR DECK', ru: 'ЗАПРОСИТЬ ИНВЕСТИЦИОННЫЙ ПАКЕТ' },
+  inv_structure_label: { en: 'INVESTMENT STRUCTURE', ru: 'СТРУКТУРА ИНВЕСТИЦИЙ' },
+  inv_timeline_label: { en: 'Timeline', ru: 'Горизонт' },
+  inv_timeline: { en: '2024–2027 construction · Q4 2027 resort opening · 7-year target hold', ru: 'Строительство 2024–2027 · Открытие Q4 2027 · Целевой горизонт — 7 лет' },
+  inv_exit_label: { en: 'Exit Strategy', ru: 'Стратегия выхода' },
+  inv_exit: { en: 'Portfolio sale to institutional buyer or listing via Georgian Real Estate Investment Vehicle', ru: 'Продажа портфеля институциональному покупателю или листинг через REIT Грузии' },
+  inv_legal_label: { en: 'Legal Framework', ru: 'Правовая база' },
+  inv_legal: { en: 'Georgian Law on Investment Activity (2006). Full foreign ownership of Georgian property is permitted with no restrictions.', ru: 'Закон Грузии об инвестиционной деятельности (2006). Полное иностранное владение недвижимостью разрешено без ограничений.' },
   
   // Form
   form_title: { en: 'CONNECT', ru: 'СВЯЗЬ' },

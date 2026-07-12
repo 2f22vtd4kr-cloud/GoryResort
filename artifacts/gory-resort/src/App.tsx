@@ -1,4 +1,5 @@
 import React, { useEffect } from 'react';
+import { Router, Route, Switch } from 'wouter';
 import { LanguageProvider } from '@/contexts/LanguageContext';
 import { Navigation } from '@/components/Navigation';
 import { Hero } from '@/components/sections/Hero';
@@ -10,9 +11,9 @@ import { Investment } from '@/components/sections/Investment';
 import { Gallery } from '@/components/sections/Gallery';
 import { Contact } from '@/components/sections/Contact';
 import { Footer } from '@/components/Footer';
+import { SimulatorPage } from '@/components/SimulatorPage';
 
-function App() {
-  // Allow deep-linking to any section via URL hash (e.g. /#vision, /#ski)
+function MainSite() {
   useEffect(() => {
     const hash = window.location.hash.slice(1);
     if (hash) {
@@ -21,24 +22,40 @@ function App() {
   }, []);
 
   return (
+    <div className="min-h-screen bg-background text-foreground antialiased selection:bg-primary selection:text-white font-sans">
+      <Navigation />
+      <main>
+        <Hero />
+        <Vision />
+        <Ski />
+        <Stay />
+        <Experiences />
+        <Investment />
+        <Gallery />
+        <Contact />
+      </main>
+      <Footer />
+    </div>
+  );
+}
+
+function App() {
+  const base = import.meta.env.BASE_URL.replace(/\/$/, '');
+
+  return (
     <LanguageProvider>
-      <div className="min-h-screen bg-background text-foreground antialiased selection:bg-primary selection:text-white font-sans">
-        <Navigation />
-        <main>
-          <Hero />
-          <Vision />
-          <Ski />
-          <Stay />
-          <Experiences />
-          <Investment />
-          <Gallery />
-          <Contact />
-        </main>
-        <Footer />
-      </div>
+      <Router base={base}>
+        <Switch>
+          <Route path="/simulator">
+            <SimulatorPage />
+          </Route>
+          <Route path="/:rest*">
+            <MainSite />
+          </Route>
+        </Switch>
+      </Router>
     </LanguageProvider>
   );
 }
 
 export default App;
-

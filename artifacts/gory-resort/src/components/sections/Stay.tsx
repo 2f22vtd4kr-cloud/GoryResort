@@ -15,9 +15,9 @@ export const Stay = () => {
   const imageY = useTransform(scrollYProgress, [0, 1], ["-10%", "10%"]);
 
   const accommodations = [
-    { title: 'stay_type_1', desc: 'stay_desc_1' },
-    { title: 'stay_type_2', desc: 'stay_desc_2' },
-    { title: 'stay_type_3', desc: 'stay_desc_3' },
+    { title: 'stay_type_1', desc: 'stay_desc_1', feat: 'stay_feat_1' },
+    { title: 'stay_type_2', desc: 'stay_desc_2', feat: 'stay_feat_2' },
+    { title: 'stay_type_3', desc: 'stay_desc_3', feat: 'stay_feat_3' },
   ];
 
   return (
@@ -64,6 +64,17 @@ export const Stay = () => {
                 <span className="text-xs font-mono text-primary">0{i + 1}</span>
                 <h3 className="font-serif text-2xl text-white">{t(acc.title)}</h3>
                 <p className="text-sm text-muted-foreground uppercase tracking-widest">{t(acc.desc)}</p>
+                {/* Feature tags */}
+                <div className="pt-1">
+                  {t(acc.feat).split(' · ').map((feat, j) => (
+                    <span
+                      key={j}
+                      className="inline-block text-[10px] text-white/35 border border-white/8 px-2 py-0.5 mr-1 mb-1 leading-relaxed"
+                    >
+                      {feat}
+                    </span>
+                  ))}
+                </div>
               </motion.div>
             ))}
           </div>

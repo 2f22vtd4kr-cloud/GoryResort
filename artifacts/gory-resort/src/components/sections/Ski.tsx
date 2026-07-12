@@ -20,6 +20,13 @@ export const Ski = () => {
     { title: 'ski_cat_3', km: '16 KM' },
   ];
 
+  const specs = [
+    { val: 'ski_spec_1_val', lbl: 'ski_spec_1_lbl' },
+    { val: 'ski_spec_2_val', lbl: 'ski_spec_2_lbl' },
+    { val: 'ski_spec_3_val', lbl: 'ski_spec_3_lbl' },
+    { val: 'ski_spec_4_val', lbl: 'ski_spec_4_lbl' },
+  ];
+
   return (
     <section id="ski" className="py-24 bg-background" ref={ref}>
       <div className="container mx-auto px-4 md:px-12">
@@ -50,6 +57,7 @@ export const Ski = () => {
               {t('ski_title')}
             </motion.h2>
 
+            {/* Run categories */}
             <div className="flex overflow-x-auto md:overflow-visible md:flex-col gap-6 md:gap-8 pb-4 md:pb-0 snap-x snap-mandatory hide-scrollbar">
               {categories.map((cat, i) => (
                 <motion.div 
@@ -68,6 +76,25 @@ export const Ski = () => {
                 </motion.div>
               ))}
             </div>
+
+            {/* Mountain specs */}
+            <motion.div
+              initial={{ opacity: 0, y: 20 }}
+              animate={isInView ? { opacity: 1, y: 0 } : { opacity: 0, y: 20 }}
+              transition={{ duration: 0.8, delay: 0.6 }}
+              className="mt-10 pt-8 border-t border-white/8 grid grid-cols-2 md:grid-cols-4 gap-6"
+            >
+              {specs.map((spec, i) => (
+                <div key={i} className="flex flex-col">
+                  <span className="font-display text-xl md:text-2xl text-white mb-1 leading-none">
+                    {t(spec.val)}
+                  </span>
+                  <span className="text-[10px] text-muted-foreground uppercase tracking-widest leading-tight">
+                    {t(spec.lbl)}
+                  </span>
+                </div>
+              ))}
+            </motion.div>
           </div>
 
         </div>

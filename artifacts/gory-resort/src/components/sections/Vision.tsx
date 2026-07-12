@@ -1,4 +1,4 @@
-import React, { useRef, useEffect, useState } from 'react';
+import React, { useRef, useEffect } from 'react';
 import { useLanguage } from '@/contexts/LanguageContext';
 import { motion, useInView, useSpring, useTransform } from 'framer-motion';
 
@@ -66,11 +66,12 @@ export const Vision = () => {
           </div>
 
           {/* Narrative Column */}
-          <div className="lg:col-span-6 lg:col-start-7 flex flex-col justify-center space-y-10 text-xl md:text-3xl font-serif text-white/90 leading-relaxed text-balance">
+          <div className="lg:col-span-6 lg:col-start-7 flex flex-col justify-center space-y-10">
             <motion.p
               initial={{ opacity: 0, y: 30 }}
               animate={isInView ? { opacity: 1, y: 0 } : { opacity: 0, y: 30 }}
               transition={{ duration: 0.8, delay: 0.3 }}
+              className="text-xl md:text-3xl font-serif text-white/90 leading-relaxed text-balance"
             >
               {t('vision_desc_1')}
             </motion.p>
@@ -78,10 +79,19 @@ export const Vision = () => {
               initial={{ opacity: 0, y: 30 }}
               animate={isInView ? { opacity: 1, y: 0 } : { opacity: 0, y: 30 }}
               transition={{ duration: 0.8, delay: 0.5 }}
-              className="text-white/60"
+              className="text-xl md:text-3xl font-serif text-white/60 leading-relaxed text-balance"
             >
               {t('vision_desc_2')}
             </motion.p>
+            <motion.div
+              initial={{ opacity: 0, y: 20 }}
+              animate={isInView ? { opacity: 1, y: 0 } : { opacity: 0, y: 20 }}
+              transition={{ duration: 0.8, delay: 0.7 }}
+              className="border-t border-white/10 pt-8"
+            >
+              <p className="text-xs text-white/30 uppercase tracking-widest mb-2">Access</p>
+              <p className="text-sm text-white/50 leading-relaxed">{t('vision_access')}</p>
+            </motion.div>
           </div>
         </div>
       </div>

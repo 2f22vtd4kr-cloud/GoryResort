@@ -20,6 +20,12 @@ export const Investment = () => {
     { title: 'inv_tier_3_title', desc: 'inv_tier_3_desc', ret: 'inv_tier_3_ret' },
   ];
 
+  const structure = [
+    { label: 'inv_timeline_label', value: 'inv_timeline' },
+    { label: 'inv_exit_label',     value: 'inv_exit'     },
+    { label: 'inv_legal_label',    value: 'inv_legal'    },
+  ];
+
   const scrollToContact = () => {
     document.getElementById('contact')?.scrollIntoView({ behavior: 'smooth' });
   };
@@ -58,7 +64,8 @@ export const Investment = () => {
           </motion.p>
         </div>
 
-        <div className="grid grid-cols-1 md:grid-cols-3 gap-6 mb-16">
+        {/* Investment tiers */}
+        <div className="grid grid-cols-1 md:grid-cols-3 gap-6 mb-10">
           {tiers.map((tier, i) => (
             <motion.div
               key={i}
@@ -82,10 +89,29 @@ export const Investment = () => {
           ))}
         </div>
 
+        {/* Investment structure strip */}
         <motion.div
           initial={{ opacity: 0, y: 20 }}
           animate={isInView ? { opacity: 1, y: 0 } : { opacity: 0, y: 20 }}
-          transition={{ duration: 0.8, delay: 0.8 }}
+          transition={{ duration: 0.8, delay: 0.7 }}
+          className="mb-12 border border-white/8 bg-black/30 backdrop-blur-sm p-6 md:p-8 grid grid-cols-1 md:grid-cols-3 gap-6 md:gap-8"
+        >
+          <div className="md:col-span-3 mb-2">
+            <p className="text-[10px] text-white/25 uppercase tracking-[0.3em]">{t('inv_structure_label')}</p>
+          </div>
+          {structure.map((item, i) => (
+            <div key={i} className={i > 0 ? 'md:border-l md:border-white/8 md:pl-8' : ''}>
+              <p className="text-[10px] text-white/35 uppercase tracking-widest mb-2">{t(item.label)}</p>
+              <p className="text-xs text-white/55 leading-relaxed">{t(item.value)}</p>
+            </div>
+          ))}
+        </motion.div>
+
+        {/* CTA */}
+        <motion.div
+          initial={{ opacity: 0, y: 20 }}
+          animate={isInView ? { opacity: 1, y: 0 } : { opacity: 0, y: 20 }}
+          transition={{ duration: 0.8, delay: 0.9 }}
           className="text-center"
         >
           <button 
