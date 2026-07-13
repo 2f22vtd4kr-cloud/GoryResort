@@ -7,7 +7,6 @@ const AnimatedNumber = ({ value }: { value: string }) => {
   const numValue = parseInt(value.replace(/,/g, ''), 10);
   const isNumber = !isNaN(numValue);
 
-  // Hooks must be called unconditionally — before any early return
   const spring = useSpring(0, { mass: 1, stiffness: 90, damping: 20 });
   const display = useTransform(spring, (current) =>
     Math.round(current).toLocaleString('en-US'),
@@ -37,14 +36,16 @@ export const Vision = () => {
   return (
     <section id="vision" className="py-20 md:py-48 bg-background relative" ref={ref}>
       <div className="container mx-auto px-6 md:px-12">
-        <motion.h2
-          initial={{ y: 20 }}
-          animate={isInView ? { y: 0 } : { y: 20 }}
-          transition={{ duration: 0.8 }}
-          className="text-xs tracking-[0.3em] text-muted-foreground uppercase mb-16 md:mb-24"
+
+        {/* Editorial section label */}
+        <motion.p
+          initial={{ opacity: 0 }}
+          animate={isInView ? { opacity: 1 } : {}}
+          transition={{ duration: 0.6 }}
+          className="font-mono text-[10px] tracking-[0.3em] text-primary uppercase mb-12 md:mb-20"
         >
-          {t('vision_title')}
-        </motion.h2>
+          01 / {t('vision_title')}
+        </motion.p>
 
         <div className="grid grid-cols-1 lg:grid-cols-12 gap-16 lg:gap-8">
           {/* Stats Column — 5 stats in a 3-col grid */}
@@ -52,8 +53,8 @@ export const Vision = () => {
             {stats.map((stat, index) => (
               <motion.div
                 key={index}
-                initial={{ y: 30 }}
-                animate={isInView ? { y: 0 } : { y: 30 }}
+                initial={{ y: 30, opacity: 0 }}
+                animate={isInView ? { y: 0, opacity: 1 } : { y: 30, opacity: 0 }}
                 transition={{ duration: 0.8, delay: index * 0.1 }}
                 className="flex flex-col"
               >
@@ -64,7 +65,7 @@ export const Vision = () => {
                     t(stat.val)
                   )}
                 </span>
-                <span className="text-[10px] text-muted-foreground uppercase tracking-wider">
+                <span className="font-mono text-[9px] text-muted-foreground uppercase tracking-wider">
                   {t(stat.lbl)}
                 </span>
               </motion.div>
@@ -74,39 +75,38 @@ export const Vision = () => {
           {/* Narrative Column */}
           <div className="lg:col-span-6 lg:col-start-7 flex flex-col justify-center space-y-10">
             <motion.p
-              initial={{ y: 30 }}
-              animate={isInView ? { y: 0 } : { y: 30 }}
+              initial={{ y: 30, opacity: 0 }}
+              animate={isInView ? { y: 0, opacity: 1 } : { y: 30, opacity: 0 }}
               transition={{ duration: 0.8, delay: 0.3 }}
               className="text-base md:text-3xl font-serif text-white/90 leading-relaxed text-balance"
             >
               {t('vision_desc_1')}
             </motion.p>
             <motion.p
-              initial={{ y: 30 }}
-              animate={isInView ? { y: 0 } : { y: 30 }}
+              initial={{ y: 30, opacity: 0 }}
+              animate={isInView ? { y: 0, opacity: 1 } : { y: 30, opacity: 0 }}
               transition={{ duration: 0.8, delay: 0.5 }}
               className="text-base md:text-3xl font-serif text-white/60 leading-relaxed text-balance"
             >
               {t('vision_desc_2')}
             </motion.p>
             <motion.div
-              initial={{ y: 20 }}
-              animate={isInView ? { y: 0 } : { y: 20 }}
+              initial={{ y: 20, opacity: 0 }}
+              animate={isInView ? { y: 0, opacity: 1 } : { y: 20, opacity: 0 }}
               transition={{ duration: 0.8, delay: 0.7 }}
               className="border-t border-white/10 pt-8"
             >
-              <p className="text-xs text-white/30 uppercase tracking-widest mb-2">Access</p>
+              <p className="font-mono text-[9px] text-white/30 uppercase tracking-[0.25em] mb-2">Access</p>
               <p className="text-sm text-white/50 leading-relaxed">{t('vision_access')}</p>
             </motion.div>
 
-            {/* Why Georgia Now — hidden on mobile, desktop only */}
             <motion.div
               initial={{ y: 20, opacity: 0 }}
               animate={isInView ? { y: 0, opacity: 1 } : { y: 20, opacity: 0 }}
               transition={{ duration: 0.8, delay: 0.9 }}
               className="hidden md:block border-t border-white/10 pt-8"
             >
-              <p className="text-xs text-white/30 uppercase tracking-widest mb-3">
+              <p className="font-mono text-[9px] text-white/30 uppercase tracking-[0.25em] mb-3">
                 {t('vision_why_georgia_label')}
               </p>
               <p className="text-xs text-white/40 leading-relaxed">{t('vision_why_georgia')}</p>

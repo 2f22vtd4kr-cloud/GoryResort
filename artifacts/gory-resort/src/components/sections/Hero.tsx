@@ -1,7 +1,6 @@
 import React, { useRef } from 'react';
 import { useLanguage } from '@/contexts/LanguageContext';
 import { motion, useScroll, useTransform, useReducedMotion } from 'framer-motion';
-import { ChevronDown } from 'lucide-react';
 
 export const Hero = () => {
   const { t } = useLanguage();
@@ -17,7 +16,7 @@ export const Hero = () => {
 
   const letterVariants = prefersReducedMotion
     ? undefined
-    : { hidden: { y: 40 }, visible: { y: 0 } };
+    : { hidden: { y: 48, opacity: 0 }, visible: { y: 0, opacity: 1 } };
 
   const wordmark = 'GORY'.split('');
 
@@ -28,12 +27,18 @@ export const Hero = () => {
     <div
       ref={ref}
       className="relative h-[100dvh] w-full overflow-hidden"
-      style={{ background: 'linear-gradient(160deg, #0d1117 0%, #1a2332 50%, #0d1117 100%)' }}
+      style={{ background: '#050505' }}
     >
-      {/* Background photo — parallax + overlays */}
-      <motion.div className="absolute inset-0 z-0" style={{ y }}>
-        <div className="absolute inset-0 bg-black/40 z-10" />
-        <div className="absolute inset-0 bg-gradient-to-t from-background via-transparent to-transparent z-10" />
+      {/* Background photo — cinematic letterbox reveal + parallax */}
+      <motion.div
+        className="absolute inset-0 z-0"
+        style={{ y }}
+        initial={prefersReducedMotion ? false : { clipPath: 'inset(50% 0 50% 0)' }}
+        animate={{ clipPath: 'inset(0% 0 0% 0)' }}
+        transition={{ duration: 1.6, ease: [0.77, 0, 0.175, 1] }}
+      >
+        <div className="absolute inset-0 bg-black/50 z-10" />
+        <div className="absolute inset-0 bg-gradient-to-t from-[#050505] via-transparent to-black/40 z-10" />
         <img
           src="/images/hero.jpg"
           alt="GORY Resort Mountains"
@@ -45,9 +50,9 @@ export const Hero = () => {
 
       {/* Content */}
       <div className="relative z-20 h-full flex flex-col items-center justify-center px-4">
-        {/* GORY wordmark */}
+        {/* GORY wordmark — letter-by-letter stagger, delayed after letterbox */}
         {prefersReducedMotion || !letterVariants ? (
-          <div className="flex font-display text-[15vw] leading-none tracking-[0.1em] text-white drop-shadow-2xl select-none">
+          <div className="flex font-display text-[20vw] md:text-[16vw] leading-none tracking-[0.15em] text-white select-none ml-[0.15em]">
             {wordmark.map((letter, i) => (
               <span key={i}>{letter}</span>
             ))}
@@ -56,15 +61,14 @@ export const Hero = () => {
           <motion.div
             initial="hidden"
             animate="visible"
-            transition={{ staggerChildren: 0.08, delayChildren: 0 }}
-            className="flex font-display text-[15vw] leading-none tracking-[0.1em] text-white drop-shadow-2xl select-none"
+            transition={{ staggerChildren: 0.09, delayChildren: 0.9 }}
+            className="flex font-display text-[20vw] md:text-[16vw] leading-none tracking-[0.15em] text-white select-none ml-[0.15em]"
           >
             {wordmark.map((letter, i) => (
               <motion.span
                 key={i}
                 variants={letterVariants}
-                style={{ opacity: 1 }}
-                transition={{ duration: 0.5, ease: [0.215, 0.61, 0.355, 1] }}
+                transition={{ duration: 0.65, ease: [0.215, 0.61, 0.355, 1] }}
               >
                 {letter}
               </motion.span>
@@ -72,41 +76,38 @@ export const Hero = () => {
           </motion.div>
         )}
 
-        {/* Tagline + badge + sub-line + CTAs */}
+        {/* Tagline + sub + minimal text CTAs */}
         <motion.div
-          initial={prefersReducedMotion ? false : { opacity: 0, y: 12 }}
+          initial={prefersReducedMotion ? false : { opacity: 0, y: 10 }}
           animate={{ opacity: 1, y: 0 }}
-          transition={{ duration: 0.5, delay: 0.5 }}
-          className="mt-8 flex flex-col items-center space-y-5 text-center"
+          transition={{ duration: 0.8, delay: 1.5 }}
+          className="mt-8 flex flex-col items-center space-y-4 text-center"
         >
-          <p className="text-sm md:text-base tracking-[0.15em] md:tracking-[0.3em] font-medium uppercase text-white/90">
+          <p className="font-mono text-[10px] md:text-[11px] tracking-[0.32em] uppercase text-primary">
             {t('hero_tagline')}
           </p>
 
-          <div className="border border-white/20 px-6 py-2 rounded-full backdrop-blur-sm bg-white/5">
-            <span className="text-xs tracking-widest text-white/80">{t('hero_opening')}</span>
-          </div>
-
-          <p className="text-[11px] md:text-xs tracking-[0.1em] md:tracking-[0.18em] text-white/45 max-w-[340px] md:max-w-md leading-relaxed">
+          <p className="text-[10px] tracking-[0.18em] text-white/30 uppercase">
             {t('hero_sub')}
           </p>
 
-          {/* Dual CTAs */}
+          {/* Minimal text-only CTAs separated by accent pip */}
           <motion.div
-            initial={prefersReducedMotion ? false : { opacity: 0, y: 8 }}
-            animate={{ opacity: 1, y: 0 }}
-            transition={{ duration: 0.5, delay: 0.9 }}
-            className="flex flex-col sm:flex-row items-center gap-3 pt-2"
+            initial={prefersReducedMotion ? false : { opacity: 0 }}
+            animate={{ opacity: 1 }}
+            transition={{ duration: 0.6, delay: 2.0 }}
+            className="flex items-center gap-6 pt-3"
           >
             <button
               onClick={() => scrollToSection('vision')}
-              className="px-7 py-2.5 border border-white/25 text-[10px] tracking-[0.22em] uppercase text-white/70 hover:text-white hover:border-white/60 transition-all duration-300 backdrop-blur-sm"
+              className="font-mono text-[9px] tracking-[0.25em] uppercase text-white/40 hover:text-primary transition-colors duration-500"
             >
               {t('hero_cta_discover')}
             </button>
+            <span className="w-px h-3 bg-white/15" />
             <button
               onClick={() => scrollToSection('invest')}
-              className="px-7 py-2.5 bg-white/10 border border-white/20 text-[10px] tracking-[0.22em] uppercase text-white hover:bg-white hover:text-black transition-all duration-300 backdrop-blur-sm"
+              className="font-mono text-[9px] tracking-[0.25em] uppercase text-white/40 hover:text-primary transition-colors duration-500"
             >
               {t('hero_cta_invest')}
             </button>
@@ -114,20 +115,19 @@ export const Hero = () => {
         </motion.div>
       </div>
 
-      {/* Scroll indicator */}
+      {/* Scroll indicator — thin accent line only */}
       <motion.div
-        className="absolute bottom-10 left-1/2 -translate-x-1/2 z-20 flex flex-col items-center"
+        className="absolute bottom-10 left-1/2 -translate-x-1/2 z-20 flex flex-col items-center gap-2"
         initial={prefersReducedMotion ? false : { opacity: 0 }}
         animate={{ opacity: 1 }}
-        transition={{ delay: 1.1, duration: 0.5 }}
+        transition={{ delay: 2.3, duration: 0.6 }}
       >
-        <span className="text-[9px] uppercase tracking-widest text-white/35 mb-2">Scroll</span>
         <motion.div
-          animate={{ y: [0, 8, 0] }}
-          transition={{ duration: 2, repeat: Infinity, ease: 'easeInOut' }}
-        >
-          <ChevronDown className="text-white/35" size={14} />
-        </motion.div>
+          className="w-px bg-gradient-to-b from-primary/50 to-transparent"
+          initial={prefersReducedMotion ? false : { height: 0 }}
+          animate={{ height: 48 }}
+          transition={{ duration: 1, delay: 2.4, ease: 'easeOut' }}
+        />
       </motion.div>
     </div>
   );

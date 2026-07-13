@@ -85,7 +85,7 @@
   --app-font-sans: 'Inter', sans-serif;
   --app-font-serif: 'DM Serif Display', serif;
   --app-font-display: 'Bebas Neue', sans-serif;
-  --app-font-mono: Menlo, monospace;
+  --app-font-mono: 'Space Mono', Menlo, monospace;
   
   --radius: 0rem;
 }

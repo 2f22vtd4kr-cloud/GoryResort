@@ -36,32 +36,34 @@ export const Ski = () => {
       <div className="container mx-auto px-4 md:px-12">
         <div className="grid grid-cols-1 lg:grid-cols-2 gap-12 lg:gap-24 items-center">
 
+          {/* Image — grayscale → color on hover, cinematic */}
           <motion.div
-            className="order-2 lg:order-1 relative aspect-[3/4] lg:aspect-square overflow-hidden rounded-sm"
-            initial={{ x: -50 }}
-            animate={isInView ? { x: 0 } : { x: -50 }}
+            className="order-2 lg:order-1 relative aspect-[3/4] lg:aspect-square overflow-hidden"
+            initial={{ x: -50, opacity: 0 }}
+            animate={isInView ? { x: 0, opacity: 1 } : { x: -50, opacity: 0 }}
             transition={{ duration: 1, ease: 'easeOut' }}
           >
             <motion.img
               src="/images/ski.jpg"
               alt="Skiing in Caucasus"
-              className="absolute inset-0 w-full h-[120%] object-cover object-center"
+              className="absolute inset-0 w-full h-[120%] object-cover object-center transition-all duration-[1200ms] grayscale hover:grayscale-0 brightness-75 hover:brightness-90"
               style={{ y: imageY }}
             />
             <div className="absolute inset-0 bg-gradient-to-t from-black/60 to-transparent" />
           </motion.div>
 
           <div className="order-1 lg:order-2 flex flex-col justify-center">
-            <motion.h2
-              initial={{ y: 20 }}
-              animate={isInView ? { y: 0 } : { y: 20 }}
-              transition={{ duration: 0.8 }}
-              className="text-xs tracking-[0.3em] text-muted-foreground uppercase mb-6"
+            {/* Editorial section label */}
+            <motion.p
+              initial={{ opacity: 0 }}
+              animate={isInView ? { opacity: 1 } : {}}
+              transition={{ duration: 0.6 }}
+              className="font-mono text-[10px] tracking-[0.3em] text-primary uppercase mb-10"
             >
-              {t('ski_title')}
-            </motion.h2>
+              02 / {t('ski_title')}
+            </motion.p>
 
-            {/* Framing statement — sim recommendation */}
+            {/* Framing statement */}
             <motion.p
               initial={{ y: 16, opacity: 0 }}
               animate={isInView ? { y: 0, opacity: 1 } : { y: 16, opacity: 0 }}
@@ -71,30 +73,33 @@ export const Ski = () => {
               {t('ski_framing')}
             </motion.p>
 
-            {/* Run categories — vertical list on all breakpoints */}
-            <div className="flex flex-col gap-0">
+            {/* Run categories — editorial numbered rows */}
+            <div className="flex flex-col gap-0 border-t border-white/8">
               {categories.map((cat, i) => (
                 <motion.div
                   key={i}
-                  initial={{ y: 20 }}
-                  animate={isInView ? { y: 0 } : { y: 20 }}
+                  initial={{ y: 20, opacity: 0 }}
+                  animate={isInView ? { y: 0, opacity: 1 } : { y: 20, opacity: 0 }}
                   transition={{ duration: 0.6, delay: 0.2 + i * 0.1 }}
-                  className="group border-b border-white/10 py-5 md:py-6 flex flex-row items-end justify-between hover:border-white/40 transition-colors"
+                  className="group border-b border-white/8 py-5 md:py-6 flex flex-row items-end justify-between hover:border-white/30 transition-colors"
                 >
-                  <h3 className="font-serif text-2xl md:text-5xl text-white group-hover:text-accent transition-colors">
-                    {t(cat.title)}
-                  </h3>
-                  <span className="font-display tracking-widest text-lg md:text-xl text-muted-foreground group-hover:text-white transition-colors">
+                  <div className="flex items-baseline gap-4">
+                    <span className="font-mono text-[9px] text-primary/60 tracking-widest">0{i + 1}</span>
+                    <h3 className="font-serif text-2xl md:text-5xl text-white/80 group-hover:text-white transition-colors">
+                      {t(cat.title)}
+                    </h3>
+                  </div>
+                  <span className="font-mono text-xs md:text-sm tracking-widest text-muted-foreground group-hover:text-primary transition-colors">
                     {cat.km}
                   </span>
                 </motion.div>
               ))}
             </div>
 
-            {/* Mountain specs — 7 items in 3-col grid */}
+            {/* Mountain specs */}
             <motion.div
-              initial={{ y: 20 }}
-              animate={isInView ? { y: 0 } : { y: 20 }}
+              initial={{ y: 20, opacity: 0 }}
+              animate={isInView ? { y: 0, opacity: 1 } : { y: 20, opacity: 0 }}
               transition={{ duration: 0.8, delay: 0.6 }}
               className="mt-10 pt-8 border-t border-white/8 grid grid-cols-2 md:grid-cols-3 gap-x-6 gap-y-7"
             >
@@ -103,7 +108,7 @@ export const Ski = () => {
                   <span className="font-display text-xl md:text-2xl text-white mb-1 leading-none">
                     {t(spec.val)}
                   </span>
-                  <span className="text-[10px] text-muted-foreground uppercase tracking-widest leading-tight">
+                  <span className="font-mono text-[9px] text-muted-foreground uppercase tracking-widest leading-tight">
                     {t(spec.lbl)}
                   </span>
                 </div>

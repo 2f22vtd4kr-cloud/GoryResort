@@ -8,7 +8,6 @@ export const Experiences = () => {
   const ref = useRef<HTMLDivElement>(null);
   const isInView = useInView(ref, { once: true });
 
-  // Heliskiing elevated to first — the headline differentiator (sim consensus)
   const experiences = [
     { key: 'exp_3', descKey: 'exp_desc_3' }, // Heliskiing — lead differentiator
     { key: 'exp_1', descKey: 'exp_desc_1' }, // Skiing & Snowboarding
@@ -23,28 +22,33 @@ export const Experiences = () => {
         <div className="flex flex-col md:flex-row gap-16 md:gap-24">
 
           <div className="w-full md:w-1/3 flex flex-col justify-center">
-            <motion.h2
-              initial={{ y: 20 }}
-              animate={isInView ? { y: 0 } : { y: 20 }}
-              transition={{ duration: 0.8 }}
-              className="text-xs tracking-[0.3em] text-muted-foreground uppercase mb-12"
+            {/* Editorial section label */}
+            <motion.p
+              initial={{ opacity: 0 }}
+              animate={isInView ? { opacity: 1 } : {}}
+              transition={{ duration: 0.6 }}
+              className="font-mono text-[10px] tracking-[0.3em] text-primary uppercase mb-12"
             >
-              {t('exp_title')}
-            </motion.h2>
+              05 / {t('exp_title')}
+            </motion.p>
 
-            <div className="flex flex-col space-y-1 border-l border-white/10 pl-6">
+            {/* Experience list — editorial bordered rows */}
+            <div className="flex flex-col border-t border-white/8">
               {experiences.map((exp, i) => (
                 <motion.div
                   key={exp.key}
                   initial={{ opacity: 0, y: 8 }}
                   animate={isInView ? { opacity: 1, y: 0 } : { opacity: 0, y: 8 }}
                   transition={{ duration: 0.6, delay: 0.2 + i * 0.1 }}
-                  className="py-5 border-b border-white/5 last:border-b-0 hover:pl-2 transition-all duration-300 cursor-default"
+                  className="group py-5 border-b border-white/8 hover:pl-2 transition-all duration-300 cursor-default"
                 >
-                  <h3 className="font-serif text-xl md:text-3xl text-white/80 hover:text-white transition-colors mb-2">
-                    {t(exp.key)}
-                  </h3>
-                  <p className="text-xs text-white/35 leading-relaxed max-w-xs">
+                  <div className="flex items-baseline gap-4 mb-2">
+                    <span className="font-mono text-[9px] text-primary/50 tracking-widest">0{i + 1}</span>
+                    <h3 className="font-serif text-xl md:text-3xl text-white/70 group-hover:text-white transition-colors">
+                      {t(exp.key)}
+                    </h3>
+                  </div>
+                  <p className="font-mono text-[9px] text-white/30 leading-relaxed max-w-xs tracking-wider pl-7">
                     {t(exp.descKey)}
                   </p>
                 </motion.div>
@@ -52,16 +56,17 @@ export const Experiences = () => {
             </div>
           </div>
 
+          {/* Image — grayscale → color on hover */}
           <motion.div
-            className="w-full md:w-2/3 relative aspect-square md:aspect-[4/3] overflow-hidden rounded-sm"
-            initial={{ scale: 0.95 }}
-            animate={isInView ? { scale: 1 } : { scale: 0.95 }}
+            className="w-full md:w-2/3 relative aspect-square md:aspect-[4/3] overflow-hidden group"
+            initial={{ scale: 0.95, opacity: 0 }}
+            animate={isInView ? { scale: 1, opacity: 1 } : { scale: 0.95, opacity: 0 }}
             transition={{ duration: 1, delay: 0.4 }}
           >
             <img
               src="/images/experiences.jpg"
               alt="Luxury Spa"
-              className="w-full h-full object-cover transition-transform duration-[20s] hover:scale-110"
+              className="w-full h-full object-cover transition-all duration-[1200ms] grayscale group-hover:grayscale-0 brightness-75 group-hover:brightness-90 group-hover:scale-105"
             />
           </motion.div>
 
