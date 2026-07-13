@@ -74,17 +74,25 @@ export const Investment = () => {
             {isRu ? 'РЫНОЧНЫЙ СИГНАЛ — ИЮЛЬ 2026' : 'MARKET SIGNAL — JULY 2026'}
           </p>
           <p
-            className="text-base md:text-3xl text-white/90 leading-snug mb-3 max-w-3xl"
+            className="hidden md:block text-3xl text-white/90 leading-snug mb-3 max-w-3xl"
             style={{ fontFamily: "'Playfair Display', serif", fontWeight: 400 }}
           >
             {isRu
               ? 'Rotana Hotels — 100+ объектов по всему миру — приобрела курорт Гудаури. Первый институциональный игрок на горнолыжном рынке Грузии. GORY строился с самого начала.'
               : 'Rotana Hotels — 100+ properties worldwide — acquired Gudauri, Georgia\'s leading ski resort. The first institutional hospitality group to enter the Georgian ski market. GORY was already building.'}
           </p>
-          <p className="font-mono text-[9px] tracking-[0.2em] text-white/35 uppercase">
+          <p
+            className="md:hidden text-sm text-white/75 leading-snug mb-3"
+            style={{ fontFamily: "'Playfair Display', serif", fontWeight: 400 }}
+          >
             {isRu
-              ? 'Gudauri: 2 200м · GORY: 3 042м — на 840м выше · на 60% больше естественного снегопада'
-              : 'Gudauri: 2,200m · GORY: 3,042m — 840m higher · 60% more natural snowfall'}
+              ? 'Rotana Hotels приобрела Гудаури. Первый институциональный игрок на горнолыжном рынке Грузии.'
+              : 'Rotana Hotels acquired Gudauri — the first institutional hospitality group to enter the Georgian ski market.'}
+          </p>
+          <p className="font-mono text-[9px] tracking-[0.15em] text-white/35 uppercase break-words">
+            {isRu
+              ? 'Gudauri: 2 200м · GORY: 3 042м — на 840м выше'
+              : 'Gudauri: 2,200m · GORY: 3,042m — 840m higher'}
           </p>
         </motion.div>
 
