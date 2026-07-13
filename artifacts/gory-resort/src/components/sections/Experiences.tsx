@@ -18,7 +18,7 @@ export const Experiences = () => {
 
   return (
     <section id="experiences" className="py-20 bg-card scroll-mt-16" ref={ref}>
-      <div className="container mx-auto px-4 md:px-12">
+      <div className="container mx-auto px-6 md:px-12">
         <div className="flex flex-col md:flex-row gap-16 md:gap-24">
 
           <div className="w-full md:w-1/3 flex flex-col justify-center">
@@ -48,7 +48,7 @@ export const Experiences = () => {
                       {t(exp.key)}
                     </h3>
                   </div>
-                  <p className="font-mono text-[9px] text-white/30 leading-relaxed max-w-xs tracking-wider pl-7">
+                  <p className="hidden md:block font-mono text-[9px] text-white/30 leading-relaxed max-w-xs tracking-wider pl-7">
                     {t(exp.descKey)}
                   </p>
                 </motion.div>

@@ -78,7 +78,7 @@ export const Vision = () => {
               initial={{ y: 30, opacity: 0 }}
               animate={isInView ? { y: 0, opacity: 1 } : { y: 30, opacity: 0 }}
               transition={{ duration: 0.8, delay: 0.3 }}
-              className="text-base md:text-3xl font-serif text-white/90 leading-relaxed text-balance"
+              className="text-sm md:text-3xl font-serif text-white/90 leading-loose md:leading-relaxed text-balance"
             >
               {t('vision_desc_1')}
             </motion.p>
@@ -86,7 +86,7 @@ export const Vision = () => {
               initial={{ y: 30, opacity: 0 }}
               animate={isInView ? { y: 0, opacity: 1 } : { y: 30, opacity: 0 }}
               transition={{ duration: 0.8, delay: 0.5 }}
-              className="text-base md:text-3xl font-serif text-white/60 leading-relaxed text-balance"
+              className="text-sm md:text-3xl font-serif text-white/60 leading-loose md:leading-relaxed text-balance"
             >
               {t('vision_desc_2')}
             </motion.p>

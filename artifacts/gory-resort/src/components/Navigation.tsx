@@ -115,9 +115,13 @@ export const Navigation = () => {
             </div>
           </nav>
 
-          {/* Mobile Toggle */}
-          <button className="md:hidden text-white" onClick={() => setMobileMenuOpen(true)}>
-            <Menu size={24} />
+          {/* Mobile Toggle — 48×48 tap target per Fitts's Law */}
+          <button
+            className="md:hidden text-white p-3 -mr-3"
+            onClick={() => setMobileMenuOpen(true)}
+            aria-label="Open menu"
+          >
+            <Menu size={22} />
           </button>
         </div>
       </header>

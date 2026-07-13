@@ -33,7 +33,7 @@ export const Ski = () => {
 
   return (
     <section id="ski" className="py-24 bg-background" ref={ref}>
-      <div className="container mx-auto px-4 md:px-12">
+      <div className="container mx-auto px-6 md:px-12">
         <div className="grid grid-cols-1 lg:grid-cols-2 gap-12 lg:gap-24 items-center">
 
           {/* Image — grayscale → color on hover, cinematic */}

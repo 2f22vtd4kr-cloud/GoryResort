@@ -23,7 +23,7 @@ export const Stay = () => {
 
   return (
     <section id="stay" className="py-20 md:py-48 bg-background relative" ref={ref}>
-      <div className="container mx-auto px-4 md:px-12">
+      <div className="container mx-auto px-6 md:px-12">
 
         {/* Editorial section label */}
         <motion.p
@@ -76,8 +76,8 @@ export const Stay = () => {
                 <span className="font-mono text-[9px] tracking-[0.25em] text-primary">0{i + 1}</span>
                 <h3 className="font-serif text-2xl text-white">{t(acc.title)}</h3>
                 <p className="font-mono text-[9px] text-muted-foreground uppercase tracking-widest">{t(acc.desc)}</p>
-                {/* Feature tags */}
-                <div className="pt-1">
+                {/* Feature tags — hidden on mobile, too dense */}
+                <div className="hidden md:flex flex-wrap pt-1">
                   {t(acc.feat).split(' · ').map((feat, j) => (
                     <span
                       key={j}

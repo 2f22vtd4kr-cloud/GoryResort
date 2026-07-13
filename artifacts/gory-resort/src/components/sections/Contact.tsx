@@ -29,8 +29,8 @@ export const Contact = () => {
 
   return (
     <section id="contact" className="py-20 md:py-32 bg-card border-t border-white/5" ref={ref}>
-      <div className="container mx-auto px-4 md:px-12">
-        <div className="grid grid-cols-1 lg:grid-cols-2 gap-20">
+      <div className="container mx-auto px-6 md:px-12">
+        <div className="grid grid-cols-1 lg:grid-cols-2 gap-10 lg:gap-20">
 
           {/* Info Column */}
           <motion.div
@@ -40,10 +40,10 @@ export const Contact = () => {
             className="flex flex-col justify-between"
           >
             <div>
-              <h2 className="font-serif text-5xl md:text-7xl text-white mb-12">
+              <h2 className="font-serif text-4xl md:text-7xl text-white mb-8 md:mb-12">
                 {t('form_title')}
               </h2>
-              <div className="space-y-6 text-white/70 font-serif text-lg">
+              <div className="space-y-6 text-white/70 font-serif text-base md:text-lg">
                 <p className="max-w-sm text-balance leading-relaxed">
                   {t('footer_address')}
                 </p>

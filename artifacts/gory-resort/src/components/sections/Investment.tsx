@@ -51,7 +51,7 @@ export const Investment = () => {
         <div className="absolute inset-0 bg-black/82 backdrop-blur-[2px]" />
       </motion.div>
 
-      <div className="relative z-10 container mx-auto px-4 md:px-12">
+      <div className="relative z-10 container mx-auto px-6 md:px-12">
 
         {/* Section label */}
         <motion.p
@@ -74,7 +74,7 @@ export const Investment = () => {
             {isRu ? 'РЫНОЧНЫЙ СИГНАЛ — ИЮЛЬ 2026' : 'MARKET SIGNAL — JULY 2026'}
           </p>
           <p
-            className="text-xl md:text-3xl text-white/90 leading-snug mb-3 max-w-3xl"
+            className="text-base md:text-3xl text-white/90 leading-snug mb-3 max-w-3xl"
             style={{ fontFamily: "'Playfair Display', serif", fontWeight: 400 }}
           >
             {isRu
@@ -123,7 +123,7 @@ export const Investment = () => {
             initial={{ y: 20 }}
             animate={isInView ? { y: 0 } : { y: 20 }}
             transition={{ duration: 0.8, delay: 0.3 }}
-            className="font-serif text-5xl md:text-7xl text-white mb-8"
+            className="font-serif text-4xl md:text-7xl text-white mb-6 md:mb-8"
           >
             {t('inv_title')}
           </motion.h2>
@@ -131,7 +131,7 @@ export const Investment = () => {
             initial={{ y: 20 }}
             animate={isInView ? { y: 0 } : { y: 20 }}
             transition={{ duration: 0.8, delay: 0.4 }}
-            className="text-xl text-white/70 leading-relaxed font-serif"
+            className="text-sm md:text-xl text-white/70 leading-relaxed font-serif"
           >
             {t('inv_subhead')}
           </motion.p>
@@ -227,7 +227,7 @@ export const Investment = () => {
           <div className="relative">
             {/* Horizontal connector line — desktop */}
             <div className="hidden md:block absolute top-[22px] left-0 right-0 h-px bg-white/8" />
-            <div className="grid grid-cols-1 md:grid-cols-5 gap-6 md:gap-4">
+            <div className="grid grid-cols-1 md:grid-cols-5 gap-3 md:gap-4">
               {timeline.map((item, i) => (
                 <motion.div
                   key={item.year}

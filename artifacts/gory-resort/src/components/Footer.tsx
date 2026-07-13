@@ -6,7 +6,7 @@ export const Footer = () => {
 
   return (
     <footer className="bg-background border-t border-white/10 py-12">
-      <div className="container mx-auto px-4 md:px-12 flex flex-col md:flex-row items-center justify-between gap-6 md:gap-0">
+      <div className="container mx-auto px-6 md:px-12 flex flex-col md:flex-row items-center justify-between gap-6 md:gap-0">
         
         <div className="text-xs text-white/40 uppercase tracking-widest">
           © 2027 GORY RESORT. ALL RIGHTS RESERVED.
