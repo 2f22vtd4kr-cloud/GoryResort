@@ -23,7 +23,7 @@ export const Stay = () => {
 
   return (
     <section id="stay" className="py-20 md:py-48 bg-background relative" ref={ref}>
-      <div className="container mx-auto px-6 md:px-12">
+      <div className="w-full px-8 md:px-12 max-w-screen-xl mx-auto">
 
         {/* Editorial section label */}
         <motion.p

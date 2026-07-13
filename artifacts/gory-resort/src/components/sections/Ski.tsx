@@ -32,11 +32,11 @@ export const Ski = () => {
   ];
 
   return (
-    <section id="ski" className="py-24 bg-background" ref={ref}>
-      <div className="container mx-auto px-6 md:px-12">
+    <section id="ski" className="py-20 bg-background" ref={ref}>
+      <div className="w-full px-8 md:px-12 max-w-screen-xl mx-auto">
         <div className="grid grid-cols-1 lg:grid-cols-2 gap-12 lg:gap-24 items-center">
 
-          {/* Image — grayscale → color on hover, cinematic */}
+          {/* Image — grayscale → color on hover */}
           <motion.div
             className="order-2 lg:order-1 relative aspect-[3/4] lg:aspect-square overflow-hidden"
             initial={{ x: -50, opacity: 0 }}
@@ -58,61 +58,79 @@ export const Ski = () => {
               initial={{ opacity: 0 }}
               animate={isInView ? { opacity: 1 } : {}}
               transition={{ duration: 0.6 }}
-              className="font-mono text-[10px] tracking-[0.3em] text-primary uppercase mb-10"
+              className="font-mono text-[10px] tracking-[0.3em] text-primary uppercase mb-8"
             >
               02 / {t('ski_title')}
             </motion.p>
 
-            {/* Framing statement */}
-            <motion.p
-              initial={{ y: 16, opacity: 0 }}
-              animate={isInView ? { y: 0, opacity: 1 } : { y: 16, opacity: 0 }}
-              transition={{ duration: 0.8, delay: 0.1 }}
-              className="font-serif text-white/55 text-base leading-relaxed mb-10 max-w-sm"
-            >
-              {t('ski_framing')}
-            </motion.p>
+            {/* Framing sentence — hidden on mobile to reduce density */}
+            <div className="hidden md:block">
+              <motion.p
+                initial={{ y: 16, opacity: 0 }}
+                animate={isInView ? { y: 0, opacity: 1 } : { y: 16, opacity: 0 }}
+                transition={{ duration: 0.8, delay: 0.1 }}
+                className="font-serif text-white/55 text-base leading-relaxed mb-10 max-w-sm"
+              >
+                {t('ski_framing')}
+              </motion.p>
+            </div>
 
-            {/* Run categories — editorial numbered rows */}
-            <div className="flex flex-col gap-0 border-t border-white/8">
+            {/* Run categories */}
+            <div className="flex flex-col border-t border-white/8">
               {categories.map((cat, i) => (
                 <motion.div
                   key={i}
                   initial={{ y: 20, opacity: 0 }}
                   animate={isInView ? { y: 0, opacity: 1 } : { y: 20, opacity: 0 }}
                   transition={{ duration: 0.6, delay: 0.2 + i * 0.1 }}
-                  className="group border-b border-white/8 py-5 md:py-6 flex flex-row items-end justify-between hover:border-white/30 transition-colors"
+                  className="group border-b border-white/8 py-4 md:py-6 flex flex-row items-end justify-between hover:border-white/30 transition-colors"
                 >
-                  <div className="flex items-baseline gap-4">
+                  <div className="flex items-baseline gap-3">
                     <span className="font-mono text-[9px] text-primary/60 tracking-widest">0{i + 1}</span>
-                    <h3 className="font-serif text-2xl md:text-5xl text-white/80 group-hover:text-white transition-colors">
+                    <h3 className="font-serif text-xl md:text-5xl text-white/80 group-hover:text-white transition-colors">
                       {t(cat.title)}
                     </h3>
                   </div>
-                  <span className="font-mono text-xs md:text-sm tracking-widest text-muted-foreground group-hover:text-primary transition-colors">
+                  <span className="font-mono text-xs tracking-widest text-muted-foreground group-hover:text-primary transition-colors">
                     {cat.km}
                   </span>
                 </motion.div>
               ))}
             </div>
 
-            {/* Mountain specs */}
+            {/* Specs grid — 2 cols on mobile (only first 4), 3 cols on desktop (all 7) */}
             <motion.div
               initial={{ y: 20, opacity: 0 }}
               animate={isInView ? { y: 0, opacity: 1 } : { y: 20, opacity: 0 }}
               transition={{ duration: 0.8, delay: 0.6 }}
-              className="mt-10 pt-8 border-t border-white/8 grid grid-cols-2 md:grid-cols-3 gap-x-6 gap-y-7"
+              className="mt-8 pt-6 border-t border-white/8"
             >
-              {specs.map((spec, i) => (
-                <div key={i} className="flex flex-col">
-                  <span className="font-display text-xl md:text-2xl text-white mb-1 leading-none">
-                    {t(spec.val)}
-                  </span>
-                  <span className="font-mono text-[9px] text-muted-foreground uppercase tracking-widest leading-tight">
-                    {t(spec.lbl)}
-                  </span>
-                </div>
-              ))}
+              {/* Mobile: show 4 specs */}
+              <div className="grid grid-cols-2 gap-x-6 gap-y-5 md:hidden">
+                {specs.slice(0, 4).map((spec, i) => (
+                  <div key={i} className="flex flex-col">
+                    <span className="font-display text-xl text-white mb-1 leading-none">
+                      {t(spec.val)}
+                    </span>
+                    <span className="font-mono text-[8px] text-muted-foreground uppercase tracking-widest leading-tight">
+                      {t(spec.lbl)}
+                    </span>
+                  </div>
+                ))}
+              </div>
+              {/* Desktop: show all 7 specs */}
+              <div className="hidden md:grid grid-cols-3 gap-x-6 gap-y-7">
+                {specs.map((spec, i) => (
+                  <div key={i} className="flex flex-col">
+                    <span className="font-display text-2xl text-white mb-1 leading-none">
+                      {t(spec.val)}
+                    </span>
+                    <span className="font-mono text-[9px] text-muted-foreground uppercase tracking-widest leading-tight">
+                      {t(spec.lbl)}
+                    </span>
+                  </div>
+                ))}
+              </div>
             </motion.div>
           </div>
 

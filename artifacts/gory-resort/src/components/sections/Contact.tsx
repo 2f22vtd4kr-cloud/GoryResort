@@ -29,7 +29,7 @@ export const Contact = () => {
 
   return (
     <section id="contact" className="py-20 md:py-32 bg-card border-t border-white/5" ref={ref}>
-      <div className="container mx-auto px-6 md:px-12">
+      <div className="w-full px-8 md:px-12 max-w-screen-xl mx-auto">
         <div className="grid grid-cols-1 lg:grid-cols-2 gap-10 lg:gap-20">
 
           {/* Info Column */}

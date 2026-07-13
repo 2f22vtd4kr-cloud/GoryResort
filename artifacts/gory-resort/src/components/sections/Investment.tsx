@@ -51,7 +51,7 @@ export const Investment = () => {
         <div className="absolute inset-0 bg-black/82 backdrop-blur-[2px]" />
       </motion.div>
 
-      <div className="relative z-10 container mx-auto px-6 md:px-12">
+      <div className="relative z-10 w-full px-8 md:px-12 max-w-screen-xl mx-auto">
 
         {/* Section label */}
         <motion.p

@@ -18,7 +18,7 @@ export const Experiences = () => {
 
   return (
     <section id="experiences" className="py-20 bg-card scroll-mt-16" ref={ref}>
-      <div className="container mx-auto px-6 md:px-12">
+      <div className="w-full px-8 md:px-12 max-w-screen-xl mx-auto">
         <div className="flex flex-col md:flex-row gap-16 md:gap-24">
 
           <div className="w-full md:w-1/3 flex flex-col justify-center">

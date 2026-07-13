@@ -32,7 +32,7 @@ export const PressStrip = () => {
 
   return (
     <section id="press" ref={ref} className="py-12 border-y border-white/5 bg-black/30">
-      <div className="container mx-auto px-6 md:px-12">
+      <div className="w-full px-8 md:px-12 max-w-screen-xl mx-auto">
         <motion.p
           initial={{ opacity: 0 }}
           animate={isInView ? { opacity: 1 } : { opacity: 0 }}

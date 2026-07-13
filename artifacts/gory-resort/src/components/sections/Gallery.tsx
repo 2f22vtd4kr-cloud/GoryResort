@@ -124,7 +124,7 @@ export const Gallery = () => {
 
   return (
     <section id="gallery" className="py-24 md:py-32 bg-background" ref={ref}>
-      <div className="container mx-auto px-6 md:px-12">
+      <div className="w-full px-8 md:px-12 max-w-screen-xl mx-auto">
 
         {/* Section header — Cinematic Noir editorial style */}
         <div className="flex items-end justify-between mb-10 md:mb-14 border-b border-white/8 pb-6">

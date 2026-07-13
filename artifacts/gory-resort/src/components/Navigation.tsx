@@ -66,7 +66,7 @@ export const Navigation = () => {
             : 'bg-transparent py-8'
         }`}
       >
-        <div className="container mx-auto px-6 md:px-12 flex items-center justify-between">
+        <div className="w-full px-8 md:px-12 max-w-screen-xl mx-auto flex items-center justify-between">
           <div
             className="font-display text-4xl tracking-[0.2em] cursor-pointer"
             onClick={() => window.scrollTo({ top: 0, behavior: 'smooth' })}
