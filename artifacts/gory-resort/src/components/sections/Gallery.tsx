@@ -215,7 +215,7 @@ export const Gallery = () => {
           ))}
         </div>
 
-        <AiAddition sectionKey="gallery_ai" />
+        <AiAddition sectionKey="gallery_ai" className="hidden md:block" />
 
         {/* Behind the Build — construction timeline */}
         <motion.div

@@ -173,7 +173,7 @@ export const Contact = () => {
           </motion.div>
 
         </div>
-        <AiAddition sectionKey="contact_ai" />
+        <AiAddition sectionKey="contact_ai" className="hidden md:block" />
       </div>
     </section>
   );

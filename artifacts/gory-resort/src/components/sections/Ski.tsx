@@ -135,7 +135,7 @@ export const Ski = () => {
           </div>
 
         </div>
-        <AiAddition sectionKey="ski_ai" />
+        <AiAddition sectionKey="ski_ai" className="hidden md:block" />
       </div>
     </section>
   );

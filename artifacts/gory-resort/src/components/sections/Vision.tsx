@@ -46,9 +46,9 @@ export const Vision = () => {
 
         {/* ── MOBILE LAYOUT ── */}
         <div className="md:hidden">
-          {/* 3 key stats in a tight row */}
-          <div className="grid grid-cols-3 gap-4 mb-10">
-            {stats.slice(0, 3).map((stat, index) => (
+          {/* 2-column stats grid — prevents overflow on narrow screens */}
+          <div className="grid grid-cols-2 gap-x-8 gap-y-7 mb-10">
+            {stats.slice(0, 4).map((stat, index) => (
               <motion.div
                 key={index}
                 initial={{ y: 20, opacity: 0 }}
@@ -56,7 +56,7 @@ export const Vision = () => {
                 transition={{ duration: 0.6, delay: index * 0.1 }}
                 className="flex flex-col"
               >
-                <span className="font-display text-2xl text-white mb-1 leading-none">
+                <span className="font-display text-xl text-white mb-1 leading-none">
                   {t(stat.val)}
                 </span>
                 <span className="font-mono text-[8px] text-muted-foreground uppercase tracking-wider leading-tight">
@@ -67,28 +67,17 @@ export const Vision = () => {
           </div>
 
           {/* Divider */}
-          <div className="border-t border-white/10 mb-8" />
+          <div className="border-t border-white/10 mb-7" />
 
           {/* Single punchy sentence */}
           <motion.p
             initial={{ y: 16, opacity: 0 }}
             animate={isInView ? { y: 0, opacity: 1 } : { y: 16, opacity: 0 }}
             transition={{ duration: 0.7, delay: 0.3 }}
-            className="font-serif text-base text-white/85 leading-relaxed mb-8"
+            className="font-serif text-[15px] text-white/85 leading-relaxed"
           >
             {t('vision_desc_1')}
           </motion.p>
-
-          {/* Access — one compact line */}
-          <motion.div
-            initial={{ opacity: 0 }}
-            animate={isInView ? { opacity: 1 } : {}}
-            transition={{ duration: 0.6, delay: 0.5 }}
-            className="border-t border-white/8 pt-6"
-          >
-            <p className="font-mono text-[9px] text-white/30 uppercase tracking-[0.2em] mb-1">Access</p>
-            <p className="text-xs text-white/45 leading-relaxed">{t('vision_access')}</p>
-          </motion.div>
         </div>
 
         {/* ── DESKTOP LAYOUT ── */}
@@ -158,7 +147,7 @@ export const Vision = () => {
           </div>
         </div>
 
-        <AiAddition sectionKey="vision_ai" />
+        <AiAddition sectionKey="vision_ai" className="hidden md:block" />
       </div>
     </section>
   );

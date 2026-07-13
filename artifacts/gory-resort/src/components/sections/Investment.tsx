@@ -276,7 +276,7 @@ export const Investment = () => {
           </p>
         </motion.div>
 
-        <AiAddition sectionKey="investment_ai" />
+        <AiAddition sectionKey="investment_ai" className="hidden md:block" />
       </div>
     </section>
   );
